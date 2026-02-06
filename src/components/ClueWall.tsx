@@ -18,8 +18,8 @@ interface Clue {
 const CLUES: Clue[] = [
   {
     id: 1,
-    src: "https://placehold.co/600x400/1c1c1c/FFF?text=Scene+1",
-    caption: "剧本杀店初遇",
+    src: "https://placehold.co/600x400/1c1c1c/FFF?text=ME+Club",
+    caption: "Midnight Express 邀请函",
     x: 10,
     y: 10,
     rotation: -5,
@@ -27,8 +27,8 @@ const CLUES: Clue[] = [
   },
   {
     id: 2,
-    src: "https://placehold.co/400x600/2a0a0a/FFF?text=Script+Cover",
-    caption: "《夜半歌声》剧本",
+    src: "https://placehold.co/400x600/2a0a0a/FFF?text=Newspaper+2004",
+    caption: "2004年事故旧报纸",
     x: 60,
     y: 15,
     rotation: 8,
@@ -36,8 +36,8 @@ const CLUES: Clue[] = [
   },
   {
     id: 3,
-    src: "https://placehold.co/500x500/0a2a0a/FFF?text=Clue+Item",
-    caption: "神秘的怀表道具",
+    src: "https://placehold.co/500x500/0a2a0a/FFF?text=Blueprints+Q",
+    caption: "署名'Q'的设计图",
     x: 25,
     y: 45,
     rotation: -12,
@@ -45,8 +45,8 @@ const CLUES: Clue[] = [
   },
   {
     id: 4,
-    src: "https://placehold.co/600x400/2a2a0a/FFF?text=Look+Back",
-    caption: "雨中回眸",
+    src: "https://placehold.co/600x400/2a2a0a/FFF?text=Evidence",
+    caption: "关键证据储存卡",
     x: 70,
     y: 55,
     rotation: 6,
@@ -54,8 +54,8 @@ const CLUES: Clue[] = [
   },
   {
     id: 5,
-    src: "https://placehold.co/400x500/0a0a2a/FFF?text=Draft",
-    caption: "肖稚宇的设计草图",
+    src: "https://placehold.co/400x500/0a0a2a/FFF?text=Old+Photo",
+    caption: "父亲们的旧合影",
     x: 40,
     y: 25,
     rotation: 3,

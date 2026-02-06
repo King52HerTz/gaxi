@@ -15,28 +15,34 @@ interface TimelineEvent {
 const EVENTS: TimelineEvent[] = [
   {
     date: "EPISODE 01",
-    title: "初入剧本杀",
-    description: "建筑师肖稚宇为了寻找设计灵感，误打误撞进入了一家沉浸式剧本杀店。在这里，他第一次遇到了“戏精”玩家胡羞。",
+    title: "初入容城",
+    description: "失意的胡羞误入“Midnight Express”剧本杀店，在虚拟的民国容城，遇到了深不可测的督军秦宵一。一句“你想要的，究竟是什么”，开启了两人纠葛的序幕。",
     icon: <Film className="w-6 h-6" />,
   },
   {
-    date: "EPISODE 03",
-    title: "意外的搭档",
-    description: "在《夜半歌声》的剧本中，肖稚宇被分配到与胡羞扮演一对情侣。理性的他试图用逻辑破解谜题，却被胡羞的即兴发挥打乱了节奏。",
+    date: "EPISODE 09",
+    title: "守护之伤",
+    description: "在剧本杀中，为了保护胡羞免受倒塌道具的伤害，肖稚宇毫不犹豫地挡在她身前，右手受伤。那一刻，他不再是高冷的NPC，而是守护她的骑士。",
     icon: <Clapperboard className="w-6 h-6" />,
   },
   {
-    date: "EPISODE 07",
-    title: "虚实界限",
-    description: "随着游戏的深入，两人开始在现实生活中产生交集。肖稚宇发现，胡羞在游戏里的每一个抉择，似乎都映射着她现实中的秘密。",
+    date: "EPISODE 12",
+    title: "屋顶烟火",
+    description: "在弄堂的屋顶，胡羞带肖稚宇俯瞰人间烟火。两颗孤独的心在夜色中靠近，他不仅找到了设计的灵感，也找到了灵魂的共鸣。",
     icon: <Camera className="w-6 h-6" />,
   },
   {
-    date: "EPISODE 12",
-    title: "双向奔赴",
-    description: "最后一场剧本杀，不再是为了解谜，而是为了彼此。在戏中戏的高潮，他们终于确认了这份穿梭于虚实之间的心意。",
+    date: "EPISODE 19",
+    title: "樱花定情",
+    description: "樱花树下，肖稚宇终于卸下防备，向胡羞正式告白：“我不想演了，我想爱你。” 两人在漫天花雨中拥吻，确认了彼此的心意。",
     icon: <Video className="w-6 h-6" />,
   },
+  {
+    date: "EPISODE 27",
+    title: "尘埃落定",
+    description: "跨越二十年的恩怨终于了结，真相大白。肖稚宇洗清了父亲的污名，堂堂正正地来到胡羞身边。他们紧紧相拥，温暖着彼此的余生。",
+    icon: <Film className="w-6 h-6" />,
+  }
 ];
 
 export default function TimelineSection() {

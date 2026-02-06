@@ -21,8 +21,8 @@ const MOMENTS: Moment[] = [
     id: 1,
     type: "photo",
     src: "https://placehold.co/600x400/2a2a2a/F4E7D3?text=First+Meet",
-    title: "初遇 · 剧本杀店",
-    desc: "“你是玩家，还是NPC？” 第一次见面，她以为他是冷漠的DM，他以为她是捣乱的玩家。命运的齿轮在这一刻卡了一下，然后开始疯狂转动。",
+    title: "初遇 · 假面之下",
+    desc: "误入民国迷雾，她是心事重重的玩家，他是深不可测的督军。一声“欢迎来到容城”，命运的红线在虚拟与现实的交界处悄然系结。\n\n“你想要的，究竟是什么。”",
     date: "EPISODE 01",
     x: 5,
     y: 20,
@@ -31,35 +31,46 @@ const MOMENTS: Moment[] = [
   {
     id: 2,
     type: "photo",
-    src: "https://placehold.co/400x600/333/F4E7D3?text=Heartbeat",
-    title: "动心 · 雨中对视",
-    desc: "雨下得很大，戏里的台词念完了，戏外的心跳却刚刚开始。他下意识地为她挡雨，那一刻，不需要剧本。",
-    date: "EPISODE 05",
-    x: 35,
-    y: 40,
-    rotation: 5
+    src: "https://placehold.co/400x600/333/F4E7D3?text=Protection",
+    title: "守护 · 破碎的谎言",
+    desc: "为了护住她，他毫不犹豫地挡下倒塌的危机。当谎言的假面碎裂，露出的不是冷漠，而是他早已动心的本能。\n\n“进了容城，我也可以不做肖稚宇了。”",
+    date: "EPISODE 09",
+    x: 28,
+    y: 45,
+    rotation: 4
   },
   {
     id: 3,
     type: "note",
-    src: "", // No image for note
-    title: "误会 · 撕碎的线索",
-    desc: "“原来你接近我，只是为了通关？” 信任的崩塌只需要一句话。那张被撕碎的线索纸条，就像他们当时岌岌可危的关系。",
-    date: "EPISODE 08",
-    x: 60,
+    src: "", 
+    title: "交心 · 屋顶烟火",
+    desc: "在弄堂的屋顶，她带他俯瞰人间烟火。孤寂的灵魂终于找到了共鸣，这万家灯火中，终于有一盏是为他们而亮。\n\n“俯瞰弄堂，又是一番新鲜的景象。”",
+    date: "EPISODE 12",
+    x: 52,
     y: 15,
-    rotation: -8
+    rotation: -5
   },
   {
     id: 4,
     type: "gif",
     src: "https://placehold.co/600x400/1a1a1a/F4E7D3?text=Kiss",
-    title: "定情 · 戏中戏",
-    desc: "在剧本的高潮，他终于说出了那句不在台词本上的话：“我不想演了，我想爱你。” 这一吻，是真的。",
-    date: "EPISODE 12",
-    x: 85,
-    y: 30,
-    rotation: 2
+    title: "定情 · 樱花之吻",
+    desc: "樱花树下的告白，是他卸下所有防备的温柔。在这个虚构的世界里，唯有这份爱意是真实而滚烫的。\n\n“我不想演了，我想爱你。”",
+    date: "EPISODE 19",
+    x: 75,
+    y: 35,
+    rotation: 3
+  },
+  {
+    id: 5,
+    type: "photo",
+    src: "https://placehold.co/600x400/2a2a2a/F4E7D3?text=Happy+Ending",
+    title: "终章 · 温暖相拥",
+    desc: "跨越二十年的恩怨，穿过生死的考验。真相大白之后，他们终于可以在阳光下堂堂正正地相拥，温暖彼此的余生。\n\n“他们紧紧相拥，无须再说什么，温暖着彼此。”",
+    date: "EPISODE 27",
+    x: 92,
+    y: 20,
+    rotation: -2
   }
 ];
 

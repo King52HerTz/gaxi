@@ -1,43 +1,141 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f0f10;
-  --foreground: #F4E7D3;
-  --fate-red: #C23B22;
-  --warm-light: #F4E7D3;
+  /* Reality Mode Colors (Warm/Paper) */
+  --reality-bg: #Fdfbf7;
+  --reality-text: #4a4a4a;
+  --reality-accent: #d4af37; /* Champagne Gold */
+  
+  /* Script Mode Colors (Cyberpunk Teal/Neon Gold) */
+  --script-bg: #003b46; /* Cyberpunk Teal */
+  --script-text: #F4E7D3;
+  --script-accent: #ffbf00; /* Neon Gold */
+  --script-neon: #ffbf00;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-fate-red: #C23B22;
-  --color-warm-light: #F4E7D3;
-  --color-deep-black: #0f0f10;
-  --font-courier: var(--font-courier-prime), "Courier New", Courier, monospace;
-  --font-serif-sc: var(--font-noto-serif-sc), "Songti SC", "SimSun", serif;
+  --color-reality-bg: var(--reality-bg);
+  --color-reality-text: var(--reality-text);
+  --color-reality-accent: var(--reality-accent);
+  
+  --color-script-bg: var(--script-bg);
+  --color-script-text: var(--script-text);
+  --color-script-accent: var(--script-accent);
+  --color-script-neon: var(--script-neon);
+
+  --font-handwriting: "Caveat", "Brush Script MT", cursive;
+  --font-serif: "Noto Serif SC", serif;
+  --font-sans: "Inter", sans-serif;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-serif-sc);
+  transition: background-color 0.8s ease, color 0.8s ease;
+  overflow-x: hidden;
 }
 
-.noise-bg {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* Custom Cursors */
+body.mode-reality {
+  cursor: crosshair;
 }
 
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 5px var(--fate-red), 0 0 10px var(--fate-red);
-  }
-  20%, 24%, 55% {
-    opacity: 0.5;
-    text-shadow: none;
-  }
+body.mode-script {
+  cursor: text; /* Fallback */
 }
 
-.animate-flicker {
-  animation: flicker 4s infinite alternate;
+/* Reality: Paper Texture */
+.bg-reality {
+  background-color: var(--reality-bg);
+  position: relative;
+}
+
+.bg-reality::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Use a high-quality paper texture or subtle noise */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tape Effect */
+.tape-effect {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  backdrop-filter: blur(2px);
+  transform: rotate(-2deg);
+  z-index: 10;
+}
+
+.tape-top-left {
+  top: -15px;
+  left: 50%;
+  width: 100px;
+  height: 30px;
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+.tape-corner {
+  width: 60px;
+  height: 20px;
+}
+
+/* Script: Neon Snow */
+.bg-script {
+  background-color: var(--script-bg);
+  position: relative;
+}
+
+.bg-script::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Subtle digital noise */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.3;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Film Strip Border */
+.film-strip-border {
+  background-color: #000;
+  background-image: 
+    linear-gradient(to right, #fff 0%, #fff 10%, transparent 10%, transparent 100%),
+    linear-gradient(to right, #fff 0%, #fff 10%, transparent 10%, transparent 100%);
+  background-size: 20px 100%;
+  background-position: 0 5px, 0 calc(100% - 5px);
+  background-repeat: repeat-x;
+  padding: 20px 0;
+}
+
+/* Snowfall Animation */
+@keyframes snowfall {
+  0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+  100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+}
+
+.snow-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: snowfall linear infinite;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+/* Flashlight Glow Effect for Script Mode */
+.flashlight-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 191, 0, 0.15) 0%, transparent 70%); /* Neon Gold tint */
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
 }

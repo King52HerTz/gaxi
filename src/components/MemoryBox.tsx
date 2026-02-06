@@ -14,18 +14,25 @@ interface MemoryItem {
 
 const MEMORIES: MemoryItem[] = [
   {
+    id: "coins",
+    icon: <Archive size={32} />,
+    name: "沉甸甸的硬币",
+    quote: "以为失去你的那一刻，我才发现，你比真相更重要。",
+    color: "#feca57"
+  },
+  {
     id: "ticket",
     icon: <Ticket size={32} />,
-    name: "未送出的票根",
-    quote: "这一张票，我留到了散场，也没等到你。",
+    name: "演出门票",
+    quote: "这张门票，是你哄我开心的证明，也是我心动的入场券。",
     color: "#ff6b6b"
   },
   {
-    id: "watch",
-    icon: <Watch size={32} />,
-    name: "停摆的怀表",
-    quote: "时间可以停在这一刻吗？就在我爱上你的这一秒。",
-    color: "#feca57"
+    id: "contract",
+    icon: <MessageSquareQuote size={32} />,
+    name: "合租合同",
+    quote: "白纸黑字签下的，不仅是房租，还有我们往后余生的羁绊。",
+    color: "#48dbfb"
   }
 ];
 
