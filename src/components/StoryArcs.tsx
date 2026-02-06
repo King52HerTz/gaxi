@@ -78,7 +78,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
               "text-xl font-bold",
               isReality ? "text-reality-text" : "text-script-text"
             )}>
-              {arc.title}
+              {isReality ? arc.reality.title : arc.script.title}
             </h3>
             
             {activeArc === arc.id && (
@@ -98,9 +98,11 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
         <AnimatePresence mode="wait">
           {STORY_ARCS.map((arc) => {
             if (arc.id !== activeArc) return null;
+            const currentContent = isReality ? arc.reality : arc.script;
+            
             return (
               <motion.div
-                key={arc.id}
+                key={arc.id + mode} // Add mode to key to force re-render on switch
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -119,7 +121,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                     ? "text-reality-text/80 border-gray-200" 
                     : "text-script-text border-white/10"
                 )}>
-                  {arc.quote}
+                  {currentContent.quote}
                 </div>
 
                 {/* Narrative Text */}
@@ -129,7 +131,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                     ? "text-gray-600 font-sans" 
                     : "text-gray-300 font-serif"
                 )}>
-                  {arc.content.map((paragraph, idx) => (
+                  {currentContent.content.map((paragraph, idx) => (
                     <p key={idx}>{highlightText(paragraph)}</p>
                   ))}
                 </div>

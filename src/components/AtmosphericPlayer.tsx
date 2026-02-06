@@ -22,8 +22,13 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
 
   useEffect(() => {
     if (audioRef.current) {
-      if (isPlaying) {
+      // Only update src if it's different to prevent restarting/aborting
+      // We check if the current absolute src ends with the desired path
+      if (!audioRef.current.src.endsWith(audioSrc)) {
         audioRef.current.src = audioSrc;
+      }
+
+      if (isPlaying) {
         audioRef.current.play().catch(e => console.log("Audio play failed:", e));
       } else {
         audioRef.current.pause();

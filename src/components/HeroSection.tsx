@@ -3,13 +3,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_CONTENT } from "@/data/drama-data";
 import clsx from "clsx";
+import { Ticket, User, QrCode, Sparkles, Flame } from "lucide-react";
 
 interface HeroSectionProps {
   mode: "reality" | "script";
   onToggle: () => void;
+  isTransitioning?: boolean;
 }
 
-export default function HeroSection({ mode, onToggle }: HeroSectionProps) {
+export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSectionProps) {
   const isReality = mode === "reality";
   const content = isReality ? HERO_CONTENT.reality : HERO_CONTENT.script;
 
@@ -67,32 +69,94 @@ export default function HeroSection({ mode, onToggle }: HeroSectionProps) {
           </motion.div>
         </AnimatePresence>
 
-        {/* The Switch */}
-        <div className="flex justify-center mb-16">
-          <button
-            onClick={onToggle}
-            className={clsx(
-              "relative w-20 h-32 rounded-full border-2 transition-all duration-500 flex flex-col items-center justify-between p-2 shadow-xl",
-              isReality 
-                ? "bg-[#f0f0f0] border-[#d4d4d4] shadow-[inset_0_2px_5px_rgba(0,0,0,0.1)]" 
-                : "bg-[#002b33] border-[#005c6e] shadow-[0_0_15px_rgba(255,191,0,0.5)]" // Updated Colors
-            )}
-          >
-            <motion.div
-              layout
-              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              className={clsx(
-                "w-full aspect-square rounded-full shadow-md",
-                isReality ? "mt-0 bg-reality-accent" : "mt-auto bg-script-neon"
-              )}
-            />
-            <span className={clsx(
-              "text-[10px] font-bold tracking-widest absolute -bottom-8 w-32 text-center transition-colors",
-              isReality ? "text-reality-text/50" : "text-script-text/50"
-            )}>
-              {isReality ? "SWITCH TO SCRIPT" : "RETURN TO REALITY"}
-            </span>
-          </button>
+        {/* The Switch: Ticket (Reality -> Enter Rongcheng) vs Badge (Script -> Return Shanghai) */}
+        <div className={clsx(
+          "flex justify-center mb-16 relative h-48 md:h-64 perspective-1000",
+          isTransitioning && "pointer-events-none opacity-50"
+        )}>
+          <AnimatePresence mode="wait">
+             {isReality ? (
+               <motion.button
+                 key="ticket"
+                 onClick={onToggle}
+                 initial={{ opacity: 0, rotateX: -90 }}
+                 animate={{ opacity: 1, rotateX: 0 }}
+                 exit={{ opacity: 0, y: 50 }}
+                 whileHover={{ scale: 1.05, rotate: -2 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="relative w-64 h-32 bg-[#f4e4bc] rounded-sm shadow-[0_0_30px_rgba(255,0,0,0.3)] flex overflow-hidden border-2 border-dashed border-[#8b4513] group"
+               >
+                 {/* Ticket Texture */}
+                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50" />
+                 
+                 {/* Stub Side */}
+                 <div className="w-16 border-r-2 border-dashed border-[#8b4513] flex flex-col items-center justify-center p-2 relative z-10">
+                    <span className="writing-vertical text-xs font-bold text-[#8b4513] opacity-60">NO. 026</span>
+                 </div>
+                 
+                 {/* Main Side */}
+                 <div className="flex-1 p-4 flex flex-col justify-between relative z-10">
+                    <div className="flex justify-between items-start">
+                       <div>
+                         <h3 className="font-serif-sc font-bold text-2xl text-[#5c2e0e] leading-none mb-1">MIDNIGHT</h3>
+                         <h3 className="font-serif-sc font-bold text-xl text-[#5c2e0e] leading-none">EXPRESS</h3>
+                       </div>
+                       <div className="w-8 h-8 rounded-full border border-[#8b4513] flex items-center justify-center transform rotate-12">
+                          <span className="text-[8px] font-bold text-[#8b4513]">ME</span>
+                       </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-end">
+                       <p className="text-[10px] font-mono text-[#8b4513]/70">DESTINATION: RONGCHENG</p>
+                       <span className="text-xs font-bold text-[#8b4513] flex items-center gap-1 group-hover:text-red-600 transition-colors">
+                          CLICK TO ENTER <Flame size={12} />
+                       </span>
+                    </div>
+                 </div>
+               </motion.button>
+             ) : (
+               <motion.button
+                 key="badge"
+                 onClick={onToggle}
+                 initial={{ opacity: 0, rotateY: 90 }}
+                 animate={{ opacity: 1, rotateY: 0 }}
+                 exit={{ opacity: 0, scale: 1.2, filter: "brightness(2) blur(4px)" }}
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="relative w-48 h-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl flex flex-col items-center overflow-hidden group"
+               >
+                 {/* Badge Design */}
+                 <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none" />
+                 
+                 {/* Lanyard Hole */}
+                 <div className="w-12 h-2 bg-gray-300 rounded-full mt-4 mb-2 opacity-50" />
+                 
+                 {/* Content */}
+                 <div className="w-full px-4 py-2 flex flex-col items-center z-10">
+                    <div className="w-full flex justify-between items-center mb-4 opacity-70">
+                       <span className="text-[8px] tracking-widest uppercase font-bold">Dynamism</span>
+                       <QrCode size={16} />
+                    </div>
+                    
+                    {/* ID Photo Area */}
+                    <div className="w-20 h-24 bg-gray-200 mb-3 overflow-hidden rounded-sm relative">
+                        <User className="absolute inset-0 m-auto text-gray-400 w-10 h-10" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                    
+                    <h3 className="font-serif font-bold text-reality-text mb-1">HU XIU</h3>
+                    <p className="text-[10px] text-gray-500 tracking-wider mb-4">ARCHITECT • 0923</p>
+                    
+                    {/* Return Interaction Hint */}
+                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-blue-500/20 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <span className="text-xs font-bold text-blue-200 flex items-center gap-1">
+                         <Sparkles size={12} /> RETURN TO SHANGHAI
+                       </span>
+                    </div>
+                 </div>
+               </motion.button>
+             )}
+          </AnimatePresence>
         </div>
 
         {/* Quote */}
