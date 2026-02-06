@@ -17,8 +17,8 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
   // Audio sources (Using placeholder URLs for demo purposes)
   // In a real project, these would be local assets or hosted files
   const audioSrc = isReality 
-    ? "/music/reality-theme.mp3" // 您的现实模式音乐文件
-    : "/music/script-theme.mp3"; // 您的剧本模式音乐文件
+    ? "/music/reality-theme.mp3" // 现实模式音乐文件
+    : "/music/script-theme.mp3"; // 剧本模式音乐文件
 
   useEffect(() => {
     if (audioRef.current) {

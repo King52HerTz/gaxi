@@ -6,11 +6,11 @@
   --reality-text: #4a4a4a;
   --reality-accent: #d4af37; /* Champagne Gold */
   
-  /* Script Mode Colors (Cyberpunk Teal/Neon Gold) */
-  --script-bg: #003b46; /* Cyberpunk Teal */
-  --script-text: #F4E7D3;
-  --script-accent: #ffbf00; /* Neon Gold */
-  --script-neon: #ffbf00;
+  /* Script Mode Colors (Red/Black - Midnight Express) */
+  --script-bg: #0f0505; /* Deep Black with Red Tint */
+  --script-text: #ffffff;
+  --script-accent: #cc0000; /* Dark Red */
+  --script-neon: #ff004c; /* Neon Red */
 }
 
 @theme inline {
@@ -133,7 +133,7 @@ body.mode-script {
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 191, 0, 0.15) 0%, transparent 70%); /* Neon Gold tint */
+  background: radial-gradient(circle, rgba(255, 0, 76, 0.15) 0%, transparent 70%); /* Neon Red tint */
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);

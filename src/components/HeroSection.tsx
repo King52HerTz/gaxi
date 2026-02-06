@@ -18,7 +18,7 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
       
-      {/* Dynamic Background Effect - Snowfall for Script Mode */}
+      {/* 动态背景效果 - 剧本模式下的雪花 */}
       {mode === "script" && (
         <div className="absolute inset-0 pointer-events-none z-0">
           {Array.from({ length: 50 }).map((_, i) => (
@@ -37,10 +37,10 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
         </div>
       )}
 
-      {/* Main Content */}
+      {/* 主要内容 */}
       <div className="relative z-10 max-w-4xl w-full">
         
-        {/* Title */}
+        {/* 标题 */}
         <AnimatePresence mode="wait">
           <motion.div
             key={mode}
@@ -52,8 +52,8 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
             <h1 className={clsx(
               "text-5xl md:text-8xl font-bold mb-6 tracking-tight",
               isReality 
-                ? "font-serif text-reality-text" // Reality: Standard Serif
-                : "font-handwriting text-script-text text-shadow-neon tracking-widest" // Script: Handwriting/Calligraphy
+                ? "font-serif text-reality-text" // 现实：标准衬线体
+                : "font-handwriting text-script-text text-shadow-neon tracking-widest" // 剧本：手写体/书法体
             )}>
               {content.title}
             </h1>
@@ -69,7 +69,7 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
           </motion.div>
         </AnimatePresence>
 
-        {/* The Switch: Ticket (Reality -> Enter Rongcheng) vs Badge (Script -> Return Shanghai) */}
+        {/* 切换开关：车票 (现实 -> 进入容城) vs 工牌 (剧本 -> 返回上海) */}
         <div className={clsx(
           "flex justify-center mb-16 relative h-48 md:h-64 perspective-1000",
           isTransitioning && "pointer-events-none opacity-50"
@@ -86,15 +86,15 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                  whileTap={{ scale: 0.95 }}
                  className="relative w-64 h-32 bg-[#f4e4bc] rounded-sm shadow-[0_0_30px_rgba(255,0,0,0.3)] flex overflow-hidden border-2 border-dashed border-[#8b4513] group"
                >
-                 {/* Ticket Texture */}
+                 {/* 车票纹理 */}
                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50" />
                  
-                 {/* Stub Side */}
+                 {/* 副券部分 */}
                  <div className="w-16 border-r-2 border-dashed border-[#8b4513] flex flex-col items-center justify-center p-2 relative z-10">
                     <span className="writing-vertical text-xs font-bold text-[#8b4513] opacity-60">NO. 026</span>
                  </div>
                  
-                 {/* Main Side */}
+                 {/* 主券部分 */}
                  <div className="flex-1 p-4 flex flex-col justify-between relative z-10">
                     <div className="flex justify-between items-start">
                        <div>
@@ -125,20 +125,20 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                  whileTap={{ scale: 0.95 }}
                  className="relative w-48 h-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl flex flex-col items-center overflow-hidden group"
                >
-                 {/* Badge Design */}
+                 {/* 工牌设计 */}
                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none" />
                  
-                 {/* Lanyard Hole */}
+                 {/* 挂绳孔 */}
                  <div className="w-12 h-2 bg-gray-300 rounded-full mt-4 mb-2 opacity-50" />
                  
-                 {/* Content */}
+                 {/* 内容区域 */}
                  <div className="w-full px-4 py-2 flex flex-col items-center z-10">
                     <div className="w-full flex justify-between items-center mb-4 opacity-70">
                        <span className="text-[8px] tracking-widest uppercase font-bold">Dynamism</span>
                        <QrCode size={16} />
                     </div>
                     
-                    {/* ID Photo Area */}
+                    {/* 证件照区域 */}
                     <div className="w-20 h-24 bg-gray-200 mb-3 overflow-hidden rounded-sm relative">
                         <User className="absolute inset-0 m-auto text-gray-400 w-10 h-10" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -147,9 +147,9 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                     <h3 className="font-serif font-bold text-reality-text mb-1">HU XIU</h3>
                     <p className="text-[10px] text-gray-500 tracking-wider mb-4">ARCHITECT • 0923</p>
                     
-                    {/* Return Interaction Hint */}
-                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-blue-500/20 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <span className="text-xs font-bold text-blue-200 flex items-center gap-1">
+                    {/* 返回交互提示 */}
+                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-red-900/40 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <span className="text-xs font-bold text-red-200 flex items-center gap-1">
                          <Sparkles size={12} /> RETURN TO SHANGHAI
                        </span>
                     </div>
@@ -159,7 +159,7 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
           </AnimatePresence>
         </div>
 
-        {/* Quote */}
+        {/* 引用文案 */}
         <AnimatePresence mode="wait">
           <motion.div
             key={`quote-${mode}`}

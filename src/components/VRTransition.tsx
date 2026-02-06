@@ -17,7 +17,7 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
   useEffect(() => {
     if (isActive) {
       const timer = setTimeout(() => {
-        onComplete && onComplete();
+        if (onComplete) onComplete();
       }, 2500); // 0.4s enter + 1.2s bar + padding
       return () => clearTimeout(timer);
     }

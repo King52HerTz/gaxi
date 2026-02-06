@@ -15,7 +15,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
   const isReality = mode === "reality";
 
   const highlightText = (text: string) => {
-    // Basic regex based highlighter (could be improved)
+    // 基于正则的简单高亮器 (可以改进)
     const keywords = ["胡羞", "肖稚宇", "秦宵一", "容城", "Dynamism"];
     const regex = new RegExp(`(${keywords.join("|")})`, "g");
     
@@ -42,7 +42,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
   return (
     <section className="py-24 px-6 min-h-[80vh] flex flex-col md:flex-row max-w-7xl mx-auto gap-8 md:gap-16">
       
-      {/* Sidebar / Tabs */}
+      {/* 侧边栏 / 选项卡 */}
       <div className="w-full md:w-1/3 flex flex-col gap-4">
         <h2 className={clsx(
           "text-3xl font-bold mb-8 transition-colors",
@@ -93,7 +93,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
         ))}
       </div>
 
-      {/* Content Area */}
+      {/* 内容区域 */}
       <div className="w-full md:w-2/3 relative min-h-[500px]">
         <AnimatePresence mode="wait">
           {STORY_ARCS.map((arc) => {
@@ -102,7 +102,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
             
             return (
               <motion.div
-                key={arc.id + mode} // Add mode to key to force re-render on switch
+                key={arc.id + mode} // 添加 mode 到 key 以在切换时强制重新渲染
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -114,7 +114,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                     : "bg-black/40 border-white/10 backdrop-blur-md shadow-2xl"
                 )}
               >
-                {/* Quote Injection */}
+                {/* 引用注入 */}
                 <div className={clsx(
                   "mb-8 pb-8 border-b italic text-2xl font-serif leading-relaxed",
                   isReality 
@@ -124,7 +124,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                   {currentContent.quote}
                 </div>
 
-                {/* Narrative Text */}
+                {/* 叙述文本 */}
                 <div className={clsx(
                   "space-y-6 text-lg leading-loose",
                   isReality 
@@ -136,7 +136,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                   ))}
                 </div>
 
-                {/* Decorative Elements */}
+                {/* 装饰元素 */}
                 <div className={clsx(
                   "absolute -bottom-4 -right-4 text-9xl font-bold opacity-5 pointer-events-none select-none",
                   isReality ? "text-black" : "text-white"

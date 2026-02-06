@@ -1,12 +1,12 @@
 
 export const HERO_CONTENT = {
   reality: {
-    title: "胡羞 x 肖稚宇",
+    title: "胡羞 & 肖稚宇",
     subtitle: "从互相试探的房东与租客，到灵魂契合的合伙人。",
     quote: "“我在现实中等你，并在摩天大楼顶端拥抱你。”"
   },
   script: {
-    title: "玩家胡羞 x NPC秦宵一",
+    title: "入局者 & 破局人",
     subtitle: "不仅是督军与特工，更是彼此唯一的救赎。",
     quote: "“雪中容城，哪怕世界是假的，我的爱是真的。”"
   }
@@ -63,6 +63,12 @@ export const CHARACTERS = [
   {
     id: "huxiu",
     name: "胡羞",
+    avatar: "https://placehold.co/400x400/Fdfbf7/4a4a4a?text=Hu+Xiu",
+    relationships: [
+      { targetId: "xiaozhiyu", desc: "爱人 / 救赎", type: "love" },
+      { targetId: "zhaoxiaorou", desc: "最强闺蜜", type: "friend" },
+      { targetId: "peizhen", desc: "被追求", type: "work" }
+    ],
     reality: {
       role: "建筑师 / 治愈者",
       desc: "敢于裸辞追求梦想的建筑师。是她用温暖和直觉，治愈了肖稚宇二十年的创伤，带他走出了仇恨的黑夜。"
@@ -75,6 +81,11 @@ export const CHARACTERS = [
   {
     id: "xiaozhiyu",
     name: "肖稚宇",
+    avatar: "https://placehold.co/400x400/0a0a0a/cc0000?text=Xiao+Zhiyu",
+    relationships: [
+      { targetId: "peizhen", desc: "宿敌 / 兄弟", type: "enemy" },
+      { targetId: "gonghuaicong", desc: "死党 / 合伙人", type: "friend" }
+    ],
     reality: {
       role: "创始人 / 复仇者",
       desc: "外表冷漠内心深情的复仇者。他的每一步精明算计，最后都变成了对她最笨拙的保护。"
@@ -87,6 +98,10 @@ export const CHARACTERS = [
   {
     id: "peizhen",
     name: "裴轸",
+    avatar: "https://placehold.co/400x400/2a2a2a/F4E7D3?text=Pei+Zhen",
+    relationships: [
+      { targetId: "huxiu", desc: "单恋", type: "love" }
+    ],
     reality: {
       role: "竞争者 / 兄弟",
       desc: "曾经针锋相对的竞争者，最终释怀的兄弟。他放下了执念，也放过了自己。"
@@ -99,6 +114,12 @@ export const CHARACTERS = [
   {
     id: "zhaoxiaorou",
     name: "赵孝柔",
+    avatar: "https://placehold.co/400x400/Fdfbf7/d4af37?text=Zhao+Xiaorou",
+    relationships: [
+      { targetId: "huxiu", desc: "生死闺蜜", type: "friend" },
+      { targetId: "wangguangming", desc: "前妻 / 前夫", type: "enemy" },
+      { targetId: "gonghuaicong", desc: "商业伙伴", type: "work" }
+    ],
     reality: {
       role: "闺蜜 / 咖啡店主",
       desc: "最好的闺蜜，最坚强的后盾。经历了婚姻破碎后的重生，活出了自己的精彩。"
@@ -111,6 +132,10 @@ export const CHARACTERS = [
   {
     id: "gonghuaicong",
     name: "龚怀聪",
+    avatar: "https://placehold.co/400x400/Fdfbf7/333?text=Gong+Huaicong",
+    relationships: [
+      { targetId: "xiaozhiyu", desc: "死党 / 合伙人", type: "friend" }
+    ],
     reality: {
       role: "合伙人 / 喜剧担当",
       desc: "肖稚宇最信任的好友，全剧最强“神助攻”。从帮忙租房到掩护身份，他用钞能力守护着这对CP。"
@@ -123,6 +148,8 @@ export const CHARACTERS = [
   {
     id: "wangguangming",
     name: "王光明",
+    avatar: "https://placehold.co/400x400/333/666?text=Wang+Guangming",
+    relationships: [],
     reality: {
       role: "前夫 / 伪善者",
       desc: "他的出轨与背叛，虽然给赵孝柔带来了痛苦，却也彻底打碎了她对虚假婚姻的幻想，逼迫她涅槃重生。"
@@ -366,5 +393,69 @@ export const SCENE_PHOTOS = [
     title: "Midnight Express",
     desc: "火车驶入迷雾，故事从这里开始。",
     src: "https://placehold.co/1200x800/000/333?text=Train+Station"
+  }
+];
+
+// Investigation Wall Data
+export const INVESTIGATION_CLUES = [
+  {
+    id: "clue-1",
+    title: "2004年旧报纸",
+    desc: "新城体育馆坍塌事故报道。秦宇泽含冤自杀，留下了无尽的谜团与伤痛。",
+    src: "https://placehold.co/400x600/2a2a2a/f0f0f0?text=News+2004",
+    type: "evidence",
+    x: 10,
+    y: 10,
+    rotation: -5
+  },
+  {
+    id: "clue-2",
+    title: "署名'Q'的设计图",
+    desc: "秦宇泽的遗物，肖稚宇设计灵感的来源，也是他建筑梦想的起点。",
+    src: "https://placehold.co/500x400/1a1a1a/4a90e2?text=Blueprint+Q",
+    type: "document",
+    x: 35,
+    y: 15,
+    rotation: 3
+  },
+  {
+    id: "clue-3",
+    title: "工厂储存卡",
+    desc: "在黄奕德工厂找到的关键证据，记录了裴康华与陈军浩勾结的罪行。",
+    src: "https://placehold.co/300x200/000/fff?text=SD+Card",
+    type: "evidence",
+    x: 65,
+    y: 20,
+    rotation: 8
+  },
+  {
+    id: "clue-4",
+    title: "胡鼎与韩川合影",
+    desc: "受害者视角。胡鼎腿伤的真相，揭示了两家跨越二十年的渊源。",
+    src: "https://placehold.co/400x500/333/ccc?text=Old+Photo",
+    type: "photo",
+    x: 15,
+    y: 50,
+    rotation: -2
+  },
+  {
+    id: "clue-5",
+    title: "伪造的遗书",
+    desc: "裴康华栽赃秦宇泽畏罪自杀的铁证。真相终将大白。",
+    src: "https://placehold.co/350x500/fff/000?text=Fake+Letter",
+    type: "document",
+    x: 45,
+    y: 60,
+    rotation: 5
+  },
+  {
+    id: "clue-6",
+    title: "不平等供货合同",
+    desc: "裴康华利用职权扶持黄奕德的证据，也是利益输送的链条。",
+    src: "https://placehold.co/400x600/f0f0f0/000?text=Contract",
+    type: "document",
+    x: 75,
+    y: 55,
+    rotation: -4
   }
 ];

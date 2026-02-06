@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, Film, User } from "lucide-react";
 import clsx from "clsx";
+import Image from "next/image";
 import { SCENE_PHOTOS } from "@/data/drama-data";
 
 interface InteractivePhotoWallProps {
@@ -23,7 +24,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
   return (
     <section className={clsx(
       "py-24 px-4 md:px-12 transition-colors duration-1000",
-      isReality ? "bg-[#fdfbf7]" : "bg-[#050505]" // Warm Cream vs Deep Black
+      isReality ? "bg-[#fdfbf7]" : "bg-[#0f0505]" // Warm Cream vs Deep Black (Red Tint)
     )}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -100,10 +101,12 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                   "aspect-[3/4] md:aspect-[4/3] relative overflow-hidden",
                   photo.type === "character" ? "aspect-[3/4]" : "aspect-[16/9]"
                 )}>
-                  <img 
+                  <Image 
                     src={photo.src} 
                     alt={photo.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <ZoomIn className="text-white w-10 h-10" />
@@ -148,11 +151,13 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                 <X size={32} />
               </button>
 
-              <div className="flex-1 relative bg-black flex items-center justify-center">
-                <img 
+              <div className="flex-1 relative bg-black flex items-center justify-center min-h-[50vh] md:min-h-0">
+                <Image 
                   src={selectedPhoto.src} 
                   alt={selectedPhoto.title}
-                  className="max-w-full max-h-[60vh] md:max-h-[90vh] object-contain"
+                  fill
+                  sizes="100vw"
+                  className="object-contain p-4"
                 />
               </div>
 

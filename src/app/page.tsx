@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import LoveTimeline from "@/components/LoveTimeline";
 import CharacterCards from "@/components/CharacterCards";
+import ClueWall from "@/components/ClueWall";
 import HeartbeatButton from "@/components/HeartbeatButton";
 import ParallelPhone from "@/components/ParallelPhone";
 import MemoryScavengerHunt from "@/components/MemoryScavengerHunt";
@@ -40,7 +41,7 @@ export default function Home() {
     }, 1000); // Switch mode after 1s, while text is showing and screen is black
   };
 
-  // Track mouse for flashlight effect in Script Mode
+  // 跟踪鼠标位置以实现剧本模式下的手电筒效果
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -55,7 +56,7 @@ export default function Home() {
     };
   }, [mode]);
 
-  // Update body class for global cursor styles
+  // 更新 body 的类名以应用全局光标样式
   useEffect(() => {
     document.body.className = mode === "reality" ? "mode-reality" : "mode-script";
   }, [mode]);
@@ -67,7 +68,7 @@ export default function Home() {
         mode === "reality" ? "bg-reality" : "bg-script"
       )}
     >
-      {/* Script Mode Flashlight Effect */}
+      {/* 剧本模式手电筒效果 */}
       {mode === "script" && (
         <div 
           className="flashlight-glow"
@@ -75,14 +76,14 @@ export default function Home() {
         />
       )}
       
-      {/* VR Transition Overlay */}
+      {/* VR 转场覆盖层 */}
       <VRTransition 
         isActive={isTransitioning} 
         nextMode={targetMode}
         onComplete={() => setIsTransitioning(false)} 
       />
 
-      {/* Scroll Progress Bar */}
+      {/* 滚动进度条 */}
       <motion.div
         className={clsx(
           "fixed top-0 left-0 right-0 h-1 z-[100] origin-left",
@@ -91,34 +92,37 @@ export default function Home() {
         style={{ scaleX }}
       />
 
-      {/* 1. Hero Section: The Dual Switch */}
+      {/* 1. 英雄区域：双重模式切换 */}
       <HeroSection mode={mode} onToggle={toggleMode} isTransitioning={isTransitioning} />
 
-      {/* Feature: Story Arcs (Deep Content) */}
+      {/* 功能：剧情章节 (深度内容) */}
       <StoryArcs mode={mode} />
 
-      {/* 2. Love Timeline: From Blueprint to Heartbeat */}
+      {/* 2. 爱情时间轴：从蓝图到心跳 */}
       <LoveTimeline mode={mode} />
 
-      {/* Feature: Interactive Photo Wall (Replaces DualLookGallery) */}
+      {/* 功能：互动照片墙 (替代了双面画廊) */}
       <InteractivePhotoWall mode={mode} />
 
-      {/* 3. Character Cards: Emotional Roles */}
-      <CharacterCards mode={mode} />
+      {/* 3. 人物卡片：情感角色 (仅现实模式) */}
+      {mode === "reality" && <CharacterCards mode={mode} />}
 
-      {/* Feature 1: The Parallel Phone */}
+      {/* 功能：真相调查墙 (仅剧本模式) */}
+      {mode === "script" && <ClueWall />}
+
+      {/* 功能 1：平行时空手机 */}
       <ParallelPhone mode={mode} />
 
-      {/* Feature 2: Memory Scavenger Hunt */}
+      {/* 功能 2：记忆碎片寻宝 */}
       <MemoryScavengerHunt mode={mode} />
 
-      {/* Feature 3: Atmospheric Audio Player */}
+      {/* 功能 3：氛围音乐播放器 */}
       <AtmosphericPlayer mode={mode} />
 
-      {/* Feature 4: Heartbeat Button (Existing) */}
+      {/* 功能 4：心跳按钮 (现有) */}
       <HeartbeatButton mode={mode} />
 
-      {/* Footer */}
+      {/* 页脚 */}
       <footer className="py-12 text-center opacity-50 relative z-10">
         <p className={clsx(
           "text-xs tracking-[0.3em] uppercase transition-colors duration-500",
