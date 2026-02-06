@@ -66,12 +66,12 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
               // Welcome to Rongcheng (Script Mode)
               <div className="flex flex-col items-center">
                 <motion.h2 
-                  className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-purple-500 to-red-500 font-serif-sc tracking-[0.2em] mb-4 text-shadow-neon"
+                  className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff004c] via-[#ff00ff] to-[#ff004c] font-serif-sc tracking-[0.2em] mb-4 text-shadow-neon"
                   animate={{ 
                     textShadow: [
-                      "0 0 10px #ff0000",
-                      "0 0 20px #ff0000",
-                      "0 0 10px #ff0000"
+                      "0 0 10px #ff004c",
+                      "0 0 20px #ff004c",
+                      "0 0 10px #ff004c"
                     ]
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -79,16 +79,16 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
                   欢迎来到容城
                 </motion.h2>
                 <motion.div 
-                  className="h-[2px] bg-red-500/50 max-w-xs mx-auto mt-4 overflow-hidden rounded-full"
+                  className="h-[2px] bg-[#ff004c]/30 max-w-xs mx-auto mt-4 overflow-hidden rounded-full"
                 >
                    <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 1.2, ease: "linear", delay: 0.2 }}
-                      className="h-full bg-red-500 shadow-[0_0_10px_#ff0000]"
+                      className="h-full bg-[#ff004c] shadow-[0_0_10px_#ff004c]"
                    />
                 </motion.div>
-                <p className="mt-4 text-red-400/70 font-mono text-sm tracking-widest uppercase animate-pulse">
+                <p className="mt-4 text-[#ff004c]/70 font-mono text-sm tracking-widest uppercase animate-pulse">
                   System Initialization...
                 </p>
               </div>
@@ -112,7 +112,6 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
                   Restoring Reality...
                 </p>
               </div>
-            )}
             )}
           </motion.div>
 

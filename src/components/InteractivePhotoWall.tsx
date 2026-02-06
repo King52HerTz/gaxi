@@ -23,7 +23,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
   return (
     <section className={clsx(
       "py-24 px-4 md:px-12 transition-colors duration-1000",
-      isReality ? "bg-[#f4f1ea]" : "bg-[#0a0a0a]"
+      isReality ? "bg-[#fdfbf7]" : "bg-[#050505]" // Warm Cream vs Deep Black
     )}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -88,7 +88,12 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 whileHover={{ y: -10 }}
-                className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                className={clsx(
+                  "relative group cursor-pointer overflow-hidden rounded-lg shadow-lg border",
+                  isReality 
+                    ? "border-transparent shadow-md" 
+                    : "border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+                )}
                 onClick={() => setSelectedPhoto(photo)}
               >
                 <div className={clsx(
@@ -152,8 +157,10 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
               </div>
 
               <div className={clsx(
-                "w-full md:w-80 p-8 flex flex-col justify-center",
-                isReality ? "bg-white text-reality-text" : "bg-[#111] text-gray-200 border-l border-white/10"
+                "w-full md:w-80 p-8 flex flex-col justify-center transition-colors duration-500",
+                isReality 
+                  ? "bg-[#fdfbf7] text-reality-text" 
+                  : "bg-[#050505] text-gray-200 border-l border-white/10"
               )}>
                 <div className="mb-6">
                   <span className={clsx(
