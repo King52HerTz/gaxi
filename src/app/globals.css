@@ -13,7 +13,7 @@
   --script-neon: #ff004c; /* Neon Red */
 }
 
-@theme inline {
+@theme {
   --color-reality-bg: var(--reality-bg);
   --color-reality-text: var(--reality-text);
   --color-reality-accent: var(--reality-accent);
@@ -23,7 +23,7 @@
   --color-script-accent: var(--script-accent);
   --color-script-neon: var(--script-neon);
 
-  --font-handwriting: "Caveat", "Brush Script MT", cursive;
+  --font-handwriting: var(--font-custom-handwriting), "Caveat", cursive;
   --font-serif: "Noto Serif SC", serif;
   --font-sans: "Inter", sans-serif;
 }

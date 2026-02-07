@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Courier_Prime, Noto_Serif_SC } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const courierPrime = Courier_Prime({
@@ -16,6 +17,18 @@ const notoSerifSC = Noto_Serif_SC({
   display: "swap",
 });
 
+const handwrittenFont = localFont({
+  src: [
+    {
+      path: "./fonts/ZiYouLangManTi-2.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-custom-handwriting",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Hu Xiu & Xiao Zhiyu | The Script is Fiction, The Love is Real",
   description: "A fan collection for the couple Hu Xiu and Xiao Zhiyu from Double Booking.",
@@ -29,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body
-        className={`${courierPrime.variable} ${notoSerifSC.variable} antialiased bg-deep-black text-warm-light overflow-x-hidden`}
+        className={`${courierPrime.variable} ${notoSerifSC.variable} ${handwrittenFont.variable} antialiased bg-deep-black text-warm-light overflow-x-hidden`}
       >
         <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay noise-bg"></div>
         {children}

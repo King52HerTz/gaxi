@@ -63,7 +63,7 @@ export const CHARACTERS = [
   {
     id: "huxiu",
     name: "胡羞",
-    avatar: "https://placehold.co/400x400/Fdfbf7/4a4a4a?text=Hu+Xiu",
+    avatar: "/photo/hu01.png",
     relationships: [
       { targetId: "xiaozhiyu", desc: "爱人 / 救赎", type: "love" },
       { targetId: "zhaoxiaorou", desc: "最强闺蜜", type: "friend" },
@@ -81,7 +81,7 @@ export const CHARACTERS = [
   {
     id: "xiaozhiyu",
     name: "肖稚宇",
-    avatar: "https://placehold.co/400x400/0a0a0a/cc0000?text=Xiao+Zhiyu",
+    avatar: "/photo/xiao01.png",
     relationships: [
       { targetId: "peizhen", desc: "宿敌 / 兄弟", type: "enemy" },
       { targetId: "gonghuaicong", desc: "死党 / 合伙人", type: "friend" }
@@ -98,7 +98,7 @@ export const CHARACTERS = [
   {
     id: "peizhen",
     name: "裴轸",
-    avatar: "https://placehold.co/400x400/2a2a2a/F4E7D3?text=Pei+Zhen",
+    avatar: "/photo/pei01.png",
     relationships: [
       { targetId: "huxiu", desc: "单恋", type: "love" }
     ],
@@ -114,7 +114,7 @@ export const CHARACTERS = [
   {
     id: "zhaoxiaorou",
     name: "赵孝柔",
-    avatar: "https://placehold.co/400x400/Fdfbf7/d4af37?text=Zhao+Xiaorou",
+    avatar: "/photo/zhao01.png",
     relationships: [
       { targetId: "huxiu", desc: "生死闺蜜", type: "friend" },
       { targetId: "wangguangming", desc: "前妻 / 前夫", type: "enemy" },
@@ -132,7 +132,7 @@ export const CHARACTERS = [
   {
     id: "gonghuaicong",
     name: "龚怀聪",
-    avatar: "https://placehold.co/400x400/Fdfbf7/333?text=Gong+Huaicong",
+    avatar: "/photo/gong01.png",
     relationships: [
       { targetId: "xiaozhiyu", desc: "死党 / 合伙人", type: "friend" }
     ],
@@ -148,7 +148,7 @@ export const CHARACTERS = [
   {
     id: "wangguangming",
     name: "王光明",
-    avatar: "https://placehold.co/400x400/333/666?text=Wang+Guangming",
+    avatar: "/photo/wang01.png",
     relationships: [],
     reality: {
       role: "前夫 / 伪善者",
@@ -217,8 +217,26 @@ export const SCAVENGER_ITEMS = [
 ];
 
 export const FINAL_REWARD = {
-  title: "胡羞的手写独白",
-  content: "我曾以为世界是冰冷的蓝图，直到你在废墟中为我点亮了一盏灯。现实也好，剧本也罢，只要是你，我就愿意入戏。肖稚宇，欢迎回家。"
+  title: "观影随笔",
+  preview: "致 每一位在这个故事里找到碎片的你...",
+  content: [
+    "看完《轧戏》的大结局，窗外刚好也在下雨。关掉屏幕的那一刻，心里空落落的，像是刚从那个霓虹闪烁的民国容城里醒过来，又像是还留在Dynamism那间充满混凝土味道的办公室里。这部剧有一种很奇妙的后劲，它不只是讲了一场恋爱，更像是讲了一群人在满地碎片的现实里，如何笨拙地试图把自己拼凑完整。",
+    "说实话，刚开始我是冲着“剧本杀”和“双重身份”的爽感去的，但看着看着，目光就忍不住在裴轸身上停留。",
+    "很难形容对裴轸的感觉，大概就是“如鲠在喉”。他是那种典型的、活在别人剧本里的“完美配角”。编剧对他太残忍了，给了他王子的光环，却剥夺了他做自己的权利。你看他，永远穿着剪裁得体的西装，永远在这个浑浊的名利场里保持着一种近乎洁癖的体面。他帮胡羞挡酒、帮她处理职场上的那些烂摊子，甚至在被肖稚宇激怒的时候，他的反击都带着一种被家教束缚住的克制。",
+    "这种克制，看多了真让人心疼。他就像是被养在筑翎集团这个豪华温室里的一株名贵植物，他的根是被父亲裴康华修剪过的，长不出任何旁逸斜出的枝丫。所以当他遇见胡羞——那个像野草一样有着蓬勃生命力、敢在游戏里一次次送死只为求一个真相的女孩时，他沦陷得太理所当然了。胡羞是他黑白世界里唯一的色彩，是他想触碰却又不敢用力的“叛逆”。",
+    "依然记得那个细节，他在家里的餐桌上，小心翼翼地提起自己有个心仪的女孩。那一刻，他眼神里是有光的，像个终于考了一百分想回家讨糖吃的孩子。可他忘了，他的父亲是个只会权衡利弊的商人。那顿饭，是他悲剧的缩影——他以为他在分享幸福，殊不知是在递刀子。他不知道肖稚宇和胡羞的过往，更不知道上一辈的恩怨，他只是单纯地想爱一个人，结果这份爱成了父亲威胁对手的筹码，也成了刺向他自己心口最深的一刀。",
+    "如果说裴轸的爱是“想把你藏进我的城堡”，那肖稚宇的爱就是“拆掉围墙，陪你盖一座新楼”。",
+    "肖稚宇和胡羞这对CP，最戳人的不是那些在容城雨夜里的拥吻，而是他们在现实弄堂里的那段合租时光。那段日子太有烟火气了，老旧的楼梯吱呀作响，窗外是上海市井的嘈杂，屋内是两颗同样受过伤的心在慢慢靠近。",
+    "肖稚宇这个人，其实活得很累。他背负着父亲“Q”的冤屈，把自己活成了一把复仇的利刃。在遇到胡羞之前，他的人生是一张精密计算的施工图，容不得半点差错。可胡羞偏偏就是那个最大的“违章建筑”。",
+    "真的很喜欢他们讨论建筑时的样子。当胡羞拿着设计稿，眼睛亮晶晶地讲她的构思时，肖稚宇看她的眼神，不是上位者对他人的审视，而是同行者之间的欣赏。他懂她的才华被埋没的痛苦，所以他没有像裴轸那样想把她护在羽翼下做个金丝雀，而是递给她一支笔，告诉她：去画吧，去赢吧。这种“懂得”，比一百句“我养你”都要高级。",
+    "剧里有一个让我爆哭的瞬间，是第26集火场的那一幕。裴康华拿胡羞的命做威胁，肖稚宇明明是为了复仇筹谋了那么多年，眼看真相就在眼前，证据触手可及，可他毫不犹豫地选择了去救胡羞。那一刻，那个精于算计、冷酷毒舌的“狐狸”终于死了，活下来的是一个有血有肉的爱人。他用行动证明了，在他的世界里，没有什么比那个叫胡羞的女孩更重要，连仇恨都要靠边站。",
+    "而胡羞呢，她也在治愈肖稚宇。她看穿了他“秦宵一”面具下的脆弱，看穿了他毒舌背后的孤独。在大家都因为误会指责肖稚宇冷血的时候，只有胡羞敢把自己交给他，甚至在误食毒蘑菇产生幻觉时，潜意识里依赖的也是他。这种信任，是他们在一次次“入局”和“破局”中练就的本能。",
+    "故事的最后，容城的雪停了，一切尘埃落定。",
+    "裴轸离开了筑翎，那个背影虽然孤单，但我却觉得那是他最轻松的时刻。他终于不再是谁的儿子，不再是谁的继承人，他只是裴轸。这种放手，何尝不是另一种成全？",
+    "而肖稚宇和胡羞，终于可以在阳光下牵手。他们不需要再戴上VR眼镜去虚拟世界里寻找刺激，因为现实生活里，有一个懂你、信你、愿意陪你疯的人，这本身就是最顶级的浪漫。",
+    "《轧戏》这部剧，就像是一面镜子。我们在裴轸身上看到了那个想要讨好世界却弄丢了自己的影子，在肖稚宇和胡羞身上看到了那种“虽然生活一地鸡毛，但我依然爱你如初”的勇气。",
+    "大概正如剧里那句台词暗示的：我们终其一生，不过是想找一个能看穿所有伪装，然后坚定地站在你身边的人。找到了，那就是最好的结局。"
+  ]
 };
 
 export const STORY_ARCS = [
@@ -316,38 +334,38 @@ export const DUAL_GALLERY_IMAGES = [
   {
     id: "huxiu",
     name: "胡羞",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=HuXiu+Architect",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Agent+026"
+    realitySrc: "/photo/hu01.png",
+    scriptSrc: "/photo/hu01.png"
   },
   {
     id: "xiaozhiyu",
     name: "肖稚宇",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=XiaoZhiyu+Founder",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Commander+Qin"
+    realitySrc: "/photo/xiao01.png",
+    scriptSrc: "/photo/xiao01.png"
   },
   {
     id: "peizhen",
     name: "裴轸",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=PeiZhen+CEO",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Noble+Pei"
+    realitySrc: "/photo/pei01.png",
+    scriptSrc: "/photo/pei01.png"
   },
   {
     id: "zhaoxiaorou",
     name: "赵孝柔",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=Xiaorou+Barista",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Singer+Xiaorou"
+    realitySrc: "/photo/zhao01.png",
+    scriptSrc: "/photo/zhao01.png"
   },
   {
     id: "gonghuaicong",
     name: "龚怀聪",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=Gong+Rich",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Investor+Gong"
+    realitySrc: "/photo/gong01.png",
+    scriptSrc: "/photo/gong01.png"
   },
   {
     id: "wangguangming",
     name: "王光明",
-    realitySrc: "https://placehold.co/800x1200/Fdfbf7/4a4a4a?text=Wang+ExHusband",
-    scriptSrc: "https://placehold.co/800x1200/2a0a0a/8B0000?text=Blind+Man"
+    realitySrc: "/photo/wang01.png",
+    scriptSrc: "/photo/wang01.png"
   }
 ];
 
@@ -357,42 +375,42 @@ export const SCENE_PHOTOS = [
     type: "scene",
     title: "弄堂雨夜",
     desc: "“别怕，我在。” 两个世界，一场夜雨，两颗心靠近。",
-    src: "https://placehold.co/1200x800/1a1a1a/4a4a4a?text=Rainy+Alley"
+    src: "/photo/gong01.png"
   },
   {
     id: "scene-2",
     type: "scene",
     title: "摩天大楼",
     desc: "俯瞰城市的灯火，蓝图终成现实。",
-    src: "https://placehold.co/1200x800/Fdfbf7/cccccc?text=Skyscraper+View"
+    src: "/photo/gong01.png"
   },
   {
     id: "char-1",
     type: "character",
     title: "肖稚宇 · 独白",
     desc: "“我不在乎你是谁，我只想爱你。”",
-    src: "https://placehold.co/800x1200/333/666?text=Xiao+Zhiyu+Portrait"
+    src: "/photo/xiao01.png"
   },
   {
     id: "scene-3",
     type: "scene",
     title: "容城雪景",
     desc: "漫天飞雪中，她吻了他。注定要醒来的梦，却许下了永恒。",
-    src: "https://placehold.co/1200x800/eee/aaa?text=Snowy+City"
+    src: "/photo/gong01.png"
   },
   {
     id: "char-2",
     type: "character",
     title: "胡羞 · 觉醒",
     desc: "她不再是那个逃避现实的女孩，而是敢于直视深渊的破局者。",
-    src: "https://placehold.co/800x1200/f5f5f5/888?text=Hu+Xiu+Portrait"
+    src: "/photo/hu01.png"
   },
   {
     id: "scene-4",
     type: "scene",
     title: "Midnight Express",
     desc: "火车驶入迷雾，故事从这里开始。",
-    src: "https://placehold.co/1200x800/000/333?text=Train+Station"
+    src: "/photo/gong01.png"
   }
 ];
 
@@ -402,7 +420,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-1",
     title: "2004年旧报纸",
     desc: "新城体育馆坍塌事故报道。秦宇泽含冤自杀，留下了无尽的谜团与伤痛。",
-    src: "https://placehold.co/400x600/2a2a2a/f0f0f0?text=News+2004",
+    src: "/photo/wang01.png",
     type: "evidence",
     x: 10,
     y: 10,
@@ -412,7 +430,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-2",
     title: "署名'Q'的设计图",
     desc: "秦宇泽的遗物，肖稚宇设计灵感的来源，也是他建筑梦想的起点。",
-    src: "https://placehold.co/500x400/1a1a1a/4a90e2?text=Blueprint+Q",
+    src: "/photo/wang01.png",
     type: "document",
     x: 35,
     y: 15,
@@ -422,7 +440,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-3",
     title: "工厂储存卡",
     desc: "在黄奕德工厂找到的关键证据，记录了裴康华与陈军浩勾结的罪行。",
-    src: "https://placehold.co/300x200/000/fff?text=SD+Card",
+    src: "/photo/wang01.png",
     type: "evidence",
     x: 65,
     y: 20,
@@ -432,7 +450,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-4",
     title: "胡鼎与韩川合影",
     desc: "受害者视角。胡鼎腿伤的真相，揭示了两家跨越二十年的渊源。",
-    src: "https://placehold.co/400x500/333/ccc?text=Old+Photo",
+    src: "/photo/wang01.png",
     type: "photo",
     x: 15,
     y: 50,
@@ -442,7 +460,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-5",
     title: "伪造的遗书",
     desc: "裴康华栽赃秦宇泽畏罪自杀的铁证。真相终将大白。",
-    src: "https://placehold.co/350x500/fff/000?text=Fake+Letter",
+    src: "/photo/wang01.png",
     type: "document",
     x: 45,
     y: 60,
@@ -452,7 +470,7 @@ export const INVESTIGATION_CLUES = [
     id: "clue-6",
     title: "不平等供货合同",
     desc: "裴康华利用职权扶持黄奕德的证据，也是利益输送的链条。",
-    src: "https://placehold.co/400x600/f0f0f0/000?text=Contract",
+    src: "/photo/wang01.png",
     type: "document",
     x: 75,
     y: 55,

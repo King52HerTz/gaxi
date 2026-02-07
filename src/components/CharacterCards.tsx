@@ -42,7 +42,7 @@ export default function CharacterCards({ mode }: CharacterCardsProps) {
                 <X size={32} />
               </button>
               {CHARACTERS.filter(c => c.id === selectedCharId).map(char => (
-                 <CharacterCard key={char.id} char={char} mode={mode} isModal />
+                 <CharacterCard key={char.id} char={char} mode={mode} />
               ))}
             </div>
           </motion.div>
@@ -185,7 +185,7 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
   );
 }
 
-function CharacterCard({ char, mode, isModal = false }: { char: (typeof CHARACTERS)[number], mode: "reality" | "script", isModal?: boolean }) {
+function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode: "reality" | "script" }) {
   const isReality = mode === "reality";
   const content = isReality ? char.reality : char.script;
 

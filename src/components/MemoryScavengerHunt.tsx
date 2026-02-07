@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Glasses, ScrollText, Flower2, Flame, CheckCircle2, X } from "lucide-react";
 import { SCAVENGER_ITEMS, FINAL_REWARD } from "@/data/drama-data";
@@ -10,14 +10,21 @@ interface MemoryScavengerHuntProps {
   mode: "reality" | "script";
 }
 
+// Define the structure of a scavenger item based on drama-data.ts
+interface ScavengerItem {
+  id: string;
+  name: string;
+  desc: string;
+  icon: string;
+}
+
 export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) {
   const [collectedItems, setCollectedItems] = useState<string[]>([]);
   const [showReward, setShowReward] = useState(false);
-  const [lastCollected, setLastCollected] = useState<any>(null);
+  const [isLetterOpen, setIsLetterOpen] = useState(false);
+  const [lastCollected, setLastCollected] = useState<ScavengerItem | null>(null);
 
-  const isReality = mode === "reality";
-
-  const handleCollect = (item: any) => {
+  const handleCollect = (item: ScavengerItem) => {
     if (!collectedItems.includes(item.id)) {
       const newCollected = [...collectedItems, item.id];
       setCollectedItems(newCollected);
@@ -31,6 +38,12 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         setTimeout(() => setShowReward(true), 1500);
       }
     }
+  };
+
+  const handleCloseReward = () => {
+    setShowReward(false);
+    // Reset letter state after a delay so it's closed next time
+    setTimeout(() => setIsLetterOpen(false), 500);
   };
 
   // Helper to render icon
@@ -120,42 +133,112 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            onClick={() => setShowReward(false)}
+            onClick={handleCloseReward}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: 0.9, opacity: 0, rotateX: 0 }}
+              animate={{ 
+                scale: 1, 
+                opacity: 1,
+                rotateX: isLetterOpen ? 0 : 0 // Can add flip effect later if needed
+              }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#fdfbf7] max-w-lg w-full p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden"
+              className={clsx(
+                "relative transition-all duration-700 ease-in-out",
+                isLetterOpen ? "max-w-2xl w-full" : "max-w-md w-full"
+              )}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Paper Texture Overlay */}
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] opacity-50 pointer-events-none" />
-              
-              <button 
-                onClick={() => setShowReward(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors z-10"
+              {/* Envelope / Letter Container */}
+              <div className={clsx(
+                "bg-[#fdfbf7] rounded-sm shadow-2xl overflow-hidden relative transition-all duration-700",
+                isLetterOpen ? "p-8 md:p-12 min-h-[70vh]" : "p-8 min-h-[300px] flex flex-col items-center justify-center cursor-pointer hover:shadow-[0_20px_50px_rgba(212,175,55,0.2)]"
+              )}
+              onClick={() => !isLetterOpen && setIsLetterOpen(true)}
               >
-                <X size={24} />
-              </button>
-
-              <div className="relative z-10 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-reality-accent/10 rounded-full flex items-center justify-center text-reality-accent">
-                   <ScrollText size={32} />
-                </div>
+                {/* Paper Texture Overlay */}
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] opacity-60 pointer-events-none" />
                 
-                <h3 className="text-2xl md:text-3xl font-serif font-bold text-reality-text mb-2">
-                  {FINAL_REWARD.title}
-                </h3>
-                <div className="w-20 h-[1px] bg-reality-accent mx-auto mb-8" />
-                
-                <p className="font-handwriting text-2xl md:text-3xl leading-relaxed text-gray-700 mb-8">
-                  {FINAL_REWARD.content}
-                </p>
+                {/* Close Button */}
+                <button 
+                  onClick={handleCloseReward}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors z-20"
+                >
+                  <X size={24} />
+                </button>
 
-                <p className="text-xs font-sans text-gray-400 tracking-widest uppercase">
-                  — Hu Xiu, 2026
-                </p>
+                {!isLetterOpen ? (
+                  /* Closed State: Envelope Hint */
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-center relative z-10"
+                  >
+                    <div className="w-20 h-20 mx-auto mb-6 bg-reality-accent/10 rounded-full flex items-center justify-center text-reality-accent">
+                       <ScrollText size={40} />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-serif font-bold text-reality-text mb-3">
+                      {FINAL_REWARD.title}
+                    </h3>
+                    <p className="font-handwriting text-2xl text-gray-500 italic">
+                      {FINAL_REWARD.preview}
+                    </p>
+                    <motion.div 
+                      className="mt-8 text-xs tracking-widest uppercase text-gray-400"
+                      animate={{ y: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    >
+                      点击拆开信件
+                    </motion.div>
+                  </motion.div>
+                ) : (
+                  /* Open State: Letter Content */
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="relative z-10"
+                  >
+                    <div className="text-center mb-8">
+                      <h3 className="text-3xl font-serif font-bold text-reality-text mb-4">
+                        {FINAL_REWARD.title}
+                      </h3>
+                      <div className="w-24 h-[1px] bg-reality-accent mx-auto" />
+                    </div>
+                    
+                    <div className="font-handwriting text-xl md:text-2xl leading-loose text-gray-800 mb-8 max-h-[50vh] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent text-justify">
+                      {Array.isArray(FINAL_REWARD.content) ? (
+                        FINAL_REWARD.content.map((paragraph, index) => (
+                          <motion.p
+                            key={index}
+                            className="mb-6 indent-10"
+                            initial={{ opacity: 0, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, filter: "blur(0px)" }}
+                            transition={{
+                              duration: 1.2,
+                              delay: 0.8 + index * 0.5,
+                              ease: "easeInOut"
+                            }}
+                          >
+                            {paragraph}
+                          </motion.p>
+                        ))
+                      ) : (
+                        <p>{FINAL_REWARD.content}</p>
+                      )}
+                    </div>
+
+                    <div className="text-right mt-8">
+                      <p className="font-handwriting text-xl text-gray-600">
+                        — 观影人
+                      </p>
+                      <p className="text-xs font-sans text-gray-400 tracking-widest uppercase mt-1">
+                        2026.02.07
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </motion.div>

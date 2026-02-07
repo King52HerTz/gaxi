@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_CONTENT } from "@/data/drama-data";
 import clsx from "clsx";
-import { Ticket, User, QrCode, Sparkles, Flame } from "lucide-react";
+import { User, QrCode, Sparkles, Flame } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface HeroSectionProps {
   mode: "reality" | "script";
@@ -15,22 +16,39 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
   const isReality = mode === "reality";
   const content = isReality ? HERO_CONTENT.reality : HERO_CONTENT.script;
 
+  const [snowParticles, setSnowParticles] = useState<{ left: string; width: string; height: string; duration: string; delay: string }[]>([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSnowParticles(
+        Array.from({ length: 50 }).map(() => ({
+          left: `${Math.random() * 100}%`,
+          width: `${Math.random() * 4 + 2}px`,
+          height: `${Math.random() * 4 + 2}px`,
+          duration: `${Math.random() * 5 + 5}s`,
+          delay: `${Math.random() * 5}s`
+        }))
+      );
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
       
       {/* 动态背景效果 - 剧本模式下的雪花 */}
       {mode === "script" && (
         <div className="absolute inset-0 pointer-events-none z-0">
-          {Array.from({ length: 50 }).map((_, i) => (
+          {snowParticles.map((particle, i) => (
             <div
               key={i}
               className="snow-particle"
               style={{
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 4 + 2}px`,
-                height: `${Math.random() * 4 + 2}px`,
-                animationDuration: `${Math.random() * 5 + 5}s`,
-                animationDelay: `${Math.random() * 5}s`
+                left: particle.left,
+                width: particle.width,
+                height: particle.height,
+                animationDuration: particle.duration,
+                animationDelay: particle.delay
               }}
             />
           ))}
@@ -87,7 +105,7 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                  className="relative w-64 h-32 bg-[#f4e4bc] rounded-sm shadow-[0_0_30px_rgba(255,0,0,0.3)] flex overflow-hidden border-2 border-dashed border-[#8b4513] group"
                >
                  {/* 车票纹理 */}
-                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50" />
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.15%22/%3E%3C/svg%3E')] opacity-50" />
                  
                  {/* 副券部分 */}
                  <div className="w-16 border-r-2 border-dashed border-[#8b4513] flex flex-col items-center justify-center p-2 relative z-10">

@@ -1,66 +1,96 @@
-# 项目结构与组件说明文档
+# 项目结构与内容修改指南
 
-本文档详细说明了《轧戏》项目 (`gaxi_pro`) 中各个文件的作用，特别是 `src/components` 目录下的组件与页面视觉呈现的对应关系。
+本文档详细说明了《轧戏》项目 (`gaxi_pro`) 的文件结构，以及如何修改文案、图片和页面内容。
 
-## 核心页面结构 (`src/app/page.tsx`)
+## 1. 页面与组件对应关系
 
-`src/app/page.tsx` 是项目的主入口文件，负责组装所有核心组件，并管理全局状态（如：现实/剧本模式切换 `mode`、VR 转场动画 `VRTransition`）。
+本项目是单页应用 (Single Page Application)，主页面文件为 `src/app/page.tsx`。页面由多个组件垂直堆叠而成，以下是页面从上到下的组件对应关系：
 
-页面按照以下顺序渲染组件：
+| 页面区块 (从上到下) | 对应组件文件 | 说明 |
+| :--- | :--- | :--- |
+| **全屏转场动画** | `src/components/VRTransition.tsx` | 切换现实/剧本模式时的黑屏过渡效果 |
+| **首屏 (Header)** | `src/components/HeroSection.tsx` | 标题、副标题、模式切换入口 (车票/工牌) |
+| **剧情大纲** | `src/components/StoryArcs.tsx` | ACT 1 - ACT 4 的剧情手风琴展示 |
+| **爱情时间轴** | `src/components/LoveTimeline.tsx` | 垂直时间轴，展示关键剧情节点 (EP01 - EP28) |
+| **剧照/写真墙** | `src/components/InteractivePhotoWall.tsx` | 瀑布流展示图片，支持点击放大 |
+| **人物关系图** (现实) | `src/components/CharacterCards.tsx` | 现实模式下显示，金色连线关系网 |
+| **真相调查墙** (剧本) | `src/components/ClueWall.tsx` | 剧本模式下显示，红线连接的线索墙 |
+| **平行手机** | `src/components/ParallelPhone.tsx` | 模拟手机短信/通话界面 |
+| **记忆碎片** | `src/components/MemoryScavengerHunt.tsx` | 寻找物品的互动小游戏 |
+| **背景音乐** | `src/components/AtmosphericPlayer.tsx` | 左下角悬浮，控制背景音乐 |
+| **心跳按钮** | `src/components/HeartbeatButton.tsx` | 右下角悬浮，随机弹出台词 |
 
-1.  **[VRTransition.tsx](src/components/VRTransition.tsx)**
-    *   **视觉位置**: 全屏覆盖层（隐藏状态，切换模式时出现）。
-    *   **功能**: 负责 "现实模式" 与 "剧本模式" 切换时的过渡动画（类似 VR 眼镜佩戴/摘下的效果）。包含 "欢迎来到容城" 或 "欢迎回到上海" 的文字动画。
+---
 
-2.  **[HeroSection.tsx](src/components/HeroSection.tsx)**
-    *   **视觉位置**: 网页首屏 (Header)。
-    *   **功能**: 展示主标题（"胡羞 x 肖稚宇" vs "玩家胡羞 x NPC秦宵一"）和核心切换交互。
-    *   **关键元素**:
-        *   **现实模式**: 显示一张 "Midnight Express 车票"，点击进入剧本世界。
-        *   **剧本模式**: 显示一个 "Dynamism 工牌"，点击返回现实世界。
+## 2. 如何修改文案 (Copywriting)
 
-3.  **[StoryArcs.tsx](src/components/StoryArcs.tsx)**
-    *   **视觉位置**: 首屏下方，剧情章节展示区。
-    *   **功能**: 手风琴（Accordion）风格的剧情大纲。展示 ACT 1 到 ACT 4 的核心剧情，根据模式显示 "现实视角的崩塌与重建" 或 "剧本视角的迷雾与救赎"。
+项目中绝大部分文案都集中在一个数据文件中，**不需要**去修改组件代码。
 
-4.  **[LoveTimeline.tsx](src/components/LoveTimeline.tsx)**
-    *   **视觉位置**: 剧情章节下方，垂直时间轴。
-    *   **功能**: 展示两人关系发展的关键节点（如 EP01 初遇, EP19 告白, EP28 结局）。
-    *   **视觉差异**: 现实模式下是蓝图风格；剧本模式下是霓虹/胶卷风格。
+*   **数据文件路径**: `src/data/drama-data.ts`
 
-5.  **[InteractivePhotoWall.tsx](src/components/InteractivePhotoWall.tsx)**
-    *   **视觉位置**: 图片墙/画廊区域。
-    *   **功能**: 瀑布流布局展示剧照和人物写真。支持点击放大查看大图（Lightbox）。
-    *   **注意**: 此组件替代了早期的 `DualLookGallery.tsx`。
+在该文件中，你可以找到以下常量进行修改：
 
-6.  **[CharacterCards.tsx](src/components/CharacterCards.tsx)**
-    *   **视觉位置**: 人物卡片区域。
-    *   **功能**: **核心人物关系图** (Relationship Map)。以互动节点图的形式展示人物之间的羁绊与关系。点击节点可查看人物详情。
-    *   **视觉差异**:
-        *   **现实模式**: 金色线条，展示现实中的人际网络。
-        *   **剧本模式**: 红色霓虹线条，展示剧本中的复杂纠葛。
+*   **首屏标题/标语**: 修改 `HERO_CONTENT` 对象。
+*   **剧情大纲内容**: 修改 `STORY_ARCS` 数组。
+*   **时间轴事件**: 修改 `TIMELINE_EVENTS` 数组。
+*   **人物信息与关系**: 修改 `CHARACTERS` 数组 (包括名字、介绍、关系描述)。
+*   **心跳按钮台词**: 修改 `HEARTBEAT_QUOTES` 数组。
+*   **手机短信内容**: 修改 `PARALLEL_PHONE_MESSAGES` 对象。
+*   **线索墙内容**: 修改 `INVESTIGATION_CLUES` 数组。
+*   **寻宝游戏物品**: 修改 `SCAVENGER_ITEMS` 数组。
 
-7.  **[ClueWall.tsx](src/components/ClueWall.tsx)**
-    *   **视觉位置**: 人物关系图下方。
-    *   **功能**: "真相调查墙"。通过红线连接的线索照片墙，展示 "洗清秦宇泽冤屈" 的关键证据链。
-    *   **视觉风格**: 暗黑/红黑配色，悬疑风格。
+**修改示例**:
+如果你想修改现实模式下的首屏副标题：
+1. 打开 `src/data/drama-data.ts`
+2. 找到 `HERO_CONTENT` -> `reality` -> `subtitle`
+3. 修改引号内的文字即可。
 
-8.  **[ParallelPhone.tsx](src/components/ParallelPhone.tsx)**
-    *   **视觉位置**: 互动手机功能区（页面中下部）。
-    *   **功能**: 模拟手机界面，展示短信或通话记录，体现跨越次元的交流。
+---
 
-9.  **[MemoryScavengerHunt.tsx](src/components/MemoryScavengerHunt.tsx)**
-    *   **视觉位置**: 记忆碎片收集区（接近底部）。
-    *   **功能**: 互动小游戏或探索区域，寻找隐藏的线索。
+## 3. 如何修改图片 (Images)
 
-10. **[AtmosphericPlayer.tsx](src/components/AtmosphericPlayer.tsx)**
-    *   **视觉位置**: 屏幕左下角（固定悬浮）。
-    *   **功能**: 背景音乐播放器。控制 "Reality Theme" (白噪音/轻音乐) 和 "Script Theme" (悬疑/爵士) 的切换。
+图片主要涉及两个步骤：**存放图片文件** 和 **引用图片路径**。
 
-11. **[HeartbeatButton.tsx](src/components/HeartbeatButton.tsx)**
-    *   **视觉位置**: 屏幕右下角（固定悬浮）。
-    *   **功能**: 心跳按钮。点击后随机弹出角色的经典台词或心动瞬间。
+### 步骤 A: 存放图片
+将你的图片文件（.jpg, .png, .webp 等）放入 `public/` 目录下的子文件夹中。
+建议结构：
+*   `public/photo/` - 存放人物立绘、剧照
+*   `public/clues/` - 存放线索图片
+*   `public/backgrounds/` - 存放背景图
 
-## 数据文件
+### 步骤 B: 引用图片
+同样是在 `src/data/drama-data.ts` 文件中修改图片路径。
 
-*   **[src/data/drama-data.ts](src/data/drama-data.ts)**: 核心数据文件。存储了所有文案、人物信息、时间轴事件、图片链接等。修改网页内容主要在此文件中进行。
+**引用规则**:
+在代码中引用 `public` 目录下的图片时，**不需要**写 `public` 前缀，直接从 `/` 开始。
+例如，如果图片在 `public/photo/my-image.png`，引用路径应为 `/photo/my-image.png`。
+
+**具体修改位置 (`src/data/drama-data.ts`)**:
+
+1.  **人物头像**:
+    *   找到 `CHARACTERS` 数组。
+    *   修改 `avatar` 字段。
+    *   例如: `avatar: "/photo/huxiu_avatar.png"`
+
+2.  **剧照墙/写真**:
+    *   找到 `DUAL_GALLERY_IMAGES` (人物写真) 或 `SCENE_PHOTOS` (场景剧照)。
+    *   修改 `realitySrc` (现实模式图), `scriptSrc` (剧本模式图) 或 `src` (通用图) 字段。
+
+3.  **线索墙图片**:
+    *   找到 `INVESTIGATION_CLUES` 数组。
+    *   修改 `src` 字段。
+
+4.  **寻宝物品图标**:
+    *   找到 `SCAVENGER_ITEMS` 数组。
+    *   注意：这里目前使用的是 Lucide 图标名称 (如 `"headset"`)。如果要改为图片，需要修改组件代码 `MemoryScavengerHunt.tsx`，或者保持使用图标。
+
+### 现有图片资源
+当前项目 `public/photo/` 目录下已有的图片文件：
+*   `gong01.png`
+*   `hu01.png`
+*   `pei01.png`
+*   `wang01.png`
+*   `xiao01.png`
+*   `zhao01.png`
+
+你可以直接在 `src/data/drama-data.ts` 中使用这些路径来替换目前的占位图 (placeholder)。
