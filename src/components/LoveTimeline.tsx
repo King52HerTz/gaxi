@@ -8,15 +8,24 @@ interface LoveTimelineProps {
   mode: "reality" | "script";
 }
 
-export default function LoveTimeline({ mode }: LoveTimelineProps) {
-  const isReality = mode === "reality";
+interface TimelineEventContent {
+  title: string;
+  description: string;
+}
 
+interface TimelineEvent {
+  episode: string;
+  reality: TimelineEventContent;
+  script: TimelineEventContent;
+}
+
+export default function LoveTimeline({ mode }: LoveTimelineProps) {
   return (
     <section className="py-32 px-6 max-w-5xl mx-auto relative">
       <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[1px] bg-current opacity-20" />
 
       <div className="space-y-32">
-        {TIMELINE_EVENTS.map((event, index) => (
+        {TIMELINE_EVENTS.map((event: TimelineEvent, index: number) => (
           <TimelineItem key={index} event={event} index={index} mode={mode} />
         ))}
       </div>
@@ -24,7 +33,7 @@ export default function LoveTimeline({ mode }: LoveTimelineProps) {
   );
 }
 
-function TimelineItem({ event, index, mode }: { event: any, index: number, mode: "reality" | "script" }) {
+function TimelineItem({ event, index, mode }: { event: TimelineEvent; index: number; mode: "reality" | "script" }) {
   const isReality = mode === "reality";
   const content = isReality ? event.reality : event.script;
   const isEven = index % 2 === 0;
@@ -35,7 +44,7 @@ function TimelineItem({ event, index, mode }: { event: any, index: number, mode:
       isEven ? "md:flex-row" : "md:flex-row-reverse",
       "flex-col items-start pl-16 md:pl-0"
     )}>
-      {/* Timeline Marker */}
+      {/* 时间线标记 */}
       <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 bg-current z-10 transition-colors duration-500" 
            style={{ 
              borderColor: isReality ? "var(--reality-accent)" : "var(--script-neon)",
@@ -43,7 +52,7 @@ function TimelineItem({ event, index, mode }: { event: any, index: number, mode:
            }}
       />
 
-      {/* Episode Label */}
+      {/* 剧集标签 */}
       <div className={clsx(
         "hidden md:block w-1/2 text-center text-xs tracking-[0.2em] opacity-50",
         isEven ? "text-right pr-12" : "text-left pl-12"
@@ -51,7 +60,7 @@ function TimelineItem({ event, index, mode }: { event: any, index: number, mode:
         {event.episode}
       </div>
 
-      {/* Content Card */}
+      {/* 内容卡片 */}
       <motion.div 
         className={clsx(
           "w-full md:w-1/2 relative p-8 transition-all duration-700",
@@ -63,7 +72,7 @@ function TimelineItem({ event, index, mode }: { event: any, index: number, mode:
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* Mobile Episode Label */}
+        {/* 移动端剧集标签 */}
         <span className="md:hidden block text-xs tracking-widest opacity-50 mb-4">{event.episode}</span>
 
         <AnimatePresence mode="wait">
@@ -89,7 +98,7 @@ function TimelineItem({ event, index, mode }: { event: any, index: number, mode:
           </motion.div>
         </AnimatePresence>
 
-        {/* Decor */}
+        {/* 装饰元素 */}
         <div className={clsx(
           "absolute top-0 left-0 w-1 h-full transition-colors duration-500",
           isReality ? "bg-reality-accent" : "bg-script-accent"

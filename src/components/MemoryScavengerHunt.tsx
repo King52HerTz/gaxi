@@ -10,7 +10,7 @@ interface MemoryScavengerHuntProps {
   mode: "reality" | "script";
 }
 
-// Define the structure of a scavenger item based on drama-data.ts
+// 基于 drama-data.ts 定义寻宝物品的结构
 interface ScavengerItem {
   id: string;
   name: string;
@@ -30,10 +30,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
       setCollectedItems(newCollected);
       setLastCollected(item);
       
-      // Auto hide notification
+      // 自动隐藏通知
       setTimeout(() => setLastCollected(null), 3000);
 
-      // Check if all items collected
+      // 检查是否收集完所有物品
       if (newCollected.length === SCAVENGER_ITEMS.length) {
         setTimeout(() => setShowReward(true), 1500);
       }
@@ -42,11 +42,11 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
 
   const handleCloseReward = () => {
     setShowReward(false);
-    // Reset letter state after a delay so it's closed next time
+    // 延迟重置信件状态，以便下次打开时是关闭状态
     setTimeout(() => setIsLetterOpen(false), 500);
   };
 
-  // Helper to render icon
+  // 渲染图标的辅助函数
   const renderIcon = (iconName: string, className: string) => {
     switch (iconName) {
       case "headset": return <Glasses className={className} />;
@@ -59,8 +59,8 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
 
   return (
     <>
-      {/* 1. Scavenger Items (Hidden in fixed positions for now, ideally scattered in layout) */}
-      {/* Item 1: VR Headset (Hero Section - Top Left) */}
+      {/* 1. 寻宝物品（目前隐藏在固定位置，理想情况下应散布在布局中） */}
+      {/* 物品 1: VR 眼镜（英雄区域 - 左上角） */}
       {!collectedItems.includes("vr-headset") && (
         <motion.button
           className="absolute top-24 left-10 md:left-24 z-20 text-gray-400/30 hover:text-reality-accent transition-colors"
@@ -71,7 +71,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         </motion.button>
       )}
 
-      {/* Item 2: Old Blueprint (Timeline Section - Middle Right) */}
+      {/* 物品 2: 旧图纸（时间线区域 - 中右侧） */}
       {!collectedItems.includes("blueprint") && (
         <motion.button
           className="absolute top-[40%] right-10 z-20 text-gray-400/30 hover:text-reality-accent transition-colors"
@@ -82,7 +82,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         </motion.button>
       )}
 
-      {/* Item 3: Sakura Petal (Character Section - Bottom Left) */}
+      {/* 物品 3: 樱花瓣（角色区域 - 左下角） */}
       {!collectedItems.includes("petal") && (
         <motion.button
           className="absolute top-[70%] left-10 z-20 text-gray-400/30 hover:text-script-neon transition-colors"
@@ -93,7 +93,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         </motion.button>
       )}
 
-      {/* Item 4: Lighter (Footer - Center) */}
+      {/* 物品 4: 打火机（页脚 - 中间） */}
       {!collectedItems.includes("lighter") && (
         <motion.button
           className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-400/30 hover:text-orange-500 transition-colors"
@@ -104,7 +104,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         </motion.button>
       )}
 
-      {/* 2. Collection Notification */}
+      {/* 2. 收集通知 */}
       <AnimatePresence>
         {lastCollected && (
           <motion.div
@@ -115,7 +115,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
           >
             <CheckCircle2 className="text-green-400 w-5 h-5" />
             <div>
-              <p className="text-sm font-bold">Memory Found: {lastCollected.name}</p>
+              <p className="text-sm font-bold">发现回忆: {lastCollected.name}</p>
               <p className="text-xs text-gray-400">{lastCollected.desc}</p>
             </div>
             <span className="ml-2 text-xs font-mono bg-white/20 px-2 py-1 rounded">
@@ -125,7 +125,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
         )}
       </AnimatePresence>
 
-      {/* 3. Final Reward Modal */}
+      {/* 3. 最终奖励弹窗 */}
       <AnimatePresence>
         {showReward && (
           <motion.div
@@ -140,7 +140,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
               animate={{ 
                 scale: 1, 
                 opacity: 1,
-                rotateX: isLetterOpen ? 0 : 0 // Can add flip effect later if needed
+                rotateX: isLetterOpen ? 0 : 0 // 如果需要，稍后可以添加翻转效果
               }}
               exit={{ scale: 0.9, opacity: 0 }}
               className={clsx(
@@ -149,17 +149,17 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
               )}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Envelope / Letter Container */}
+              {/* 信封/信件容器 */}
               <div className={clsx(
                 "bg-[#fdfbf7] rounded-sm shadow-2xl overflow-hidden relative transition-all duration-700",
                 isLetterOpen ? "p-8 md:p-12 min-h-[70vh]" : "p-8 min-h-[300px] flex flex-col items-center justify-center cursor-pointer hover:shadow-[0_20px_50px_rgba(212,175,55,0.2)]"
               )}
               onClick={() => !isLetterOpen && setIsLetterOpen(true)}
               >
-                {/* Paper Texture Overlay */}
+                {/* 纸张纹理覆盖 */}
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] opacity-60 pointer-events-none" />
                 
-                {/* Close Button */}
+                {/* 关闭按钮 */}
                 <button 
                   onClick={handleCloseReward}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors z-20"
@@ -168,8 +168,8 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
                 </button>
 
                 {!isLetterOpen ? (
-                  /* Closed State: Envelope Hint */
-                  <motion.div 
+                  /* 关闭状态：信封提示 */
+                  <motion.div  
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -193,7 +193,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
                     </motion.div>
                   </motion.div>
                 ) : (
-                  /* Open State: Letter Content */
+                  /* 打开状态：信件内容 */
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

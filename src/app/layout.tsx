@@ -30,8 +30,8 @@ const handwrittenFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hu Xiu & Xiao Zhiyu | The Script is Fiction, The Love is Real",
-  description: "A fan collection for the couple Hu Xiu and Xiao Zhiyu from Double Booking.",
+  title: "胡羞 & 肖稚宇 | 剧本是假的，爱是真的",
+  description: "《轧戏》胡羞与肖稚宇的同人收藏。",
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn, Film, User } from "lucide-react";
+import { X, ZoomIn, Film, User, Heart } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
 import { SCENE_PHOTOS } from "@/data/drama-data";
@@ -12,11 +12,24 @@ interface InteractivePhotoWallProps {
 }
 
 export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps) {
-  const [filter, setFilter] = useState<"all" | "character" | "scene">("all");
+  const [filter, setFilter] = useState<"all" | "character" | "scene" | "kiss">("all");
   const [selectedPhoto, setSelectedPhoto] = useState<typeof SCENE_PHOTOS[0] | null>(null);
 
   const filteredPhotos = SCENE_PHOTOS.filter(
-    (photo) => filter === "all" || photo.type === filter
+    (photo) => {
+      // 基础过滤
+      const typeMatch = filter === "all" || photo.type === filter;
+      
+      // 模式过滤：如果是人物卡片，根据模式调整标题/内容（这里主要是为了演示，实际数据可能需要更复杂的映射）
+      if (photo.type === "character" && typeMatch) {
+        if (!isReality && photo.title.includes("胡羞 & 肖稚宇")) {
+           // 这是一个简单的演示，实际可能需要修改数据源结构以支持双模式内容
+           // 但为了不破坏 SCENE_PHOTOS 的类型，我们在渲染时动态处理
+        }
+      }
+      
+      return typeMatch;
+    }
   );
 
   const isReality = mode === "reality";
@@ -72,6 +85,13 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
               icon={<Film size={14} />}
               mode={mode}
             />
+            <FilterButton 
+              active={filter === "kiss"} 
+              onClick={() => setFilter("kiss")} 
+              label="名场面" 
+              icon={<Heart size={14} />}
+              mode={mode}
+            />
           </div>
         </div>
 
@@ -118,7 +138,13 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                   "absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300",
                   isReality ? "bg-white/90 text-reality-text" : "bg-black/80 text-white border-t border-script-neon/30"
                 )}>
-                  <h3 className="font-bold text-lg mb-1">{photo.title}</h3>
+                  <h3 className="font-bold text-lg mb-1">
+                    {/* 动态修改标题：如果是人物卡片且标题包含特定字符，根据模式显示不同内容 */}
+                    {photo.type === "character" && photo.title.includes("胡羞 & 肖稚宇")
+                      ? (isReality ? "胡羞 & 肖稚宇" : "胡羞 & 秦霄一")
+                      : photo.title
+                    }
+                  </h3>
                   <p className="text-xs opacity-80 line-clamp-2">{photo.desc}</p>
                 </div>
               </motion.div>
@@ -179,7 +205,10 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                   "text-3xl font-bold mb-4",
                   isReality ? "font-serif" : "font-serif-sc"
                 )}>
-                  {selectedPhoto.title}
+                  {selectedPhoto.type === "character" && selectedPhoto.title.includes("胡羞 & 肖稚宇")
+                    ? (isReality ? "胡羞 & 肖稚宇" : "胡羞 & 秦霄一")
+                    : selectedPhoto.title
+                  }
                 </h3>
                 <div className={clsx(
                   "w-12 h-1 mb-6",

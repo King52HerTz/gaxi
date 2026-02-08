@@ -14,16 +14,16 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isReality = mode === "reality";
 
-  // Audio sources (Using placeholder URLs for demo purposes)
-  // In a real project, these would be local assets or hosted files
+  // 音频源（使用占位符 URL 用于演示）
+  // 在实际项目中，这些将是本地资源或托管文件
   const audioSrc = isReality 
     ? "/music/reality-theme.mp3" // 现实模式音乐文件
     : "/music/script-theme.mp3"; // 剧本模式音乐文件
 
   useEffect(() => {
     if (audioRef.current) {
-      // Only update src if it's different to prevent restarting/aborting
-      // We check if the current absolute src ends with the desired path
+      // 仅当 src 不同时更新，以防止重新开始/中断
+      // 我们检查当前的绝对 src 是否以所需路径结尾
       if (!audioRef.current.src.endsWith(audioSrc)) {
         audioRef.current.src = audioSrc;
       }
@@ -54,7 +54,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
         {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </motion.button>
 
-      {/* Visualizer / Track Info */}
+      {/* 可视化器 / 曲目信息 */}
       <motion.div 
         initial={{ width: 0, opacity: 0 }}
         animate={{ width: isPlaying ? "auto" : 0, opacity: isPlaying ? 1 : 0 }}
@@ -66,7 +66,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
             ? "bg-white/80 border-gray-200 text-gray-600" 
             : "bg-black/60 border-script-neon/20 text-script-neon"
         )}>
-          {/* Animated Waveform */}
+          {/* 动画波形 */}
           <div className="flex items-end gap-[2px] h-3">
             {[...Array(5)].map((_, i) => (
               <motion.div
@@ -83,7 +83,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
             ))}
           </div>
           <span>
-            {isReality ? "Now Playing: Afternoon Office" : "Now Playing: Midnight Jazz"}
+            {isReality ? "正在播放: 午后办公室" : "正在播放: 午夜爵士"}
           </span>
         </div>
       </motion.div>

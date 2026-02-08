@@ -370,6 +370,7 @@ export const DUAL_GALLERY_IMAGES = [
 ];
 
 export const SCENE_PHOTOS = [
+  // 场景 (8张)
   {
     id: "scene-1",
     type: "scene",
@@ -385,13 +386,6 @@ export const SCENE_PHOTOS = [
     src: "/photo/gong01.png"
   },
   {
-    id: "char-1",
-    type: "character",
-    title: "肖稚宇 · 独白",
-    desc: "“我不在乎你是谁，我只想爱你。”",
-    src: "/photo/xiao01.png"
-  },
-  {
     id: "scene-3",
     type: "scene",
     title: "容城雪景",
@@ -399,18 +393,150 @@ export const SCENE_PHOTOS = [
     src: "/photo/gong01.png"
   },
   {
-    id: "char-2",
-    type: "character",
-    title: "胡羞 · 觉醒",
-    desc: "她不再是那个逃避现实的女孩，而是敢于直视深渊的破局者。",
-    src: "/photo/hu01.png"
-  },
-  {
     id: "scene-4",
     type: "scene",
     title: "Midnight Express",
     desc: "火车驶入迷雾，故事从这里开始。",
     src: "/photo/gong01.png"
+  },
+  {
+    id: "scene-5",
+    type: "scene",
+    title: "Regard 咖啡馆",
+    desc: "赵孝柔的避风港，也是故事中温暖的角落。",
+    src: "/photo/gong01.png"
+  },
+  {
+    id: "scene-6",
+    type: "scene",
+    title: "筑翎集团",
+    desc: "权力的中心，也是裴轸被束缚的牢笼。",
+    src: "/photo/gong01.png"
+  },
+  {
+    id: "scene-7",
+    type: "scene",
+    title: "废弃工厂",
+    desc: "真相的埋藏地，也是复仇与救赎的转折点。",
+    src: "/photo/gong01.png"
+  },
+  {
+    id: "scene-8",
+    type: "scene",
+    title: "Dynamism 事务所",
+    desc: "梦想起航的地方，见证了他们的并肩作战。",
+    src: "/photo/gong01.png"
+  },
+
+  // 胡羞 (6张)
+  {
+    id: "huxiu-1",
+    type: "huxiu",
+    title: "胡羞 · 订婚",
+    desc: "二十六岁，梦碎时刻，也是重生的起点。",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "huxiu-2",
+    type: "huxiu",
+    title: "胡羞 · 建筑师",
+    desc: "重拾画笔，在Dynamism找回了自己的光芒。",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "huxiu-3",
+    type: "huxiu",
+    title: "胡羞 · 特工",
+    desc: "民国容城里的代号026，眼神坚定，无惧深渊。",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "huxiu-4",
+    type: "huxiu",
+    title: "胡羞 · 弄堂",
+    desc: "烟火气里的温暖，治愈了那个复仇者的心。",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "huxiu-5",
+    type: "huxiu",
+    title: "胡羞 · 觉醒",
+    desc: "不再是逃避现实的女孩，而是敢于直视深渊的破局者。",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "huxiu-6",
+    type: "huxiu",
+    title: "胡羞 · 终章",
+    desc: "欢迎来到容城，这一次，是为了爱。",
+    src: "/photo/hu01.png"
+  },
+
+  // 肖稚宇 (6张)
+  {
+    id: "xiao-1",
+    type: "xiaozhiyu",
+    title: "肖稚宇 · 独白",
+    desc: "“我不在乎你是谁，我只想爱你。”",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "xiao-2",
+    type: "xiaozhiyu",
+    title: "肖稚宇 · 复仇",
+    desc: "背负着“Q”的秘密，在黑暗中蛰伏二十年。",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "xiao-3",
+    type: "xiaozhiyu",
+    title: "肖稚宇 · 守护",
+    desc: "推开你是为了保护你，火场里毫不犹豫的选择才是真心。",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "xiao-4",
+    type: "xiaozhiyu",
+    title: "肖稚宇 · 释怀",
+    desc: "摩天大楼顶端，蓝图终成现实，他也找到了归宿。",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "xiao-5",
+    type: "xiaozhiyu",
+    title: "秦宵一 · 督军",
+    desc: "容城的王，拥有自我意识的觉醒NPC。",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "xiao-6",
+    type: "xiaozhiyu",
+    title: "秦宵一 · 破局",
+    desc: "“进了容城，我也可以不做肖稚宇了。”",
+    src: "/photo/xiao01.png"
+  },
+
+  // 吻戏 (3张)
+  {
+    id: "kiss-1",
+    type: "kiss",
+    title: "容城初吻",
+    desc: "漫天飞雪中，她吻了他。“我不在乎你是NPC还是谁，我只知道我爱你。” (Ep 26)",
+    src: "/photo/hu01.png"
+  },
+  {
+    id: "kiss-2",
+    type: "kiss",
+    title: "樱花树下",
+    desc: "樱花树下，他为之前的态度不明道歉，并正式告白，两人再次甜蜜拥吻。 (Ep 19)",
+    src: "/photo/xiao01.png"
+  },
+  {
+    id: "kiss-3",
+    type: "kiss",
+    title: "雨中重逢",
+    desc: "他惊喜现身，雨中送花给她，两人用一吻化解思念。 (Ep 28)",
+    src: "/photo/hu01.png"
   }
 ];
 
