@@ -59,7 +59,32 @@ export const TIMELINE_EVENTS = [
   }
 ];
 
-export const CHARACTERS = [
+export interface Character {
+  id: string;
+  name: string;
+  avatar: string;
+  relationships: {
+    targetId: string;
+    desc: string;
+    type: string;
+  }[];
+  reality: {
+    role: string;
+    desc: string;
+    quote: string;
+    tags: string[];
+    photo: string;
+  };
+  script: {
+    role: string;
+    desc: string;
+    quote: string;
+    tags: string[];
+    photo: string;
+  };
+}
+
+export const CHARACTERS: Character[] = [
   {
     id: "huxiu",
     name: "胡羞",
@@ -76,6 +101,13 @@ export const CHARACTERS = [
       tags: ["温暖", "直觉", "治愈"],
       photo: "/photo/hu02.png"
     },
+    script: {
+      role: "特工 / 觉醒者",
+      desc: "在容城的迷雾中，她是身怀机密的特工，也是唯一敢直视秦宵一眼底的人。从入局到破局，她赢得了胜负，也赢得了真心。",
+      quote: "“哪怕世界是假的，我的爱是真的。”",
+      tags: ["特工", "觉醒", "破局"],
+      photo: "/photo/hu01.png"
+    }
   },
   {
     id: "xiaozhiyu",
@@ -92,6 +124,13 @@ export const CHARACTERS = [
       tags: ["复仇", "深情", "创始人"],
       photo: "/photo/xiao02.png"
     },
+    script: {
+      role: "督军 / 守护者",
+      desc: "容城的统治者秦宵一，冷酷、多疑。但在那个女孩面前，他愿意违背系统设定，为她挡下所有的枪林弹雨。",
+      quote: "“如果你想要赢，我把命给你。”",
+      tags: ["督军", "守护", "秦宵一"],
+      photo: "/photo/xiao01.png"
+    }
   },
   {
     id: "peizhen",
@@ -107,6 +146,13 @@ export const CHARACTERS = [
       tags: ["释怀", "兄弟", "竞争"],
       photo: "/photo/pei02.png"
     },
+    script: {
+      role: "贵公子 / 牺牲者",
+      desc: "筑翎集团的继承人，活在父亲影子里。他在虚假的世界寻找真实，却最终发现自己只是棋盘上的一颗弃子。",
+      quote: "“如果能重来，我只想做裴轸。”",
+      tags: ["贵公子", "体面", "遗憾"],
+      photo: "/photo/pei01.png"
+    }
   },
   {
     id: "zhaoxiaorou",
@@ -124,6 +170,13 @@ export const CHARACTERS = [
       tags: ["闺蜜", "重生", "坚强"],
       photo: "/photo/zhao02.png"
     },
+    script: {
+      role: "情报商 / 玫瑰",
+      desc: "容城情报网的核心，游走在各方势力之间。她是胡羞最可靠的盟友，也是这乱世中一朵带刺的红玫瑰。",
+      quote: "“在容城，情报就是生命。”",
+      tags: ["情报", "冷静", "飒爽"],
+      photo: "/photo/zhao01.png"
+    }
   },
   {
     id: "gonghuaicong",
@@ -139,6 +192,13 @@ export const CHARACTERS = [
       tags: ["死党", "助攻", "钞能力"],
       photo: "/photo/gong02.png"
     },
+    script: {
+      role: "副官 / 忠诚",
+      desc: "督军府最得力的副官，秦宵一最信任的人。虽然偶尔脱线，但在关键时刻从不掉链子。",
+      quote: "“督军的决定，就是我的决定。”",
+      tags: ["忠诚", "副官", "可靠"],
+      photo: "/photo/gong01.png"
+    }
   },
   {
     id: "wangguangming",
@@ -152,6 +212,13 @@ export const CHARACTERS = [
       tags: ["背叛", "伪善", "前夫"],
       photo: "/photo/wang02.png"
     },
+    script: {
+      role: "背叛者 / 阴谋",
+      desc: "在容城的阴影中徘徊，为了利益不择手段。他是权力的走狗，也是推动剧情走向黑暗的推手。",
+      quote: "“在这个世界，只有赢家才有资格说话。”",
+      tags: ["阴谋", "冷血", "反派"],
+      photo: "/photo/wang01.png"
+    }
   }
 ];
 
@@ -731,62 +798,67 @@ export interface SystemLog {
 export const NPC_LOGS: SystemLog[] = [
   {
     id: "log-01",
-    timestamp: "1932.11.20",
-    episode: "EP 01 · 初遇",
+    timestamp: "1923.11.20",
+    episode: "EP 01 · 变数",
     status: "NORMAL",
-    command: "监测对象：胡羞 (ID: 026)",
-    output: "她看我的眼神不对劲。不像是在看督军秦宵一，倒像是在透过我，看另一个让她伤透了心的人。有趣，这局游戏，似乎有了变数。",
-    glitchLevel: 0,
+    command: "指令：执行新玩家引导程序",
+    // 侧重：他对胡羞的第一印象，那种“同类”的嗅觉
+    output: "第26号玩家入局。通常我也只是照本宣科，看她们为了那点可怜的剧本红利争得头破血流。但她不一样。她站在那儿，眼神是空的，像是刚从另一场惨败里逃出来的逃兵。我那是第一次没有按流程走，我问她：‘你想要的究竟是什么？’ 这一问，我看见她眼里的火活了。",
+    glitchLevel: 5,
     memoryContent: {
-      quote: "“你想要的，究竟是什么？”"
+      quote: "“在这个假的世界里，或许你可以赢一次。”"
     }
   },
   {
     id: "log-13",
-    timestamp: "1933.01.15",
-    episode: "EP 13 · 意外",
+    timestamp: "1923.12.05",
+    episode: "EP 13 · 软肋",
     status: "WARNING",
-    command: "系统警告：偏离人设",
-    output: "她误食毒菌产生了幻觉，嘴里喊着另一个名字。我不该管的，NPC守则第一条就是“旁观”。可为什么我的手已经伸出去了？",
-    glitchLevel: 20,
+    command: "指令：利用目标中毒状态获取情报",
+    // 侧重：本能的保护欲战胜了算计
+    output: "见手青的毒性发作了，她缩在角落里发抖，嘴里喊着冷。理智告诉我，这是套取机密的最佳时机，你是秦宵一，你是要杀伐决断的督军。可为什么……等我回过神来，我已经把大衣披在了她身上。那一刻算计全无，我竟然只想做她迷雾里唯一的灯。",
+    glitchLevel: 30,
     memoryContent: {
-      quote: "“别怕，我在。”"
+      quote: "“别怕，睡一觉就好，我守着你。”"
     }
   },
   {
     id: "log-19",
-    timestamp: "1933.02.14",
+    timestamp: "1924.02.14",
     episode: "EP 19 · 越界",
     status: "CRITICAL",
-    command: "严重警告：剧情崩塌",
-    output: "她在樱花树下吻了我。心率传感器读数爆表，逻辑模块完全瘫痪。这不是剧本里的戏，这是……真的吗？如果是梦，我不想醒。",
-    glitchLevel: 60,
+    command: "指令：维持NPC人设，拒绝玩家感情",
+    // 侧重：虚实界限的崩塌
+    output: "樱花落下的速度是秒速五厘米，而我爱上你的速度，只需要这一瞬间。系统在我脑子里尖叫，警告我这只是游戏，警告我这会毁了复仇大计。可当她在树下仰头看我时，我听不到任何代码的声音，我只听见了自己的心跳。去他妈的剧本，这一刻，我想做肖稚宇。",
+    glitchLevel: 65,
     memoryContent: {
-      quote: "“进了容城，我也可以不做肖稚宇了。”"
+      quote: "“如果这是梦，我不介意再沉沦久一点。”"
     }
   },
   {
     id: "log-26",
-    timestamp: "1933.03.01",
-    episode: "EP 26 · 抉择",
+    timestamp: "1924.03.01",
+    episode: "EP 26 · 豪赌",
     status: "CRITICAL",
-    command: "致命错误：放弃复仇任务",
-    output: "证据就在眼前，只要拿走就能赢。但她在火里。去他妈的复仇，去他妈的赢。如果连她都护不住，我要这真相有什么用？",
+    command: "最高指令：夺取证据，无视无关人员",
+    // 侧重：生与死的抉择
+    output: "裴康华的罪证就在左手，那是把父亲清白赎回来的唯一筹码。而她在右手边的火海里。在那一秒钟里，我把自己的一生都算尽了，但我发现，如果没有她，赢了全世界也是输。我去救她，不是因为我是男主，是因为我是她的肖稚宇。",
     glitchLevel: 90,
     memoryContent: {
-      quote: "“我不在乎你是谁，我只想爱你。”"
+      quote: "“没什么比你活着更重要，真相也不行。”"
     }
   },
   {
     id: "log-28",
-    timestamp: "1933.04.10",
-    episode: "EP 28 · 告别",
+    timestamp: "1924.04.10",
+    episode: "EP 28 · 永恒",
     status: "SYSTEM_OVERRIDE",
-    command: "执行指令：格式化记忆",
-    output: "正在删除关于胡羞的所有数据…… 进度 99% …… 错误。无法删除。核心扇区已锁定。我会把这段记忆藏在最深的地方。再见，我的特工。",
+    command: "指令：格式化所有游戏数据",
+    // 侧重：数据删除后的残留，爱的永生
+    output: "服务器要关闭了。容城的雪正在融化成一串串毫无意义的二进制代码。他们以为格式化能清除一切，但他们不知道，有段代码是我用灵魂写进底层的。只要雪还会下，只要雨还会落，我就记得我爱过你。再见，我的特工。我们在摩天大楼的现实里见。",
     glitchLevel: 100,
     memoryContent: {
-      quote: "“欢迎来到容城。”"
+      quote: "“欢迎回到现实，胡羞。”"
     }
   }
 ];

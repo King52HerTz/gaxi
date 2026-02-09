@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CHARACTERS } from "@/data/drama-data";
+import { CHARACTERS, type Character } from "@/data/drama-data";
 import clsx from "clsx";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -31,13 +31,13 @@ export default function CharacterCards({ mode }: CharacterCardsProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#050a1a]/80 p-4 backdrop-blur-sm"
             onClick={() => setSelectedCharId(null)}
           >
             <div className="relative max-w-md w-full" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setSelectedCharId(null)}
-                className="absolute -top-12 right-0 text-white hover:text-red-500 transition-colors"
+                className="absolute -top-12 right-0 text-blue-100 hover:text-blue-200 transition-colors"
               >
                 <X size={32} />
               </button>
@@ -70,7 +70,7 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      className="relative w-full max-w-4xl h-[600px] md:h-[800px] border border-white/5 rounded-3xl bg-black/20 backdrop-blur-sm p-8"
+      className="relative w-full max-w-4xl h-[600px] md:h-[800px] border border-white/10 rounded-3xl bg-[#050a1a]/30 backdrop-blur-sm p-8"
     >
       <h2 className={clsx(
         "text-center text-2xl md:text-4xl font-bold mb-8",
@@ -95,7 +95,7 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
                      y1={`${start.y}%`}
                      x2={`${end.x}%`}
                      y2={`${end.y}%`}
-                     stroke={isReality ? "#d4af37" : "#ff004c"}
+                     stroke={isReality ? "#d4af37" : "#7dc4ff"}
                      strokeWidth="1"
                      strokeOpacity="0.4"
                      initial={{ pathLength: 0 }}
@@ -131,8 +131,8 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
                    <div className={clsx(
                      "text-[10px] md:text-xs text-center px-2 py-0.5 rounded-full whitespace-nowrap backdrop-blur-sm",
                      isReality 
-                       ? "bg-[#fdfbf7]/90 text-gray-600 shadow-sm border border-gray-100" 
-                       : "bg-black/80 text-red-500 border border-red-900 shadow-[0_0_5px_rgba(255,0,76,0.5)]"
+                      ? "bg-[#fdfbf7]/90 text-gray-600 shadow-sm border border-gray-100" 
+                      : "bg-[#050a1a]/80 text-blue-100 border border-blue-200/20 shadow-[0_0_8px_rgba(125,196,255,0.25)]"
                    )}>
                      {rel.desc}
                    </div>
@@ -156,11 +156,11 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
                <div className={clsx(
                  "w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-2 transition-all duration-300 relative",
                  isReality 
-                   ? "border-reality-accent shadow-lg bg-white" 
-                   : "border-script-neon shadow-[0_0_10px_rgba(255,0,76,0.5)] bg-black",
+                  ? "border-reality-accent shadow-lg bg-white" 
+                  : "border-script-neon shadow-[0_0_12px_rgba(125,196,255,0.35)] bg-[#050a1a]",
                  isReality 
-                   ? "group-hover:shadow-2xl group-hover:ring-4 group-hover:ring-reality-accent" 
-                   : "group-hover:shadow-[0_0_30px_rgba(255,0,76,1)] group-hover:ring-4 group-hover:ring-script-neon"
+                  ? "group-hover:shadow-2xl group-hover:ring-4 group-hover:ring-reality-accent" 
+                  : "group-hover:shadow-[0_0_30px_rgba(125,196,255,0.6)] group-hover:ring-4 group-hover:ring-script-neon"
                )}>
                  <Image 
                    src={char.avatar || "https://placehold.co/100x100"} 
@@ -172,7 +172,7 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
                </div>
                <div className={clsx(
                  "mt-3 text-center text-sm font-bold px-3 py-1 rounded-full transition-all duration-300 absolute left-1/2 -translate-x-1/2 whitespace-nowrap",
-                 isReality ? "bg-white text-black shadow-md" : "bg-black text-script-neon border border-script-neon/50",
+                isReality ? "bg-white text-black shadow-md" : "bg-[#050a1a] text-script-neon border border-script-neon/50",
                  "group-hover:scale-110 group-hover:font-extrabold group-hover:z-40"
                )}>
                  {char.name}
@@ -185,17 +185,9 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
   );
 }
 
-interface CharacterContent {
-  role: string;
-  desc: string;
-  quote?: string;
-  tags?: string[];
-  photo?: string;
-}
-
-function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode: "reality" | "script" }) {
+function CharacterCard({ char, mode }: { char: Character, mode: "reality" | "script" }) {
   const isReality = mode === "reality";
-  const content = (isReality ? char.reality : char.script) as CharacterContent;
+  const content = isReality ? char.reality : char.script;
 
   return (
     <motion.div
@@ -203,7 +195,7 @@ function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode
         "relative group transition-all duration-700 overflow-hidden",
         isReality 
           ? "bg-white p-6 shadow-xl rotate-1 hover:rotate-0 hover:scale-105 rounded-sm" // Polaroid Style
-          : "bg-[#0f0f0f] border border-white/10 p-8 hover:border-script-neon/50 hover:shadow-[0_0_30px_rgba(255,191,0,0.2)] rounded-xl" // Cyberpunk Style
+          : "bg-[#050a1a] border border-white/10 p-8 hover:border-script-neon/50 hover:shadow-[0_0_30px_rgba(125,196,255,0.25)] rounded-xl"
       )}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -230,9 +222,9 @@ function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode
              )}
            />
            {/* Script Mode Overlay */}
-           {!isReality && (
-             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-           )}
+          {!isReality && (
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050a1a]/80 via-transparent to-transparent" />
+          )}
         </div>
 
         {/* Header / Name */}

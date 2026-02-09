@@ -23,6 +23,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
   const [showReward, setShowReward] = useState(false);
   const [isLetterOpen, setIsLetterOpen] = useState(false);
   const [lastCollected, setLastCollected] = useState<ScavengerItem | null>(null);
+  const isReality = mode === "reality";
 
   const handleCollect = (item: ScavengerItem) => {
     if (!collectedItems.includes(item.id)) {
@@ -123,12 +124,17 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
             initial={{ opacity: 0, y: 50, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, y: 50, x: "-50%" }}
-            className="fixed bottom-24 left-1/2 z-50 bg-black/80 text-white px-6 py-3 rounded-full flex items-center gap-3 backdrop-blur-md border border-white/10"
+            className={clsx(
+              "fixed bottom-24 left-1/2 z-50 px-6 py-3 rounded-full flex items-center gap-3 backdrop-blur-md border",
+              isReality
+                ? "bg-black/80 text-white border-white/10"
+                : "bg-[#050a1a]/80 text-blue-100 border-white/10"
+            )}
           >
-            <CheckCircle2 className="text-green-400 w-5 h-5" />
+            <CheckCircle2 className={clsx("w-5 h-5", isReality ? "text-green-400" : "text-blue-200")} />
             <div>
               <p className="text-sm font-bold">发现回忆: {lastCollected.name}</p>
-              <p className="text-xs text-gray-400">{lastCollected.desc}</p>
+              <p className={clsx("text-xs", isReality ? "text-gray-400" : "text-blue-200/70")}>{lastCollected.desc}</p>
             </div>
             <span className="ml-2 text-xs font-mono bg-white/20 px-2 py-1 rounded">
               {collectedItems.length}/{SCAVENGER_ITEMS.length}
@@ -144,7 +150,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            className={clsx(
+              "fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-sm",
+              isReality ? "bg-black/60" : "bg-[#050a1a]/70"
+            )}
             onClick={handleCloseReward}
           >
             <motion.div
@@ -243,7 +252,7 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
 
                     <div className="text-right mt-8">
                       <p className="font-handwriting text-xl text-gray-600">
-                        — 观影人
+                        — Eliauk
                       </p>
                       <p className="text-xs font-sans text-gray-400 tracking-widest uppercase mt-1">
                         2026.02.07

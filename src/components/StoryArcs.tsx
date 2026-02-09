@@ -60,7 +60,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
               activeArc === arc.id
                 ? (isReality 
                     ? "border-reality-accent bg-white shadow-lg" 
-                    : "border-script-neon bg-white/5 shadow-[0_0_20px_rgba(255,0,76,0.2)]")
+                    : "border-script-neon bg-white/5 shadow-[0_0_20px_rgba(125,196,255,0.2)]")
                 : (isReality 
                     ? "border-transparent hover:bg-white/50" 
                     : "border-transparent hover:bg-white/5")
@@ -111,7 +111,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                   "h-full p-8 md:p-12 border transition-colors duration-500",
                   isReality 
                     ? "bg-white border-gray-200 shadow-xl" 
-                    : "bg-black/40 border-white/10 backdrop-blur-md shadow-2xl"
+                    : "bg-[#050a1a]/40 border-white/10 backdrop-blur-md shadow-2xl"
                 )}
               >
                 {/* 引用注入 */}
@@ -129,7 +129,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
                   "space-y-6 text-lg leading-loose",
                   isReality 
                     ? "text-gray-600 font-sans" 
-                    : "text-gray-300 font-serif"
+                    : "text-blue-100/80 font-serif"
                 )}>
                   {currentContent.content.map((paragraph, idx) => (
                     <p key={idx}>{highlightText(paragraph)}</p>

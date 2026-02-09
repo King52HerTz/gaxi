@@ -43,7 +43,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
   return (
     <section className={clsx(
       "py-24 px-4 md:px-12 transition-colors duration-1000",
-      isReality ? "bg-[#fdfbf7]" : "bg-[#0f0505]" // Warm Cream vs Deep Black (Red Tint)
+      isReality ? "bg-[#fdfbf7]" : "bg-[#050a1a]"
     )}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -122,7 +122,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                   "relative group cursor-pointer overflow-hidden rounded-lg shadow-lg border",
                   isReality 
                     ? "border-transparent shadow-md" 
-                    : "border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+                    : "border-white/10 shadow-[0_0_15px_rgba(7,20,42,0.7)]"
                 )}
                 onClick={() => setSelectedPhoto(photo)}
               >
@@ -141,10 +141,10 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={clsx(
                       "transition-transform duration-700 group-hover:scale-110",
-                      photo.type === "kiss" ? "object-contain bg-black" : "object-cover"
+                      photo.type === "kiss" ? "object-contain bg-[#050a1a]" : "object-cover"
                     )}
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#050a1a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <ZoomIn className="text-white w-10 h-10" />
                   </div>
                 </div>
@@ -161,24 +161,24 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050a1a]/90 backdrop-blur-md"
             onClick={() => setSelectedPhoto(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-6xl w-full max-h-[90vh] bg-black rounded-lg overflow-hidden shadow-2xl border border-white/10"
+              className="relative max-w-6xl w-full max-h-[90vh] bg-[#050a1a] rounded-lg overflow-hidden shadow-2xl border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 z-10 text-white/50 hover:text-white transition-colors"
+                className="absolute top-4 right-4 z-10 text-blue-100/60 hover:text-blue-100 transition-colors"
               >
                 <X size={32} />
               </button>
 
-              <div className="relative bg-black flex items-center justify-center min-h-[70vh]">
+              <div className="relative bg-[#050a1a] flex items-center justify-center min-h-[70vh]">
                 <Image 
                   src={safeSelectedPhoto.src} 
                   alt={safeSelectedPhoto.title}
@@ -203,8 +203,8 @@ function FilterButton({ active, onClick, label, icon, mode }: { active: boolean;
       className={clsx(
         "px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2",
         active 
-          ? (isReality ? "bg-reality-text text-white shadow-lg" : "bg-script-neon text-black shadow-[0_0_15px_rgba(255,0,0,0.5)]")
-          : (isReality ? "bg-white text-gray-500 hover:bg-gray-100" : "bg-white/5 text-gray-400 hover:bg-white/10")
+          ? (isReality ? "bg-reality-text text-white shadow-lg" : "bg-script-neon text-[#050a1a] shadow-[0_0_15px_rgba(125,196,255,0.45)]")
+          : (isReality ? "bg-white text-gray-500 hover:bg-gray-100" : "bg-white/5 text-blue-200/70 hover:bg-white/10")
       )}
     >
       {icon}

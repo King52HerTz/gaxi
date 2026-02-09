@@ -12,7 +12,6 @@ function GlitchText({ text, isActive }: { text: string; isActive: boolean }) {
 
   useEffect(() => {
     if (!isActive || text.length === 0) {
-      setDisplay(text);
       return;
     }
 
@@ -35,7 +34,7 @@ function GlitchText({ text, isActive }: { text: string; isActive: boolean }) {
     return () => clearInterval(intervalId);
   }, [chars, isActive, text]);
 
-  return <span>{display}</span>;
+  return <span>{isActive ? display : text}</span>;
 }
 
 export default function SystemLogEntrance() {
@@ -48,10 +47,12 @@ export default function SystemLogEntrance() {
   // Auto-load logs when open
   useEffect(() => {
     if (isOpen) {
-        setVisibleLogs([]); // Reset logs
         let index = 0;
         const intervalId: ReturnType<typeof setInterval> = setInterval(() => {
           setVisibleLogs((prev) => {
+            // 如果是刚开始，先清空
+            if (index === 0 && prev.length > 0) return [];
+            
             const nextLog = NPC_LOGS[index];
             if (!nextLog) return prev;
             if (prev.find(l => l.id === nextLog.id)) return prev;
@@ -66,7 +67,10 @@ export default function SystemLogEntrance() {
           }
         }, 800); 
 
-        return () => clearInterval(intervalId);
+        return () => {
+          clearInterval(intervalId);
+          setVisibleLogs([]); // 离开或重置时清空
+        };
     }
   }, [isOpen]);
 
@@ -75,11 +79,11 @@ export default function SystemLogEntrance() {
 
   const 状态颜色 = (status: SystemLog["status"]) => {
     switch (status) {
-      case "NORMAL": return "text-[#00ff00]";
-      case "WARNING": return "text-yellow-400";
-      case "CRITICAL": return "text-red-500";
-      case "SYSTEM_OVERRIDE": return "text-pink-500";
-      default: return "text-gray-400";
+      case "NORMAL": return "text-blue-100";
+      case "WARNING": return "text-blue-200";
+      case "CRITICAL": return "text-blue-50";
+      case "SYSTEM_OVERRIDE": return "text-blue-100";
+      default: return "text-blue-200/70";
     }
   };
 
@@ -96,30 +100,31 @@ export default function SystemLogEntrance() {
   return (
     <>
       {/* 底部入口 Trigger */}
-      <section className="relative w-full py-16 bg-black border-t border-green-900/30 flex flex-col items-center justify-center gap-6 overflow-hidden">
-         {/* CRT Background for Trigger */}
-         <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat opacity-10" />
+      <section className="relative w-full py-20 bg-[#050a1a] border-t border-blue-900/30 flex flex-col items-center justify-center gap-6 overflow-hidden">
+         <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(80,140,255,0.15),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(130,210,255,0.18),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(90,160,255,0.12),transparent_55%)]" />
+         <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(6,16,40,0.8),rgba(6,16,40,0.2)_60%,rgba(6,16,40,0.9))]" />
+         <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle,rgba(160,220,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
          
-         <div className="z-20 flex flex-col items-center gap-2 text-green-500/60 font-mono text-sm">
-            <Bug size={24} className="animate-pulse text-green-500" />
-            <span className="tracking-[0.2em] uppercase">检测到系统核心</span>
+         <div className="z-20 flex flex-col items-center gap-2 text-blue-200/70 font-mono text-sm">
+            <Bug size={24} className="text-blue-300" />
+            <span className="tracking-[0.2em] uppercase">Deep Archive Signal</span>
          </div>
 
          <motion.button
-            whileHover={{ scale: 1.05, textShadow: "0 0 8px rgb(34, 197, 94)" }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(140,200,255,0.35)" }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setIsOpen(true)}
-            className="z-20 px-8 py-3 border border-green-500/30 bg-green-500/5 hover:bg-green-500/10 text-green-500 font-mono text-lg tracking-widest uppercase transition-all duration-300 relative group overflow-hidden"
+            className="z-20 px-8 py-3 border border-blue-300/30 bg-white/5 hover:bg-white/10 text-blue-100 font-mono text-lg tracking-widest uppercase transition-all duration-300 relative group overflow-hidden rounded-full backdrop-blur-md"
          >
             <span className="relative z-10 flex items-center gap-2">
                <Terminal size={18} />
-               访问日志数据库
+               进入深海档案
             </span>
-            <div className="absolute inset-0 bg-green-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
          </motion.button>
          
-         <p className="z-20 text-[10px] text-green-500/30 font-mono">
-            受限区域 // 仅限授权人员
+         <p className="z-20 text-[10px] text-blue-200/40 font-mono">
+            深海档案 // 雪域数据流
          </p>
       </section>
 
@@ -130,12 +135,12 @@ export default function SystemLogEntrance() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black font-mono text-green-500 overflow-hidden flex flex-col"
+            className="fixed inset-0 z-[100] bg-[#050a1a] font-mono text-blue-100 overflow-hidden flex flex-col"
           >
             {/* Close Button */}
             <button 
                 onClick={() => setIsOpen(false)}
-                className="absolute top-6 right-6 z-50 p-2 text-green-500/50 hover:text-red-500 hover:bg-white/10 rounded-full transition-colors group"
+                className="absolute top-6 right-6 z-50 p-2 text-blue-200/60 hover:text-blue-100 hover:bg-white/10 rounded-full transition-colors group"
             >
                 <div className="flex items-center gap-2">
                     <span className="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">退出系统</span>
@@ -144,88 +149,87 @@ export default function SystemLogEntrance() {
             </button>
 
             {/* CRT Effects */}
-            <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat" />
-            <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.65)_100%)]" />
-            <div className="pointer-events-none absolute inset-0 z-20 crt-flicker" />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_30%,rgba(110,190,255,0.18),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(80,140,255,0.2),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(140,220,255,0.12),transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(4,10,24,0.85)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 z-20 snow-drift" />
 
             <div className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col px-4 py-8 md:px-12 md:py-12">
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-8 flex items-end justify-between border-b border-green-500/30 pb-4 shrink-0"
+                  className="mb-8 flex items-end justify-between border-b border-blue-200/20 pb-4 shrink-0"
                 >
                   <div>
                     <h1 className="mb-2 flex items-center gap-4 text-3xl font-bold tracking-tighter md:text-5xl">
-                      <Terminal size={40} className="animate-pulse" />
-                      NPC 系统日志
+                      <Terminal size={40} className="text-blue-200" />
+                      深海档案
                     </h1>
-                    <p className="text-xs uppercase tracking-widest text-green-500/60 md:text-sm">
-                      秦宵一 [ID: 9527] // 记忆核心转储 // v2.4.0
+                    <p className="text-xs uppercase tracking-widest text-blue-200/60 md:text-sm">
+                      秦宵一 [ID: 9527] // 深层记忆回流 // v3.1.0
                     </p>
                   </div>
                   <div className="hidden text-right md:block">
-                    <div className="flex items-center gap-2 text-red-500 animate-pulse">
+                    <div className="flex items-center gap-2 text-blue-200/80">
                       <AlertOctagon size={16} />
-                      <span className="text-xs font-bold">检测到核心不稳定</span>
+                      <span className="text-xs font-bold">记忆温度过载</span>
                     </div>
                   </div>
                 </motion.div>
 
                 <div className="flex-1 min-h-0 relative">
-                  <div ref={listRef} className="absolute inset-0 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-green-900 scrollbar-track-black pb-20">
-                    <div className="absolute left-3 top-0 h-full w-px bg-green-500/20" />
+                  <div ref={listRef} className="absolute inset-0 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-blue-300/30 scrollbar-track-transparent pb-20">
+                    <div className="absolute left-3 top-0 h-full w-px bg-blue-200/20" />
                     <div className="space-y-4 pl-8">
                       <AnimatePresence>
                         {visibleLogs.map((log) => {
                           const 故障 = is故障(log.status);
-                          const 警告 = is警告(log.status);
                           const isHovered = hoveredLogId === log.id;
 
                           return (
                             <motion.div
                               key={log.id}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
                               onMouseEnter={() => setHoveredLogId(log.id)}
                               onMouseLeave={() => setHoveredLogId(null)}
                               onClick={() => {
                                 if (故障) setSelectedLog(log);
                               }}
                               className={clsx(
-                                "relative cursor-pointer border-b border-dashed border-white/10 px-4 py-4 transition-colors",
+                                "relative cursor-pointer border border-white/10 px-4 py-4 transition-colors rounded-2xl backdrop-blur-md bg-white/5 float-breath",
                                 状态颜色(log.status),
-                                isHovered ? "bg-white/5" : "bg-transparent",
-                                警告 ? "animate-jitter" : "",
+                                isHovered ? "bg-white/10 shadow-[0_0_30px_rgba(160,220,255,0.15)]" : "shadow-[0_0_12px_rgba(90,150,255,0.08)]",
                                 故障 ? "glitch-line" : ""
                               )}
+                              transition={{ duration: 0.6 }}
                             >
                               <div
                                 className={clsx(
                                   "absolute left-3 top-6 h-2 w-2 -translate-x-1/2 rounded-full border",
                                   log.status === "SYSTEM_OVERRIDE"
-                                    ? "border-pink-400 bg-pink-500 shadow-[0_0_18px_rgba(255,0,170,0.45)]"
+                                    ? "border-blue-200 bg-blue-100 shadow-[0_0_18px_rgba(160,220,255,0.35)]"
                                     : log.status === "CRITICAL"
-                                      ? "border-red-400 bg-red-500 shadow-[0_0_18px_rgba(255,0,0,0.45)]"
+                                      ? "border-blue-100 bg-blue-50 shadow-[0_0_18px_rgba(190,230,255,0.35)]"
                                       : log.status === "WARNING"
-                                        ? "border-yellow-200 bg-yellow-400 shadow-[0_0_14px_rgba(250,204,21,0.35)]"
-                                        : "border-green-200 bg-[#00ff00] shadow-[0_0_14px_rgba(0,255,0,0.35)]"
+                                        ? "border-blue-200 bg-blue-200 shadow-[0_0_14px_rgba(160,220,255,0.25)]"
+                                        : "border-blue-200 bg-blue-200 shadow-[0_0_14px_rgba(160,220,255,0.25)]"
                                 )}
                               />
 
                               <div className="mb-2 flex flex-col gap-2 text-xs opacity-70 md:flex-row md:gap-8">
-                                <span>[{log.timestamp}]</span>
-                                <span>{log.episode}</span>
-                                <span className={clsx("font-bold", 故障 ? "animate-flicker" : "")}>
+                                <span className="text-blue-200/70">[{log.timestamp}]</span>
+                                <span className="text-blue-200/70">{log.episode}</span>
+                                <span className={clsx("font-bold text-blue-100/80", 故障 ? "animate-flicker" : "")}>
                                   状态：{状态中文(log.status)}（{log.status}）
                                 </span>
                               </div>
 
                               <div className="flex items-start gap-4">
-                                <span className="select-none opacity-50">{">"}</span>
+                                <span className="select-none opacity-40 text-blue-200/70">{">"}</span>
                                 <div className="min-w-0 flex-1 space-y-1">
-                                  <p className="truncate font-bold tracking-wide">指令：{log.command}</p>
-                                  <p className="leading-relaxed opacity-85">
-                                    输出：
+                                  <p className="truncate font-bold tracking-wide text-blue-100/80">{log.command}</p>
+                                  <p className="leading-relaxed text-blue-100/85 font-serif">
+                                    {log.status === "CRITICAL" ? "内心：" : "回声："}
                                     {log.status === "CRITICAL" ? (
                                       <span className="glitch-text">
                                         {故障 ? <GlitchText text={log.output} isActive /> : log.output}
@@ -239,7 +243,7 @@ export default function SystemLogEntrance() {
 
                               {故障 && (
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
-                                  <AlertTriangle size={20} className="animate-bounce" />
+                                  <AlertTriangle size={20} className="text-blue-100" />
                                 </div>
                               )}
                             </motion.div>
@@ -249,9 +253,9 @@ export default function SystemLogEntrance() {
                       
                        {/* Loading Cursor */}
                        <motion.div
-                        animate={{ opacity: [0, 1, 0] }}
-                        transition={{ duration: 0.8, repeat: Infinity }}
-                        className="h-5 w-3 bg-green-500 mt-4"
+                        animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -2, 0] }}
+                        transition={{ duration: 1.6, repeat: Infinity }}
+                        className="h-4 w-2 bg-blue-200/70 mt-6 rounded-full blur-[0.5px]"
                       />
                     </div>
                   </div>
@@ -265,44 +269,44 @@ export default function SystemLogEntrance() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+                    className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050a1a]/90 p-4 backdrop-blur-xl"
                     onClick={() => setSelectedLog(null)}
                   >
                     <motion.div
                       initial={{ scale: 0.9, y: 20 }}
                       animate={{ scale: 1, y: 0 }}
                       exit={{ scale: 0.9, y: 20 }}
-                      className="relative w-full max-w-2xl border-2 border-red-500 bg-black p-8 shadow-[0_0_50px_rgba(255,0,0,0.3)]"
+                      className="relative w-full max-w-2xl border border-white/15 bg-white/5 p-8 shadow-[0_0_50px_rgba(120,180,255,0.25)] rounded-2xl backdrop-blur-md"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="absolute left-0 top-0 h-1 w-full animate-pulse bg-red-500" />
-                      <div className="absolute bottom-0 left-0 h-1 w-full animate-pulse bg-red-500" />
+                      <div className="absolute left-0 top-0 h-px w-full bg-blue-200/40" />
+                      <div className="absolute bottom-0 left-0 h-px w-full bg-blue-200/40" />
 
-                      <div className="mb-6 flex items-center gap-4 border-b border-red-500/30 pb-4 text-red-500">
+                      <div className="mb-6 flex items-center gap-4 border-b border-blue-200/20 pb-4 text-blue-100">
                         <ShieldAlert size={32} />
-                        <h2 className="text-2xl font-bold tracking-widest">致命系统错误</h2>
+                        <h2 className="text-2xl font-bold tracking-widest">深海记忆裂隙</h2>
                       </div>
 
                       <div className="space-y-6">
-                        <div className="text-sm text-red-400/80">
-                          <p>{">"} 错误代码：0x{selectedLog.glitchLevel}E9</p>
-                          <p>{">"} 模块：情感引擎_V2</p>
-                          <p>{">"} 原因：爱意导致缓冲区溢出</p>
+                        <div className="text-sm text-blue-200/70 font-mono">
+                          <p>{">"} 事件签名：0x{selectedLog.glitchLevel}E9</p>
+                          <p>{">"} 模块：心潮引擎_V3</p>
+                          <p>{">"} 触发：情感雪崩 / 深层回响</p>
                         </div>
 
                         <div className="relative py-8 text-center">
-                          <p className="text-3xl italic text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] md:text-4xl font-serif">
+                          <p className="text-3xl italic text-blue-50 drop-shadow-[0_0_10px_rgba(120,180,255,0.6)] md:text-4xl font-serif">
                             {selectedLog.memoryContent.quote}
                           </p>
-                          <span className="absolute left-0 top-0 font-serif text-6xl text-red-900/20">“</span>
-                          <span className="absolute bottom-0 right-0 font-serif text-6xl text-red-900/20">”</span>
+                          <span className="absolute left-0 top-0 font-serif text-6xl text-blue-200/15">“</span>
+                          <span className="absolute bottom-0 right-0 font-serif text-6xl text-blue-200/15">”</span>
                         </div>
 
                         <button
                           onClick={() => setSelectedLog(null)}
-                          className="w-full border border-red-500 bg-red-500/10 py-3 font-bold uppercase tracking-widest text-red-500 transition-colors hover:bg-red-500/20"
+                          className="w-full border border-blue-200/30 bg-white/5 py-3 font-bold uppercase tracking-widest text-blue-100 transition-colors hover:bg-white/10 rounded-full backdrop-blur-md"
                         >
-                          强制重启系统
+                          返回深海
                         </button>
                       </div>
                     </motion.div>
@@ -314,18 +318,17 @@ export default function SystemLogEntrance() {
       </AnimatePresence>
 
       <style jsx global>{`
-        @keyframes flicker {
-          0% { opacity: 0.08; }
-          6% { opacity: 0.14; }
-          10% { opacity: 0.06; }
-          12% { opacity: 0.18; }
-          20% { opacity: 0.08; }
-          100% { opacity: 0.1; }
+        @keyframes snowDrift {
+          0% { transform: translateY(0) translateX(0); opacity: 0.12; }
+          50% { transform: translateY(10px) translateX(-6px); opacity: 0.22; }
+          100% { transform: translateY(0) translateX(0); opacity: 0.12; }
         }
-        .crt-flicker {
-          animation: flicker 2.2s infinite;
-          background: rgba(255, 255, 255, 0.12);
-          mix-blend-mode: overlay;
+        .snow-drift {
+          animation: snowDrift 8s ease-in-out infinite;
+          background: radial-gradient(circle at 20% 30%, rgba(180,220,255,0.18), transparent 35%),
+                      radial-gradient(circle at 70% 60%, rgba(140,200,255,0.16), transparent 38%),
+                      radial-gradient(circle at 40% 80%, rgba(200,240,255,0.12), transparent 40%);
+          filter: blur(12px);
         }
         @keyframes textFlicker {
           0% { opacity: 1; }
@@ -335,18 +338,15 @@ export default function SystemLogEntrance() {
           100% { opacity: 1; }
         }
         .animate-flicker {
-          animation: textFlicker 1.9s infinite;
+          animation: textFlicker 2.6s infinite;
         }
-        @keyframes jitter {
-          0% { transform: translateX(0); }
-          20% { transform: translateX(-0.4px); }
-          40% { transform: translateX(0.6px); }
-          60% { transform: translateX(-0.5px); }
-          80% { transform: translateX(0.3px); }
-          100% { transform: translateX(0); }
+        @keyframes floatBreath {
+          0% { transform: translateY(0); box-shadow: 0 0 16px rgba(140,200,255,0.12); }
+          50% { transform: translateY(-4px); box-shadow: 0 0 28px rgba(140,200,255,0.2); }
+          100% { transform: translateY(0); box-shadow: 0 0 16px rgba(140,200,255,0.12); }
         }
-        .animate-jitter {
-          animation: jitter 0.22s infinite;
+        .float-breath {
+          animation: floatBreath 6s ease-in-out infinite;
         }
         @keyframes glitchShift {
           0% { transform: translate3d(0,0,0); text-shadow: none; }

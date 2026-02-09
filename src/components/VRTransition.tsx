@@ -29,7 +29,7 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
         <motion.div
           className={clsx(
             "fixed inset-0 z-[9999] flex items-center justify-center transition-colors duration-500",
-            nextMode === "reality" ? "bg-[#f4f1ea]" : "bg-[#050505]" // Warm White for Reality, Deep Black for Script
+            nextMode === "reality" ? "bg-[#f4f1ea]" : "bg-[#050a1a]"
           )}
           initial={{ clipPath: "inset(50% 0 50% 0)" }} 
           animate={{ 
@@ -51,7 +51,7 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
 
           {/* CRT Scanline Effect Overlay (Script Mode Only) */}
           {nextMode === "script" && (
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none opacity-50" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(6,16,40,0)_50%,rgba(5,10,26,0.35)_50%),linear-gradient(90deg,rgba(120,190,255,0.06),rgba(180,230,255,0.04),rgba(80,140,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none opacity-50" />
           )}
           
           {/* Text Container */}
@@ -66,12 +66,12 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
               // Welcome to Rongcheng (Script Mode)
               <div className="flex flex-col items-center">
                 <motion.h2 
-                  className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff004c] via-[#ff00ff] to-[#ff004c] font-serif-sc tracking-[0.2em] mb-4 text-shadow-neon"
+                  className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#7dc4ff] via-[#bfe7ff] to-[#7dc4ff] font-serif-sc tracking-[0.2em] mb-4 text-shadow-neon"
                   animate={{ 
                     textShadow: [
-                      "0 0 10px #ff004c",
-                      "0 0 20px #ff004c",
-                      "0 0 10px #ff004c"
+                      "0 0 10px #7dc4ff",
+                      "0 0 20px #7dc4ff",
+                      "0 0 10px #7dc4ff"
                     ]
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -79,16 +79,16 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
                   欢迎来到容城
                 </motion.h2>
                 <motion.div 
-                  className="h-[2px] bg-[#ff004c]/30 max-w-xs mx-auto mt-4 overflow-hidden rounded-full"
+                  className="h-[2px] bg-[#7dc4ff]/30 max-w-xs mx-auto mt-4 overflow-hidden rounded-full"
                 >
                    <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 1.2, ease: "linear", delay: 0.2 }}
-                      className="h-full bg-[#ff004c] shadow-[0_0_10px_#ff004c]"
+                      className="h-full bg-[#7dc4ff] shadow-[0_0_10px_#7dc4ff]"
                    />
                 </motion.div>
-                <p className="mt-4 text-[#ff004c]/70 font-mono text-sm tracking-widest uppercase animate-pulse">
+                <p className="mt-4 text-[#7dc4ff]/70 font-mono text-sm tracking-widest uppercase animate-pulse">
                   系统初始化中...
                 </p>
               </div>

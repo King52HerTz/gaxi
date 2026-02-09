@@ -66,7 +66,7 @@ function TimelineItem({ event, index, mode }: { event: TimelineEvent; index: num
           "w-full md:w-1/2 relative p-8 transition-all duration-700",
           isReality 
             ? "bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-[#eee]" 
-            : "bg-white/5 backdrop-blur-sm border border-white/10 shadow-[0_0_30px_-5px_rgba(139,0,0,0.3)]"
+            : "bg-white/5 backdrop-blur-sm border border-white/10 shadow-[0_0_30px_-5px_rgba(125,196,255,0.25)]"
         )}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

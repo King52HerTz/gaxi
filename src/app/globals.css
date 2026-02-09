@@ -6,11 +6,11 @@
   --reality-text: #4a4a4a;
   --reality-accent: #d4af37; /* 香槟金 */
   
-  /* 剧本模式颜色（红/黑 - 午夜快车） */
-  --script-bg: #0f0505; /* 深黑带红 */
-  --script-text: #ffffff;
-  --script-accent: #cc0000; /* 暗红 */
-  --script-neon: #ff004c; /* 霓虹红 */
+  /* 剧本模式颜色（蓝/白 - 数字雪海） */
+  --script-bg: #050a1a;
+  --script-text: #e8f3ff;
+  --script-accent: #8cc8ff;
+  --script-neon: #7dc4ff;
 }
 
 @theme {
@@ -101,7 +101,7 @@ body.mode-script {
 
 /* 胶卷边框 */
 .film-strip-border {
-  background-color: #000;
+  background-color: #061326;
   background-image: 
     linear-gradient(to right, #fff 0%, #fff 10%, transparent 10%, transparent 100%),
     linear-gradient(to right, #fff 0%, #fff 10%, transparent 10%, transparent 100%);
@@ -133,7 +133,7 @@ body.mode-script {
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 0, 76, 0.15) 0%, transparent 70%); /* 霓虹红光晕 */
+  background: radial-gradient(circle, rgba(125, 196, 255, 0.18) 0%, transparent 70%);
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);

@@ -36,7 +36,7 @@ export default function HeartbeatButton({ mode }: HeartbeatButtonProps) {
               "mb-4 p-4 rounded-2xl max-w-xs shadow-xl text-sm leading-relaxed pointer-events-auto",
               isReality 
                 ? "bg-white text-reality-text border border-[#eee]" 
-                : "bg-black/90 text-script-text border border-script-neon/30 text-shadow-neon"
+                : "bg-[#050a1a]/90 text-script-text border border-script-neon/30 text-shadow-neon"
             )}
           >
             {quote}
@@ -53,7 +53,7 @@ export default function HeartbeatButton({ mode }: HeartbeatButtonProps) {
           "w-14 h-14 rounded-full flex items-center justify-center shadow-2xl pointer-events-auto transition-colors duration-500",
           isReality 
             ? "bg-reality-accent text-white hover:bg-[#c5a028]" 
-            : "bg-script-neon text-white hover:bg-[#ff3366] animate-pulse"
+            : "bg-script-neon text-white hover:bg-[#8fd3ff] animate-pulse"
         )}
       >
         <Heart className="w-6 h-6 fill-current" />

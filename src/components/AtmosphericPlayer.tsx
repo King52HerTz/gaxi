@@ -48,7 +48,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
           "w-12 h-12 rounded-full flex items-center justify-center shadow-lg border transition-colors duration-500",
           isReality 
             ? "bg-white border-gray-200 text-reality-text hover:bg-gray-50" 
-            : "bg-black border-script-neon/30 text-script-neon hover:bg-black/80"
+            : "bg-[#050a1a] border-script-neon/30 text-script-neon hover:bg-[#07142a]"
         )}
       >
         {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
@@ -64,7 +64,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
           "px-4 py-2 rounded-full text-xs font-mono border backdrop-blur-md flex items-center gap-2",
           isReality 
             ? "bg-white/80 border-gray-200 text-gray-600" 
-            : "bg-black/60 border-script-neon/20 text-script-neon"
+            : "bg-[#050a1a]/70 border-script-neon/20 text-script-neon"
         )}>
           {/* 动画波形 */}
           <div className="flex items-end gap-[2px] h-3">

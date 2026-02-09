@@ -30,7 +30,7 @@ const handwrittenFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "胡羞 & 肖稚宇 | 剧本是假的，爱是真的",
+  title: "《轧戏》网页",
   description: "《轧戏》胡羞与肖稚宇的同人收藏。",
 };
 
