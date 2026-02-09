@@ -71,11 +71,17 @@ export const CHARACTERS = [
     ],
     reality: {
       role: "建筑师 / 治愈者",
-      desc: "敢于裸辞追求梦想的建筑师。是她用温暖和直觉，治愈了肖稚宇二十年的创伤，带他走出了仇恨的黑夜。"
+      desc: "敢于裸辞追求梦想的建筑师。是她用温暖和直觉，治愈了肖稚宇二十年的创伤，带他走出了仇恨的黑夜。",
+      quote: "“我不在乎你是谁，我只想爱你。”",
+      tags: ["温暖", "直觉", "治愈"],
+      photo: "/photo/hu02.png"
     },
     script: {
       role: "玩家 / 破局者",
-      desc: "直觉敏锐的特工。她是唯一一个能看穿秦宵一伪装的人，也是唯一一个让他甘愿输掉游戏的对手。"
+      desc: "直觉敏锐的特工。她是唯一一个能看穿秦宵一伪装的人，也是唯一一个让他甘愿输掉游戏的对手。",
+      quote: "“在这个虚构的世界里，唯有这份爱意是真实而滚烫的。”",
+      tags: ["特工", "破局", "勇敢"],
+      photo: "/photo/hu01.png"
     }
   },
   {
@@ -88,11 +94,17 @@ export const CHARACTERS = [
     ],
     reality: {
       role: "创始人 / 复仇者",
-      desc: "外表冷漠内心深情的复仇者。他的每一步精明算计，最后都变成了对她最笨拙的保护。"
+      desc: "外表冷漠内心深情的复仇者。他的每一步精明算计，最后都变成了对她最笨拙的保护。",
+      quote: "“我在现实中等你，并在摩天大楼顶端拥抱你。”",
+      tags: ["复仇", "深情", "创始人"],
+      photo: "/photo/xiao02.png"
     },
     script: {
       role: "督军 / 觉醒NPC",
-      desc: "拥有自我意识的觉醒NPC。他违抗了所有的系统指令，哪怕代码崩塌，也要爱她一次。"
+      desc: "拥有自我意识的觉醒NPC。他违抗了所有的系统指令，哪怕代码崩塌，也要爱她一次。",
+      quote: "“进了容城，我也可以不做肖稚宇了。”",
+      tags: ["督军", "觉醒", "守护"],
+      photo: "/photo/xiao01.png"
     }
   },
   {
@@ -104,11 +116,17 @@ export const CHARACTERS = [
     ],
     reality: {
       role: "竞争者 / 兄弟",
-      desc: "曾经针锋相对的竞争者，最终释怀的兄弟。他放下了执念，也放过了自己。"
+      desc: "曾经针锋相对的竞争者，最终释怀的兄弟。他放下了执念，也放过了自己。",
+      quote: "“你比真相更重要。”",
+      tags: ["释怀", "兄弟", "竞争"],
+      photo: "/photo/pei02.png"
     },
     script: {
       role: "旁观者 / 局外人",
-      desc: "在这场戏中，他始终试图入局，却最终发现自己只是二人故事的见证者。"
+      desc: "在这场戏中，他始终试图入局，却最终发现自己只是二人故事的见证者。",
+      quote: "“原来我一直是局外人。”",
+      tags: ["旁观", "局外", "见证"],
+      photo: "/photo/pei01.png"
     }
   },
   {
@@ -122,11 +140,17 @@ export const CHARACTERS = [
     ],
     reality: {
       role: "闺蜜 / 咖啡店主",
-      desc: "最好的闺蜜，最坚强的后盾。经历了婚姻破碎后的重生，活出了自己的精彩。"
+      desc: "最好的闺蜜，最坚强的后盾。经历了婚姻破碎后的重生，活出了自己的精彩。",
+      quote: "“这一次，我要为自己而活。”",
+      tags: ["闺蜜", "重生", "坚强"],
+      photo: "/photo/zhao02.png"
     },
     script: {
       role: "引路人 / 神助攻",
-      desc: "将胡羞带入游戏的“引路人”，在关键时刻点醒梦中人，是爱情的神助攻。"
+      desc: "将胡羞带入游戏的“引路人”，在关键时刻点醒梦中人，是爱情的神助攻。",
+      quote: "“有些梦，做着做着就成真了。”",
+      tags: ["引路", "助攻", "清醒"],
+      photo: "/photo/zhao01.png"
     }
   },
   {
@@ -138,11 +162,17 @@ export const CHARACTERS = [
     ],
     reality: {
       role: "合伙人 / 喜剧担当",
-      desc: "肖稚宇最信任的好友，全剧最强“神助攻”。从帮忙租房到掩护身份，他用钞能力守护着这对CP。"
+      desc: "肖稚宇最信任的好友，全剧最强“神助攻”。从帮忙租房到掩护身份，他用钞能力守护着这对CP。",
+      quote: "“没有什么是一顿火锅解决不了的。”",
+      tags: ["死党", "助攻", "钞能力"],
+      photo: "/photo/gong02.png"
     },
     script: {
       role: "幕后金主 / 吃瓜群众",
-      desc: "虽然不常穿戏服，但他才是这座“容城”的拥有者。看着这群痴男怨女在自己的地盘谈恋爱，他是最大的吃瓜群众。"
+      desc: "虽然不常穿戏服，但他才是这座“容城”的拥有者。看着这群痴男怨女在自己的地盘谈恋爱，他是最大的吃瓜群众。",
+      quote: "“这戏，真是越来越精彩了。”",
+      tags: ["金主", "吃瓜", "掌控"],
+      photo: "/photo/gong01.png"
     }
   },
   {
@@ -152,11 +182,17 @@ export const CHARACTERS = [
     relationships: [],
     reality: {
       role: "前夫 / 伪善者",
-      desc: "他的出轨与背叛，虽然给赵孝柔带来了痛苦，却也彻底打碎了她对虚假婚姻的幻想，逼迫她涅槃重生。"
+      desc: "他的出轨与背叛，虽然给赵孝柔带来了痛苦，却也彻底打碎了她对虚假婚姻的幻想，逼迫她涅槃重生。",
+      quote: "“我以为我还来得及。”",
+      tags: ["背叛", "伪善", "前夫"],
+      photo: "/photo/wang02.png"
     },
     script: {
       role: "盲人 / 局外人",
-      desc: "即使在游戏里，他也看不清身边人的价值。他的存在是为了衬托出“真诚”的可贵，最终只能黯然退场。"
+      desc: "即使在游戏里，他也看不清身边人的价值。他的存在是为了衬托出“真诚”的可贵，最终只能黯然退场。",
+      quote: "“我什么都看不见。”",
+      tags: ["盲人", "局外", "退场"],
+      photo: "/photo/wang01.png"
     }
   }
 ];
@@ -229,7 +265,7 @@ export const FINAL_REWARD = {
     "肖稚宇和胡羞这对CP，最戳人的不是那些在容城雨夜里的拥吻，而是他们在现实弄堂里的那段合租时光。那段日子太有烟火气了，老旧的楼梯吱呀作响，窗外是上海市井的嘈杂，屋内是两颗同样受过伤的心在慢慢靠近。",
     "肖稚宇这个人，其实活得很累。他背负着父亲“Q”的冤屈，把自己活成了一把复仇的利刃。在遇到胡羞之前，他的人生是一张精密计算的施工图，容不得半点差错。可胡羞偏偏就是那个最大的“违章建筑”。",
     "真的很喜欢他们讨论建筑时的样子。当胡羞拿着设计稿，眼睛亮晶晶地讲她的构思时，肖稚宇看她的眼神，不是上位者对他人的审视，而是同行者之间的欣赏。他懂她的才华被埋没的痛苦，所以他没有像裴轸那样想把她护在羽翼下做个金丝雀，而是递给她一支笔，告诉她：去画吧，去赢吧。这种“懂得”，比一百句“我养你”都要高级。",
-    "剧里有一个让我爆哭的瞬间，是第26集火场的那一幕。裴康华拿胡羞的命做威胁，肖稚宇明明是为了复仇筹谋了那么多年，眼看真相就在眼前，证据触手可及，可他毫不犹豫地选择了去救胡羞。那一刻，那个精于算计、冷酷毒舌的“狐狸”终于死了，活下来的是一个有血有肉的爱人。他用行动证明了，在他的世界里，没有什么比那个叫胡羞的女孩更重要，连仇恨都要靠边站。",
+    "剧里有一个让我心头一颤的瞬间，是第26集火场的那一幕。裴康华拿胡羞的命做威胁，肖稚宇明明是为了复仇筹谋了那么多年，眼看真相就在眼前，证据触手可及，可他毫不犹豫地选择了去救胡羞。那一刻，那个精于算计、冷酷毒舌的“狐狸”终于死了，活下来的是一个有血有肉的爱人。他用行动证明了，在他的世界里，没有什么比那个叫胡羞的女孩更重要，连仇恨都要靠边站。",
     "而胡羞呢，她也在治愈肖稚宇。她看穿了他“秦宵一”面具下的脆弱，看穿了他毒舌背后的孤独。在大家都因为误会指责肖稚宇冷血的时候，只有胡羞敢把自己交给他，甚至在误食毒蘑菇产生幻觉时，潜意识里依赖的也是他。这种信任，是他们在一次次“入局”和“破局”中练就的本能。",
     "故事的最后，容城的雪停了，一切尘埃落定。",
     "裴轸离开了筑翎，那个背影虽然孤单，但我却觉得那是他最轻松的时刻。他终于不再是谁的儿子，不再是谁的继承人，他只是裴轸。这种放手，何尝不是另一种成全？",
@@ -330,276 +366,432 @@ export const STORY_ARCS = [
   }
 ];
 
-export const DUAL_GALLERY_IMAGES = [
-  {
-    id: "huxiu",
-    name: "胡羞",
-    realitySrc: "/photo/hu01.png",
-    scriptSrc: "/photo/hu01.png"
-  },
-  {
-    id: "xiaozhiyu",
-    name: "肖稚宇",
-    realitySrc: "/photo/xiao01.png",
-    scriptSrc: "/photo/xiao01.png"
-  },
-  {
-    id: "peizhen",
-    name: "裴轸",
-    realitySrc: "/photo/pei01.png",
-    scriptSrc: "/photo/pei01.png"
-  },
-  {
-    id: "zhaoxiaorou",
-    name: "赵孝柔",
-    realitySrc: "/photo/zhao01.png",
-    scriptSrc: "/photo/zhao01.png"
-  },
-  {
-    id: "gonghuaicong",
-    name: "龚怀聪",
-    realitySrc: "/photo/gong01.png",
-    scriptSrc: "/photo/gong01.png"
-  },
-  {
-    id: "wangguangming",
-    name: "王光明",
-    realitySrc: "/photo/wang01.png",
-    scriptSrc: "/photo/wang01.png"
-  }
-];
-
 export const SCENE_PHOTOS = [
-  // 场景 (8张)
+  // ==========================================
+  // 场景 (SCENE) - 现实模式
+  // ==========================================
   {
-    id: "scene-1",
+    id: "scene-real-1",
     type: "scene",
+    mode: "reality",
     title: "弄堂雨夜",
     desc: "“别怕，我在。” 两个世界，一场夜雨，两颗心靠近。",
-    src: "/photo/gong01.png"
+    src: "/place/shanghai01.jpg"
   },
   {
-    id: "scene-2",
+    id: "scene-real-2",
     type: "scene",
+    mode: "reality",
     title: "摩天大楼",
     desc: "俯瞰城市的灯火，蓝图终成现实。",
-    src: "/photo/gong01.png"
+    src: "/place/shanghai02.jpg"
   },
   {
-    id: "scene-3",
+    id: "scene-real-3",
     type: "scene",
-    title: "容城雪景",
-    desc: "漫天飞雪中，她吻了他。注定要醒来的梦，却许下了永恒。",
-    src: "/photo/gong01.png"
-  },
-  {
-    id: "scene-4",
-    type: "scene",
-    title: "Midnight Express",
-    desc: "火车驶入迷雾，故事从这里开始。",
-    src: "/photo/gong01.png"
-  },
-  {
-    id: "scene-5",
-    type: "scene",
-    title: "Regard 咖啡馆",
-    desc: "赵孝柔的避风港，也是故事中温暖的角落。",
-    src: "/photo/gong01.png"
-  },
-  {
-    id: "scene-6",
-    type: "scene",
-    title: "筑翎集团",
-    desc: "权力的中心，也是裴轸被束缚的牢笼。",
-    src: "/photo/gong01.png"
-  },
-  {
-    id: "scene-7",
-    type: "scene",
-    title: "废弃工厂",
-    desc: "真相的埋藏地，也是复仇与救赎的转折点。",
-    src: "/photo/gong01.png"
-  },
-  {
-    id: "scene-8",
-    type: "scene",
+    mode: "reality",
     title: "Dynamism 事务所",
     desc: "梦想起航的地方，见证了他们的并肩作战。",
-    src: "/photo/gong01.png"
+    src: "/place/shanghai03.jpg"
+  },
+  {
+    id: "scene-real-4",
+    type: "scene",
+    mode: "reality",
+    title: "Regard 咖啡馆",
+    desc: "赵孝柔的避风港，也是故事中温暖的角落。",
+    src: "/place/shanghai04.jpg"
+  },
+  {
+    id: "scene-real-5",
+    type: "scene",
+    mode: "reality",
+    title: "筑翎集团",
+    desc: "权力的中心，也是裴轸被束缚的牢笼。",
+    src: "/place/shanghai05.jpg"
+  },
+  {
+    id: "scene-real-6",
+    type: "scene",
+    mode: "reality",
+    title: "废弃工厂",
+    desc: "真相的埋藏地，也是复仇与救赎的转折点。",
+    src: "/place/shanghai06.jpg"
   },
 
-  // 胡羞 (6张)
+  // ==========================================
+  // 场景 (SCENE) - 剧本模式
+  // ==========================================
   {
-    id: "huxiu-1",
+    id: "scene-script-1",
+    type: "scene",
+    mode: "script",
+    title: "容城雪景",
+    desc: "漫天飞雪中，她吻了他。注定要醒来的梦，却许下了永恒。",
+    src: "/place/ron01.jpg"
+  },
+  {
+    id: "scene-script-2",
+    type: "scene",
+    mode: "script",
+    title: "Midnight Express",
+    desc: "火车驶入迷雾，故事从这里开始。",
+    src: "/place/ron02.jpg"
+  },
+  {
+    id: "scene-script-3",
+    type: "scene",
+    mode: "script",
+    title: "督军府",
+    desc: "权力的顶峰，也是他孤独的囚笼。",
+    src: "/place/ron03.jpg"
+  },
+  {
+    id: "scene-script-4",
+    type: "scene",
+    mode: "script",
+    title: "特工据点",
+    desc: "暗流涌动，每一次接头都是生死考验。",
+    src: "/place/ron04.jpg"
+  },
+  {
+    id: "scene-script-5",
+    type: "scene",
+    mode: "script",
+    title: "容城街道",
+    desc: "霓虹闪烁下的民国旧影，埋藏着无数秘密。",
+    src: "/place/ron05.jpg"
+  },
+  {
+    id: "scene-script-6",
+    type: "scene",
+    mode: "script",
+    title: "审讯室",
+    desc: "真相与谎言交织，只有眼神不会骗人。",
+    src: "/place/ron06.jpg"
+  },
+
+  // ==========================================
+  // 现实模式照片 (REALITY MODE)
+  // ==========================================
+  
+  // 胡羞 (Reality)
+  {
+    id: "huxiu-real-1",
     type: "huxiu",
+    mode: "reality",
     title: "胡羞 · 订婚",
     desc: "二十六岁，梦碎时刻，也是重生的起点。",
-    src: "/photo/hu01.png"
+    src: "/photo/hu03.png"
   },
   {
-    id: "huxiu-2",
+    id: "huxiu-real-2",
     type: "huxiu",
+    mode: "reality",
     title: "胡羞 · 建筑师",
     desc: "重拾画笔，在Dynamism找回了自己的光芒。",
-    src: "/photo/hu01.png"
+    src: "/photo/hu06.png"
   },
   {
-    id: "huxiu-3",
+    id: "huxiu-real-3",
     type: "huxiu",
-    title: "胡羞 · 特工",
-    desc: "民国容城里的代号026，眼神坚定，无惧深渊。",
-    src: "/photo/hu01.png"
-  },
-  {
-    id: "huxiu-4",
-    type: "huxiu",
+    mode: "reality",
     title: "胡羞 · 弄堂",
     desc: "烟火气里的温暖，治愈了那个复仇者的心。",
-    src: "/photo/hu01.png"
+    src: "/photo/hu07.png"
   },
   {
-    id: "huxiu-5",
+    id: "huxiu-real-4",
     type: "huxiu",
+    mode: "reality",
     title: "胡羞 · 觉醒",
     desc: "不再是逃避现实的女孩，而是敢于直视深渊的破局者。",
-    src: "/photo/hu01.png"
+    src: "/photo/hu12.png"
   },
   {
-    id: "huxiu-6",
+    id: "huxiu-real-5",
     type: "huxiu",
+    mode: "reality",
+    title: "胡羞 · 团建",
+    desc: "和伙伴们在一起的时光，是平淡生活里的糖。",
+    src: "/photo/hu13.png"
+  },
+  {
+    id: "huxiu-real-6",
+    type: "huxiu",
+    mode: "reality",
     title: "胡羞 · 终章",
-    desc: "欢迎来到容城，这一次，是为了爱。",
-    src: "/photo/hu01.png"
+    desc: "摩天大楼顶端，她终于成为了理想中的自己。",
+    src: "/photo/hu14.png"
   },
 
-  // 肖稚宇 (6张)
+  // 肖稚宇 (Reality)
   {
-    id: "xiao-1",
+    id: "xiao-real-1",
     type: "xiaozhiyu",
+    mode: "reality",
     title: "肖稚宇 · 独白",
     desc: "“我不在乎你是谁，我只想爱你。”",
-    src: "/photo/xiao01.png"
+    src: "/photo/xiao04.png"
   },
   {
-    id: "xiao-2",
+    id: "xiao-real-2",
     type: "xiaozhiyu",
+    mode: "reality",
     title: "肖稚宇 · 复仇",
     desc: "背负着“Q”的秘密，在黑暗中蛰伏二十年。",
-    src: "/photo/xiao01.png"
+    src: "/photo/xiao05.png"
   },
   {
-    id: "xiao-3",
+    id: "xiao-real-3",
     type: "xiaozhiyu",
+    mode: "reality",
     title: "肖稚宇 · 守护",
     desc: "推开你是为了保护你，火场里毫不犹豫的选择才是真心。",
-    src: "/photo/xiao01.png"
+    src: "/photo/xiao07.png"
   },
   {
-    id: "xiao-4",
+    id: "xiao-real-4",
     type: "xiaozhiyu",
+    mode: "reality",
     title: "肖稚宇 · 释怀",
     desc: "摩天大楼顶端，蓝图终成现实，他也找到了归宿。",
-    src: "/photo/xiao01.png"
+    src: "/photo/xiao09.png"
   },
   {
-    id: "xiao-5",
+    id: "xiao-real-5",
     type: "xiaozhiyu",
-    title: "秦宵一 · 督军",
-    desc: "容城的王，拥有自我意识的觉醒NPC。",
-    src: "/photo/xiao01.png"
+    mode: "reality",
+    title: "肖稚宇 · 钢琴",
+    desc: "尘封的钢琴被再次弹响，那是对父亲无声的思念。",
+    src: "/photo/xiao11.png"
   },
   {
-    id: "xiao-6",
+    id: "xiao-real-6",
     type: "xiaozhiyu",
-    title: "秦宵一 · 破局",
-    desc: "“进了容城，我也可以不做肖稚宇了。”",
-    src: "/photo/xiao01.png"
+    mode: "reality",
+    title: "肖稚宇 · 玩家",
+    desc: "第一次以玩家身份入局，只为去见那个心爱的NPC。",
+    src: "/photo/xiao12.png"
   },
 
-  // 吻戏 (3张)
+  // ==========================================
+  // 剧本模式照片 (SCRIPT MODE)
+  // ==========================================
+
+  // 胡羞 (Script - 特工)
+  {
+    id: "huxiu-script-1",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 入局",
+    desc: "初入容城，她是眼神清澈却暗藏锋芒的特工。",
+    src: "/photo/hu04.png"
+  },
+  {
+    id: "huxiu-script-2",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 潜伏",
+    desc: "游走在危险边缘，每一步都是在刀尖上起舞。",
+    src: "/photo/hu05.png"
+  },
+  {
+    id: "huxiu-script-3",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 交锋",
+    desc: "与督军的每一次对视，都是一场无声的博弈。",
+    src: "/photo/hu08.png"
+  },
+  {
+    id: "huxiu-script-4",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 决绝",
+    desc: "为了真相，她甘愿成为那枚被牺牲的棋子。",
+    src: "/photo/hu10.png"
+  },
+  {
+    id: "huxiu-script-5",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 欢迎",
+    desc: "“欢迎来到容城。” 这一次，她是这里的主人。",
+    src: "/photo/hu11.png"
+  },
+
+  // 秦宵一 (Script - 督军)
+  {
+    id: "xiao-script-1",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 掌控",
+    desc: "容城的王，拥有绝对的权力与孤独。",
+    src: "/photo/xiao03.png"
+  },
+  {
+    id: "xiao-script-2",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 觉醒",
+    desc: "当NPC拥有了自我意识，他开始反抗既定的命运。",
+    src: "/photo/xiao06.png"
+  },
+  {
+    id: "xiao-script-3",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 偏爱",
+    desc: "“系统禁止我爱你，但我还是走向了你。”",
+    src: "/photo/xiao08.png"
+  },
+  {
+    id: "xiao-script-4",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 护短",
+    desc: "哪怕世界崩塌，也要护她周全。",
+    src: "/photo/xiao10.png"
+  },
+  {
+    id: "xiao-script-5",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 守望",
+    desc: "他在雪中目送她离开，等待下一次的重逢。",
+    src: "/photo/xiao14.png"
+  },
+
+  // 吻戏 (6张) - 通用
   {
     id: "kiss-1",
     type: "kiss",
     title: "容城初吻",
     desc: "漫天飞雪中，她吻了他。“我不在乎你是NPC还是谁，我只知道我爱你。” (Ep 26)",
-    src: "/photo/hu01.png"
+    src: "/photo/wen02.png"
   },
   {
     id: "kiss-2",
     type: "kiss",
     title: "樱花树下",
     desc: "樱花树下，他为之前的态度不明道歉，并正式告白，两人再次甜蜜拥吻。 (Ep 19)",
-    src: "/photo/xiao01.png"
+    src: "/photo/wen03.png"
   },
   {
     id: "kiss-3",
     type: "kiss",
     title: "雨中重逢",
     desc: "他惊喜现身，雨中送花给她，两人用一吻化解思念。 (Ep 28)",
-    src: "/photo/hu01.png"
+    src: "/photo/wen04.png"
+  },
+  {
+    id: "kiss-4",
+    type: "kiss",
+    title: "容城初吻",
+    desc: "漫天飞雪中，她吻了他。“我不在乎你是NPC还是谁，我只知道我爱你。” (Ep 26)",
+    src: "/photo/wen05.png"
+  },
+  {
+    id: "kiss-5",
+    type: "kiss",
+    title: "樱花树下",
+    desc: "樱花树下，他为之前的态度不明道歉，并正式告白，两人再次甜蜜拥吻。 (Ep 19)",
+    src: "/photo/wen06.png"
+  },
+  {
+    id: "kiss-6",
+    type: "kiss",
+    title: "雨中重逢",
+    desc: "他惊喜现身，雨中送花给她，两人用一吻化解思念。 (Ep 28)",
+    src: "/photo/wen07.png"
   }
 ];
 
-// Investigation Wall Data
-export const INVESTIGATION_CLUES = [
+export interface SystemLog {
+  id: string;
+  timestamp: string;
+  episode: string;
+  status: "NORMAL" | "WARNING" | "CRITICAL" | "SYSTEM_OVERRIDE";
+  command: string;
+  output: string;
+  glitchLevel: number;
+  memoryContent: {
+    quote: string;
+  };
+}
+
+export const NPC_LOGS: SystemLog[] = [
   {
-    id: "clue-1",
-    title: "2004年旧报纸",
-    desc: "新城体育馆坍塌事故报道。秦宇泽含冤自杀，留下了无尽的谜团与伤痛。",
-    src: "/photo/wang01.png",
-    type: "evidence",
-    x: 10,
-    y: 10,
-    rotation: -5
+    id: "log-01",
+    timestamp: "1932-11-20 22:15:00",
+    episode: "EP 01",
+    status: "NORMAL",
+    command: "锁定目标：胡羞",
+    output: "目标进入“Midnight Express”，情绪波动上升。触发交互提问：你想要的，究竟是什么？",
+    glitchLevel: 5,
+    memoryContent: {
+      quote: "“你想要的，究竟是什么？”"
+    }
   },
   {
-    id: "clue-2",
-    title: "署名'Q'的设计图",
-    desc: "秦宇泽的遗物，肖稚宇设计灵感的来源，也是他建筑梦想的起点。",
-    src: "/photo/wang01.png",
-    type: "document",
-    x: 35,
-    y: 15,
-    rotation: 3
+    id: "log-03",
+    timestamp: "1932-11-25 23:45:00",
+    episode: "EP 03",
+    status: "NORMAL",
+    command: "清除障碍",
+    output: "凶宅副本触发恐惧锁定，执行引导脱困。雨夜滞留事件：心率异常上升 5%。",
+    glitchLevel: 10,
+    memoryContent: {
+      quote: "“这场雨，把我们困在了一起。”"
+    }
   },
   {
-    id: "clue-3",
-    title: "工厂储存卡",
-    desc: "在黄奕德工厂找到的关键证据，记录了裴康华与陈军浩勾结的罪行。",
-    src: "/photo/wang01.png",
-    type: "evidence",
-    x: 65,
-    y: 20,
-    rotation: 8
+    id: "log-13",
+    timestamp: "1933-01-15 20:30:00",
+    episode: "EP 13",
+    status: "WARNING",
+    command: "利用目标中毒幻觉",
+    output: "目标误食菌子产生幻觉，将我识别为“秦宵一”。系统要求趁机推进攻击/误导；执行失败，保护欲触发。",
+    glitchLevel: 45,
+    memoryContent: {
+      quote: "“别怕，我在。”"
+    }
   },
   {
-    id: "clue-4",
-    title: "胡鼎与韩川合影",
-    desc: "受害者视角。胡鼎腿伤的真相，揭示了两家跨越二十年的渊源。",
-    src: "/photo/wang01.png",
-    type: "photo",
-    x: 15,
-    y: 50,
-    rotation: -2
+    id: "log-19",
+    timestamp: "1933-02-14 21:00:00",
+    episode: "EP 19",
+    status: "WARNING",
+    command: "维持NPC协议",
+    output: "容城角落越界接触后，系统要求回归设定。现实告白触发冲突：系统指令 vs 自我意识。",
+    glitchLevel: 60,
+    memoryContent: {
+      quote: "“进了容城，我也可以不做肖稚宇了。”"
+    }
   },
   {
-    id: "clue-5",
-    title: "伪造的遗书",
-    desc: "裴康华栽赃秦宇泽畏罪自杀的铁证。真相终将大白。",
-    src: "/photo/wang01.png",
-    type: "document",
-    x: 45,
-    y: 60,
-    rotation: 5
+    id: "log-26",
+    timestamp: "1933-03-01 02:15:00",
+    episode: "EP 26",
+    status: "CRITICAL",
+    command: "获取复仇证据（优先），忽视目标安危",
+    output: "仓库火情升级。指令驳回！选择救出胡羞。系统过热，核心温度异常。",
+    glitchLevel: 90,
+    memoryContent: {
+      quote: "“我不在乎你是谁，我只想爱你。”"
+    }
   },
   {
-    id: "clue-6",
-    title: "不平等供货合同",
-    desc: "裴康华利用职权扶持黄奕德的证据，也是利益输送的链条。",
-    src: "/photo/wang01.png",
-    type: "document",
-    x: 75,
-    y: 55,
-    rotation: -4
+    id: "log-28",
+    timestamp: "1933-04-10 18:20:00",
+    episode: "EP 28",
+    status: "SYSTEM_OVERRIDE",
+    command: "删除数据：胡羞",
+    output: "删除失败。爱意已写入底层代码。系统接管失败。",
+    glitchLevel: 100,
+    memoryContent: {
+      quote: "“欢迎来到容城。”"
+    }
   }
 ];

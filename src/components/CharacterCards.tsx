@@ -185,30 +185,58 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
   );
 }
 
+interface CharacterContent {
+  role: string;
+  desc: string;
+  quote?: string;
+  tags?: string[];
+  photo?: string;
+}
+
 function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode: "reality" | "script" }) {
   const isReality = mode === "reality";
-  const content = isReality ? char.reality : char.script;
+  const content = (isReality ? char.reality : char.script) as CharacterContent;
 
   return (
     <motion.div
       className={clsx(
-        "relative group transition-all duration-700",
+        "relative group transition-all duration-700 overflow-hidden",
         isReality 
-          ? "bg-white p-4 pb-12 shadow-xl rotate-1 hover:rotate-0 hover:scale-105" // Polaroid Style
-          : "bg-[#0f0f0f] border border-white/10 p-8 hover:border-script-neon/50 hover:shadow-[0_0_30px_rgba(255,191,0,0.2)]" // Cyberpunk Style
+          ? "bg-white p-6 shadow-xl rotate-1 hover:rotate-0 hover:scale-105 rounded-sm" // Polaroid Style
+          : "bg-[#0f0f0f] border border-white/10 p-8 hover:border-script-neon/50 hover:shadow-[0_0_30px_rgba(255,191,0,0.2)] rounded-xl" // Cyberpunk Style
       )}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
       {/* Reality: Tape Effect */}
-      {isReality && <div className="tape-effect tape-top-left" />}
+      {isReality && <div className="tape-effect tape-top-left z-20" />}
 
       {/* Card Content */}
       <div className="h-full flex flex-col relative z-10">
         
+        {/* Photo Area */}
+        <div className={clsx(
+          "w-full aspect-[3/4] mb-6 overflow-hidden relative", // Changed from 4/3 to 3/4 for portrait photos
+          isReality ? "bg-gray-100 p-2 shadow-inner" : "rounded-lg border border-white/5"
+        )}>
+           <Image 
+             src={content.photo || char.avatar} 
+             alt={char.name}
+             fill
+             className={clsx(
+               "transition-transform duration-700 group-hover:scale-110 object-cover object-top", // Added object-top
+               isReality ? "" : "opacity-80 group-hover:opacity-100"
+             )}
+           />
+           {/* Script Mode Overlay */}
+           {!isReality && (
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+           )}
+        </div>
+
         {/* Header / Name */}
-        <div className={clsx("flex justify-between items-start mb-6", isReality ? "order-2 mt-4 px-2" : "order-1")}>
+        <div className="flex justify-between items-end mb-4">
           <h3 className={clsx(
             "text-3xl font-bold transition-colors duration-500",
             isReality ? "text-reality-text font-handwriting text-4xl" : "text-script-text font-serif tracking-widest"
@@ -233,6 +261,18 @@ function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode
           </AnimatePresence>
         </div>
 
+        {/* Quote */}
+        {content.quote && (
+          <div className="mb-4 relative">
+             <p className={clsx(
+               "text-sm font-bold italic",
+               isReality ? "text-reality-accent" : "text-script-neon"
+             )}>
+               {content.quote}
+             </p>
+          </div>
+        )}
+
         {/* Dynamic Content / Description */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -241,28 +281,39 @@ function CharacterCard({ char, mode }: { char: (typeof CHARACTERS)[number], mode
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(4px)" }}
             transition={{ duration: 0.6 }}
-            className={clsx(
-              "flex-1 flex items-center",
-              isReality 
-                ? "order-1 bg-gray-100 aspect-square mb-4 flex items-center justify-center p-6 text-center" // Placeholder for Photo area
-                : "order-2"
-            )}
+            className="flex-1"
           >
             {isReality ? (
-               <p className="text-reality-text/80 font-serif italic text-lg leading-relaxed">
-                 &quot;{content.desc}&quot;
-               </p>
-            ) : (
-               <p className="text-script-text/90 font-serif italic text-lg leading-loose">
+               <p className="text-reality-text/80 font-serif text-sm leading-relaxed mb-4">
                  {content.desc}
                </p>
+            ) : (
+               <p className="text-script-text/90 font-serif text-sm leading-loose mb-4">
+                 {content.desc}
+               </p>
+            )}
+            
+            {/* Tags */}
+            {content.tags && (
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {content.tags.map((tag, i) => (
+                  <span key={i} className={clsx(
+                    "text-[10px] px-2 py-0.5 rounded-full border",
+                    isReality 
+                      ? "bg-gray-50 text-gray-500 border-gray-200" 
+                      : "bg-script-neon/10 text-script-neon border-script-neon/30"
+                  )}>
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             )}
           </motion.div>
         </AnimatePresence>
 
         {/* Footer Decoration (Script Only) */}
         {!isReality && (
-          <div className="w-full h-1 mt-auto bg-gradient-to-r from-transparent via-script-neon to-transparent order-3" />
+          <div className="w-full h-1 mt-4 bg-gradient-to-r from-transparent via-script-neon to-transparent order-3" />
         )}
       </div>
 

@@ -12,27 +12,33 @@ interface InteractivePhotoWallProps {
 }
 
 export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps) {
-  const [filter, setFilter] = useState<"all" | "character" | "scene" | "kiss">("all");
+  const [filter, setFilter] = useState<"scene" | "huxiu" | "xiaozhiyu" | "kiss">("scene");
   const [selectedPhoto, setSelectedPhoto] = useState<typeof SCENE_PHOTOS[0] | null>(null);
+
+  const isReality = mode === "reality";
 
   const filteredPhotos = SCENE_PHOTOS.filter(
     (photo) => {
-      // 基础过滤
-      const typeMatch = filter === "all" || photo.type === filter;
+      // 1. 类型过滤 (场景/胡羞/肖稚宇/名场面)
+      // 如果筛选类型是胡羞或肖稚宇，则严格匹配类型
+      const typeMatch = photo.type === filter;
       
-      // 模式过滤：如果是人物卡片，根据模式调整标题/内容（这里主要是为了演示，实际数据可能需要更复杂的映射）
-      if (photo.type === "character" && typeMatch) {
-        if (!isReality && photo.title.includes("胡羞 & 肖稚宇")) {
-           // 这是一个简单的演示，实际可能需要修改数据源结构以支持双模式内容
-           // 但为了不破坏 SCENE_PHOTOS 的类型，我们在渲染时动态处理
-        }
-      }
-      
-      return typeMatch;
+      // 2. 模式过滤 (Reality vs Script)
+      // 如果照片定义了 mode，则必须严格匹配当前模式
+      // 如果照片没有定义 mode（如通用名场面），则在两个模式下都显示
+      const modeMatch = photo.mode ? photo.mode === mode : true;
+
+      return typeMatch && modeMatch;
     }
   );
 
-  const isReality = mode === "reality";
+  const safeSelectedPhoto =
+    selectedPhoto && (selectedPhoto.mode ? selectedPhoto.mode === mode : true) ? selectedPhoto : null;
+
+  const gridClassName =
+    filter === "kiss"
+      ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+      : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
 
   return (
     <section className={clsx(
@@ -43,6 +49,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
         {/* Header */}
         <div className="text-center mb-16">
           <motion.h2 
+            key={`title-${mode}`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -66,23 +73,24 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
           {/* Filters */}
           <div className="flex justify-center gap-4 mb-8">
             <FilterButton 
-              active={filter === "all"} 
-              onClick={() => setFilter("all")} 
-              label="全部" 
-              mode={mode}
-            />
-            <FilterButton 
-              active={filter === "character"} 
-              onClick={() => setFilter("character")} 
-              label="人物" 
-              icon={<User size={14} />}
-              mode={mode}
-            />
-            <FilterButton 
               active={filter === "scene"} 
               onClick={() => setFilter("scene")} 
               label="场景" 
               icon={<Film size={14} />}
+              mode={mode}
+            />
+            <FilterButton 
+              active={filter === "huxiu"} 
+              onClick={() => setFilter("huxiu")} 
+              label="胡羞" 
+              icon={<User size={14} />}
+              mode={mode}
+            />
+            <FilterButton 
+              active={filter === "xiaozhiyu"} 
+              onClick={() => setFilter("xiaozhiyu")} 
+              label={isReality ? "肖稚宇" : "秦宵一"} 
+              icon={<User size={14} />}
               mode={mode}
             />
             <FilterButton 
@@ -98,13 +106,14 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
         {/* Masonry Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          key={`grid-${mode}-${filter}`}
+          className={gridClassName}
         >
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {filteredPhotos.map((photo) => (
               <motion.div
                 layout
-                key={photo.id}
+                key={`${photo.id}-${photo.type}-${photo.mode ?? "all"}`}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
@@ -118,34 +127,26 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                 onClick={() => setSelectedPhoto(photo)}
               >
                 <div className={clsx(
-                  "aspect-[3/4] md:aspect-[4/3] relative overflow-hidden",
-                  photo.type === "character" ? "aspect-[3/4]" : "aspect-[16/9]"
+                  "relative overflow-hidden",
+                  (photo.type === "huxiu" || photo.type === "xiaozhiyu")
+                    ? "aspect-[3/4]"
+                    : photo.type === "kiss"
+                      ? "aspect-[4/3]"
+                      : "aspect-[16/9]"
                 )}>
                   <Image 
                     src={photo.src} 
                     alt={photo.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className={clsx(
+                      "transition-transform duration-700 group-hover:scale-110",
+                      photo.type === "kiss" ? "object-contain bg-black" : "object-cover"
+                    )}
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <ZoomIn className="text-white w-10 h-10" />
                   </div>
-                </div>
-                
-                {/* Caption overlay on hover */}
-                <div className={clsx(
-                  "absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300",
-                  isReality ? "bg-white/90 text-reality-text" : "bg-black/80 text-white border-t border-script-neon/30"
-                )}>
-                  <h3 className="font-bold text-lg mb-1">
-                    {/* 动态修改标题：如果是人物卡片且标题包含特定字符，根据模式显示不同内容 */}
-                    {photo.type === "character" && photo.title.includes("胡羞 & 肖稚宇")
-                      ? (isReality ? "胡羞 & 肖稚宇" : "胡羞 & 秦霄一")
-                      : photo.title
-                    }
-                  </h3>
-                  <p className="text-xs opacity-80 line-clamp-2">{photo.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -155,7 +156,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
 
       {/* Lightbox Modal */}
       <AnimatePresence>
-        {selectedPhoto && (
+        {safeSelectedPhoto && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -167,7 +168,7 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-5xl w-full max-h-[90vh] flex flex-col md:flex-row bg-black rounded-lg overflow-hidden shadow-2xl border border-white/10"
+              className="relative max-w-6xl w-full max-h-[90vh] bg-black rounded-lg overflow-hidden shadow-2xl border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -177,46 +178,14 @@ export default function InteractivePhotoWall({ mode }: InteractivePhotoWallProps
                 <X size={32} />
               </button>
 
-              <div className="flex-1 relative bg-black flex items-center justify-center min-h-[50vh] md:min-h-0">
+              <div className="relative bg-black flex items-center justify-center min-h-[70vh]">
                 <Image 
-                  src={selectedPhoto.src} 
-                  alt={selectedPhoto.title}
+                  src={safeSelectedPhoto.src} 
+                  alt={safeSelectedPhoto.title}
                   fill
                   sizes="100vw"
                   className="object-contain p-4"
                 />
-              </div>
-
-              <div className={clsx(
-                "w-full md:w-80 p-8 flex flex-col justify-center transition-colors duration-500",
-                isReality 
-                  ? "bg-[#fdfbf7] text-reality-text" 
-                  : "bg-[#050505] text-gray-200 border-l border-white/10"
-              )}>
-                <div className="mb-6">
-                  <span className={clsx(
-                    "text-xs px-2 py-1 rounded border uppercase tracking-widest",
-                    isReality ? "border-gray-300 text-gray-500" : "border-script-neon text-script-neon"
-                  )}>
-                    {selectedPhoto.type === "character" ? "Character" : "Scene"}
-                  </span>
-                </div>
-                <h3 className={clsx(
-                  "text-3xl font-bold mb-4",
-                  isReality ? "font-serif" : "font-serif-sc"
-                )}>
-                  {selectedPhoto.type === "character" && selectedPhoto.title.includes("胡羞 & 肖稚宇")
-                    ? (isReality ? "胡羞 & 肖稚宇" : "胡羞 & 秦霄一")
-                    : selectedPhoto.title
-                  }
-                </h3>
-                <div className={clsx(
-                  "w-12 h-1 mb-6",
-                  isReality ? "bg-reality-accent" : "bg-script-neon"
-                )} />
-                <p className="text-lg leading-relaxed opacity-80 font-light">
-                  {selectedPhoto.desc}
-                </p>
               </div>
             </motion.div>
           </motion.div>

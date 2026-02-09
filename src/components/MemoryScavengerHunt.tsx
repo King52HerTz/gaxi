@@ -63,7 +63,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
       {/* 物品 1: VR 眼镜（英雄区域 - 左上角） */}
       {!collectedItems.includes("vr-headset") && (
         <motion.button
-          className="absolute top-24 left-10 md:left-24 z-20 text-gray-400/30 hover:text-reality-accent transition-colors"
+          className={clsx(
+            "absolute top-24 left-10 md:left-24 z-20 text-gray-400/30 transition-colors",
+            mode === "reality" ? "hover:text-reality-accent" : "hover:text-script-neon"
+          )}
           whileHover={{ scale: 1.2, rotate: 10 }}
           onClick={() => handleCollect(SCAVENGER_ITEMS[0])}
         >
@@ -74,7 +77,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
       {/* 物品 2: 旧图纸（时间线区域 - 中右侧） */}
       {!collectedItems.includes("blueprint") && (
         <motion.button
-          className="absolute top-[40%] right-10 z-20 text-gray-400/30 hover:text-reality-accent transition-colors"
+          className={clsx(
+            "absolute top-[40%] right-10 z-20 text-gray-400/30 transition-colors",
+            mode === "reality" ? "hover:text-reality-accent" : "hover:text-script-neon"
+          )}
           whileHover={{ scale: 1.2, rotate: -10 }}
           onClick={() => handleCollect(SCAVENGER_ITEMS[1])}
         >
@@ -85,7 +91,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
       {/* 物品 3: 樱花瓣（角色区域 - 左下角） */}
       {!collectedItems.includes("petal") && (
         <motion.button
-          className="absolute top-[70%] left-10 z-20 text-gray-400/30 hover:text-script-neon transition-colors"
+          className={clsx(
+            "absolute top-[70%] left-10 z-20 text-gray-400/30 transition-colors",
+            mode === "reality" ? "hover:text-reality-accent" : "hover:text-script-neon"
+          )}
           whileHover={{ scale: 1.2, rotate: 45 }}
           onClick={() => handleCollect(SCAVENGER_ITEMS[2])}
         >
@@ -96,7 +105,10 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
       {/* 物品 4: 打火机（页脚 - 中间） */}
       {!collectedItems.includes("lighter") && (
         <motion.button
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-400/30 hover:text-orange-500 transition-colors"
+          className={clsx(
+            "absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-400/30 transition-colors",
+            mode === "reality" ? "hover:text-orange-500" : "hover:text-script-neon"
+          )}
           whileHover={{ scale: 1.2 }}
           onClick={() => handleCollect(SCAVENGER_ITEMS[3])}
         >

@@ -1,192 +1,333 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn } from "lucide-react";
-import Image from "next/image";
-import { INVESTIGATION_CLUES } from "@/data/drama-data";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertOctagon, AlertTriangle, ShieldAlert, Terminal } from "lucide-react";
+import clsx from "clsx";
+import { NPC_LOGS, SystemLog } from "@/data/drama-data";
 
-interface Clue {
-  id: string;
-  src: string;
-  title: string;
-  desc: string;
-  x: number;
-  y: number;
-  rotation: number;
-  type: string;
+function GlitchText({ text, isActive }: { text: string; isActive: boolean }) {
+  const [display, setDisplay] = useState(text);
+  const chars = useMemo(() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()[]{}<>?/\\|", []);
+
+  useEffect(() => {
+    if (!isActive || text.length === 0) {
+      setDisplay(text);
+      return;
+    }
+
+    let iteration = 0;
+    const intervalId: ReturnType<typeof setInterval> = setInterval(() => {
+      setDisplay(
+        text
+          .split("")
+          .map((_, index) => {
+            if (index < iteration) return text[index] ?? "";
+            return chars[Math.floor(Math.random() * chars.length)] ?? "";
+          })
+          .join("")
+      );
+
+      if (iteration >= text.length) clearInterval(intervalId);
+      iteration += 1 / 3;
+    }, 30);
+
+    return () => clearInterval(intervalId);
+  }, [chars, isActive, text]);
+
+  return <span>{display}</span>;
 }
 
-export default function ClueWall() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [selectedClue, setSelectedClue] = useState<Clue | null>(null);
+export default function SystemLogViewer() {
+  const [visibleLogs, setVisibleLogs] = useState<SystemLog[]>([]);
+  const [selectedLog, setSelectedLog] = useState<SystemLog | null>(null);
+  const [hoveredLogId, setHoveredLogId] = useState<string | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  // SVG Lines connecting clues - Logic based on the new clues
-  const lines = [
-    { from: "clue-1", to: "clue-4" }, // Newspaper -> Photo (Victim perspective)
-    { from: "clue-4", to: "clue-2" }, // Photo -> Blueprint (Father's legacy)
-    { from: "clue-1", to: "clue-5" }, // Newspaper -> Fake Letter (The lie)
-    { from: "clue-6", to: "clue-3" }, // Contract -> SD Card (The proof)
-    { from: "clue-5", to: "clue-3" }, // Fake Letter -> SD Card (Revealing truth)
-  ];
+  useEffect(() => {
+    if (!Array.isArray(NPC_LOGS) || NPC_LOGS.length === 0) {
+      setVisibleLogs([]);
+      return;
+    }
+
+    let index = 0;
+    const intervalId: ReturnType<typeof setInterval> = setInterval(() => {
+      setVisibleLogs((prev) => {
+        const nextLog = NPC_LOGS[index];
+        if (!nextLog) return prev;
+        return [...prev, nextLog];
+      });
+
+      index += 1;
+      if (index >= NPC_LOGS.length) clearInterval(intervalId);
+
+      const el = listRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    }, 520);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const is故障 = (status: SystemLog["status"]) => status === "CRITICAL" || status === "SYSTEM_OVERRIDE";
+  const is警告 = (status: SystemLog["status"]) => status === "WARNING";
+
+  const 状态颜色 = (status: SystemLog["status"]) => {
+    switch (status) {
+      case "NORMAL":
+        return "text-[#00ff00]";
+      case "WARNING":
+        return "text-yellow-400";
+      case "CRITICAL":
+        return "text-red-500";
+      case "SYSTEM_OVERRIDE":
+        return "text-pink-500";
+      default:
+        return "text-gray-400";
+    }
+  };
+
+  const 状态中文 = (status: SystemLog["status"]) => {
+    switch (status) {
+      case "NORMAL":
+        return "正常";
+      case "WARNING":
+        return "警告";
+      case "CRITICAL":
+        return "危险";
+      case "SYSTEM_OVERRIDE":
+        return "系统接管";
+      default:
+        return "未知";
+    }
+  };
 
   return (
-    <section className="relative min-h-screen py-24 overflow-hidden bg-[#0f0505]">
-       <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 relative z-20"
+    <section className="relative h-screen w-full overflow-hidden bg-black font-mono text-green-500">
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat" />
+      <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.65)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 z-20 crt-flicker" />
+
+      <div className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col px-4 py-8 md:px-12 md:py-12">
+        <motion.div
+          initial={{ opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 flex items-end justify-between border-b border-green-500/30 pb-4"
         >
-          <h2 className="text-3xl md:text-5xl font-serif-sc font-bold text-off-white mb-4 text-shadow-neon">
-            真相调查墙
-          </h2>
-          <div className="h-1 w-24 bg-neon-red mx-auto mb-6 shadow-[0_0_10px_#ff004c]" />
-          <p className="font-courier text-red-500/50 tracking-widest uppercase text-sm">
-            CASE FILE: 2004 COLLAPSE • JUSTICE FOR QIN
-          </p>
+          <div>
+            <h1 className="mb-2 flex items-center gap-4 text-3xl font-bold tracking-tighter md:text-5xl">
+              <Terminal size={40} className="animate-pulse" />
+              NPC 系统日志
+            </h1>
+            <p className="text-xs uppercase tracking-widest text-green-500/60 md:text-sm">
+              秦宵一 [ID: 9527] // 记忆核心转储 // v2.4.0
+            </p>
+          </div>
+          <div className="hidden text-right md:block">
+            <div className="flex items-center gap-2 text-red-500 animate-pulse">
+              <AlertOctagon size={16} />
+              <span className="text-xs font-bold">检测到核心不稳定</span>
+            </div>
+          </div>
         </motion.div>
 
-      <div ref={containerRef} className="relative w-full h-[80vh] md:h-[100vh] bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] bg-opacity-20 border-t border-b border-red-900/30 overflow-hidden cursor-grab active:cursor-grabbing">
-        
-        {/* Connection Lines (SVG) */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-60">
-           {lines.map((line, i) => {
-             const from = INVESTIGATION_CLUES.find(c => c.id === line.from);
-             const to = INVESTIGATION_CLUES.find(c => c.id === line.to);
-             if (!from || !to) return null;
-             
-             return (
-               <motion.line
-                 key={i}
-                 x1={`${from.x}%`}
-                 y1={`${from.y}%`}
-                 x2={`${to.x}%`}
-                 y2={`${to.y}%`}
-                 stroke="#ff004c"
-                 strokeWidth="2"
-                 strokeDasharray="5,5"
-                 initial={{ pathLength: 0, opacity: 0 }}
-                 whileInView={{ pathLength: 1, opacity: 0.6 }}
-                 transition={{ duration: 1.5, delay: 0.5 + i * 0.2 }}
-               />
-             );
-           })}
-        </svg>
+        <div className="flex-1">
+          <div ref={listRef} className="relative h-full overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-900 scrollbar-track-black">
+            <div className="absolute left-3 top-0 h-full w-px bg-green-500/20" />
+            <div className="space-y-4 pl-8">
+              <AnimatePresence>
+                {visibleLogs.map((log) => {
+                  const 故障 = is故障(log.status);
+                  const 警告 = is警告(log.status);
+                  const isHovered = hoveredLogId === log.id;
 
-        {/* Draggable Photos */}
-        {INVESTIGATION_CLUES.map((clue) => (
-          <DraggablePhoto 
-            key={clue.id} 
-            clue={clue} 
-            containerRef={containerRef}
-            onSelect={() => setSelectedClue(clue)}
-          />
-        ))}
+                  return (
+                    <motion.div
+                      key={log.id}
+                      initial={{ opacity: 0, x: -18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      onMouseEnter={() => setHoveredLogId(log.id)}
+                      onMouseLeave={() => setHoveredLogId(null)}
+                      onClick={() => {
+                        if (故障) setSelectedLog(log);
+                      }}
+                      className={clsx(
+                        "relative cursor-pointer border-b border-dashed border-white/10 px-4 py-4 transition-colors",
+                        状态颜色(log.status),
+                        isHovered ? "bg-white/5" : "bg-transparent",
+                        警告 ? "animate-jitter" : "",
+                        故障 ? "glitch-line" : ""
+                      )}
+                    >
+                      <div
+                        className={clsx(
+                          "absolute left-3 top-6 h-2 w-2 -translate-x-1/2 rounded-full border",
+                          log.status === "SYSTEM_OVERRIDE"
+                            ? "border-pink-400 bg-pink-500 shadow-[0_0_18px_rgba(255,0,170,0.45)]"
+                            : log.status === "CRITICAL"
+                              ? "border-red-400 bg-red-500 shadow-[0_0_18px_rgba(255,0,0,0.45)]"
+                              : log.status === "WARNING"
+                                ? "border-yellow-200 bg-yellow-400 shadow-[0_0_14px_rgba(250,204,21,0.35)]"
+                                : "border-green-200 bg-[#00ff00] shadow-[0_0_14px_rgba(0,255,0,0.35)]"
+                        )}
+                      />
 
-        {/* Lightbox Overlay */}
-        <AnimatePresence>
-          {selectedClue && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-12 cursor-default backdrop-blur-md"
-              onClick={() => setSelectedClue(null)}
-            >
+                      <div className="mb-2 flex flex-col gap-2 text-xs opacity-70 md:flex-row md:gap-8">
+                        <span>[{log.timestamp}]</span>
+                        <span>{log.episode}</span>
+                        <span className={clsx("font-bold", 故障 ? "animate-flicker" : "")}>
+                          状态：{状态中文(log.status)}（{log.status}）
+                        </span>
+                      </div>
+
+                      <div className="flex items-start gap-4">
+                        <span className="select-none opacity-50">{">"}</span>
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <p className="truncate font-bold tracking-wide">指令：{log.command}</p>
+                          <p className="leading-relaxed opacity-85">
+                            输出：
+                            {log.status === "CRITICAL" ? (
+                              <span className="glitch-text">
+                                {故障 ? <GlitchText text={log.output} isActive /> : log.output}
+                              </span>
+                            ) : (
+                              <span>{故障 ? <GlitchText text={log.output} isActive /> : log.output}</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      {故障 && (
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
+                          <AlertTriangle size={20} className="animate-bounce" />
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+
               <motion.div
-                layoutId={`clue-${selectedClue.id}`}
-                className="relative max-w-4xl w-full bg-[#1a1a1a] p-1 rounded-sm shadow-2xl border border-red-900/50 flex flex-col md:flex-row overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button 
-                  onClick={() => setSelectedClue(null)}
-                  className="absolute top-4 right-4 z-20 text-white/50 hover:text-red-500 transition-colors"
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 0.85, repeat: Infinity }}
+                className="h-5 w-3 bg-green-500"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {selectedLog && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+            onClick={() => setSelectedLog(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.92, y: 18 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.92, y: 18 }}
+              className="relative w-full max-w-2xl border-2 border-red-500 bg-black p-8 shadow-[0_0_50px_rgba(255,0,0,0.3)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute left-0 top-0 h-1 w-full animate-pulse bg-red-500" />
+              <div className="absolute bottom-0 left-0 h-1 w-full animate-pulse bg-red-500" />
+
+              <div className="mb-6 flex items-center gap-4 border-b border-red-500/30 pb-4 text-red-500">
+                <ShieldAlert size={32} />
+                <h2 className="text-2xl font-bold tracking-widest">致命系统错误</h2>
+              </div>
+
+              <div className="space-y-6">
+                <div className="text-sm text-red-400/80">
+                  <p>{">"} 错误代码：0x{selectedLog.glitchLevel}E9</p>
+                  <p>{">"} 模块：情感引擎_V2</p>
+                  <p>{">"} 原因：爱意导致缓冲区溢出</p>
+                </div>
+
+                <div className="relative py-8 text-center">
+                  <p className="text-3xl italic text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] md:text-4xl">
+                    {selectedLog.memoryContent.quote}
+                  </p>
+                  <span className="absolute left-0 top-0 font-serif text-6xl text-red-900/20">“</span>
+                  <span className="absolute bottom-0 right-0 font-serif text-6xl text-red-900/20">”</span>
+                </div>
+
+                <button
+                  onClick={() => setSelectedLog(null)}
+                  className="w-full border border-red-500 bg-red-500/10 py-3 font-bold uppercase tracking-widest text-red-500 transition-colors hover:bg-red-500/20"
                 >
-                  <X size={32} />
+                  强制重启系统
                 </button>
-                
-                <div className="w-full md:w-2/3 bg-black relative min-h-[300px]">
-                    <Image 
-                      src={selectedClue.src} 
-                      alt={selectedClue.title}
-                      fill
-                      className="object-contain"
-                    />
-                </div>
-                
-                <div className="w-full md:w-1/3 p-8 flex flex-col justify-center bg-[#1a1a1a] border-l border-red-900/20">
-                    <span className="text-red-500 font-mono text-xs uppercase tracking-widest mb-2 border border-red-900/30 px-2 py-1 self-start">
-                        {selectedClue.type}
-                    </span>
-                    <h3 className="text-2xl font-serif-sc font-bold text-white mb-4">{selectedClue.title}</h3>
-                    <p className="text-gray-400 font-sans leading-relaxed">{selectedClue.desc}</p>
-                </div>
-              </motion.div>
+              </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        @keyframes flicker {
+          0% { opacity: 0.08; }
+          6% { opacity: 0.14; }
+          10% { opacity: 0.06; }
+          12% { opacity: 0.18; }
+          20% { opacity: 0.08; }
+          100% { opacity: 0.1; }
+        }
+        .crt-flicker {
+          animation: flicker 2.2s infinite;
+          background: rgba(255, 255, 255, 0.12);
+          mix-blend-mode: overlay;
+        }
+        @keyframes textFlicker {
+          0% { opacity: 1; }
+          50% { opacity: 0.82; }
+          52% { opacity: 0.22; }
+          54% { opacity: 0.86; }
+          100% { opacity: 1; }
+        }
+        .animate-flicker {
+          animation: textFlicker 1.9s infinite;
+        }
+        @keyframes jitter {
+          0% { transform: translateX(0); }
+          20% { transform: translateX(-0.4px); }
+          40% { transform: translateX(0.6px); }
+          60% { transform: translateX(-0.5px); }
+          80% { transform: translateX(0.3px); }
+          100% { transform: translateX(0); }
+        }
+        .animate-jitter {
+          animation: jitter 0.22s infinite;
+        }
+        @keyframes glitchShift {
+          0% { transform: translate3d(0,0,0); text-shadow: none; }
+          10% { transform: translate3d(-1px,0,0); text-shadow: 1px 0 rgba(255,0,0,0.6), -1px 0 rgba(255,0,170,0.6); }
+          11% { transform: translate3d(1px,0,0); }
+          12% { transform: translate3d(-2px,0,0); }
+          13% { transform: translate3d(0,0,0); }
+          100% { transform: translate3d(0,0,0); }
+        }
+        .glitch-line {
+          animation: glitchShift 1.6s infinite;
+        }
+        @keyframes glitch-anim-1 {
+          0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+          20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+          40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+          60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+          80% { clip-path: inset(10% 0 60% 0); transform: translate(-1px, 1px); }
+          100% { clip-path: inset(30% 0 20% 0); transform: translate(0); }
+        }
+        .glitch-text {
+          position: relative;
+          display: inline-block;
+          will-change: transform, clip-path;
+          animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+      `}</style>
     </section>
-  );
-}
-
-interface DraggablePhotoProps {
-  clue: Clue;
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  onSelect: () => void;
-}
-
-function DraggablePhoto({ clue, containerRef, onSelect }: DraggablePhotoProps) {
-  return (
-    <motion.div
-      drag
-      dragConstraints={containerRef}
-      dragElastic={0.2}
-      whileDrag={{ scale: 1.1, zIndex: 100, cursor: "grabbing" }}
-      whileHover={{ scale: 1.05, zIndex: 50 }}
-      layoutId={`clue-${clue.id}`}
-      initial={{ 
-        opacity: 0, 
-        scale: 0.5,
-        x: -50, 
-      }}
-      whileInView={{ 
-        opacity: 1, 
-        scale: 1,
-        x: 0,
-        rotate: clue.rotation,
-        transition: { type: "spring", duration: 0.8 }
-      }}
-      viewport={{ once: true }}
-      className="absolute p-2 bg-white shadow-xl cursor-grab group max-w-[200px] md:max-w-[250px]"
-      style={{
-        left: `${clue.x}%`,
-        top: `${clue.y}%`,
-      }}
-      onClick={onSelect}
-    >
-      {/* Tape Effect */}
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-red-500/20 backdrop-blur-[1px] rotate-2 shadow-sm z-10" />
-      
-      <div className="relative aspect-[4/3] overflow-hidden bg-gray-900 border border-gray-200">
-         <Image 
-           src={clue.src} 
-           alt={clue.title} 
-           fill
-           sizes="(max-width: 768px) 150px, 250px"
-           className="object-cover transition-all duration-500 pointer-events-none group-hover:scale-110" 
-         />
-         <div className="absolute inset-0 bg-red-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <ZoomIn className="text-white w-8 h-8 drop-shadow-lg" />
-         </div>
-      </div>
-      
-      <div className="pt-2 pb-1 text-center bg-white">
-        <p className="font-serif-sc font-bold text-black text-xs uppercase tracking-widest truncate px-1">
-          {clue.title}
-        </p>
-      </div>
-    </motion.div>
   );
 }
