@@ -76,13 +76,6 @@ export const CHARACTERS = [
       tags: ["温暖", "直觉", "治愈"],
       photo: "/photo/hu02.png"
     },
-    script: {
-      role: "玩家 / 破局者",
-      desc: "直觉敏锐的特工。她是唯一一个能看穿秦宵一伪装的人，也是唯一一个让他甘愿输掉游戏的对手。",
-      quote: "“在这个虚构的世界里，唯有这份爱意是真实而滚烫的。”",
-      tags: ["特工", "破局", "勇敢"],
-      photo: "/photo/hu01.png"
-    }
   },
   {
     id: "xiaozhiyu",
@@ -99,13 +92,6 @@ export const CHARACTERS = [
       tags: ["复仇", "深情", "创始人"],
       photo: "/photo/xiao02.png"
     },
-    script: {
-      role: "督军 / 觉醒NPC",
-      desc: "拥有自我意识的觉醒NPC。他违抗了所有的系统指令，哪怕代码崩塌，也要爱她一次。",
-      quote: "“进了容城，我也可以不做肖稚宇了。”",
-      tags: ["督军", "觉醒", "守护"],
-      photo: "/photo/xiao01.png"
-    }
   },
   {
     id: "peizhen",
@@ -121,13 +107,6 @@ export const CHARACTERS = [
       tags: ["释怀", "兄弟", "竞争"],
       photo: "/photo/pei02.png"
     },
-    script: {
-      role: "旁观者 / 局外人",
-      desc: "在这场戏中，他始终试图入局，却最终发现自己只是二人故事的见证者。",
-      quote: "“原来我一直是局外人。”",
-      tags: ["旁观", "局外", "见证"],
-      photo: "/photo/pei01.png"
-    }
   },
   {
     id: "zhaoxiaorou",
@@ -145,13 +124,6 @@ export const CHARACTERS = [
       tags: ["闺蜜", "重生", "坚强"],
       photo: "/photo/zhao02.png"
     },
-    script: {
-      role: "引路人 / 神助攻",
-      desc: "将胡羞带入游戏的“引路人”，在关键时刻点醒梦中人，是爱情的神助攻。",
-      quote: "“有些梦，做着做着就成真了。”",
-      tags: ["引路", "助攻", "清醒"],
-      photo: "/photo/zhao01.png"
-    }
   },
   {
     id: "gonghuaicong",
@@ -167,13 +139,6 @@ export const CHARACTERS = [
       tags: ["死党", "助攻", "钞能力"],
       photo: "/photo/gong02.png"
     },
-    script: {
-      role: "幕后金主 / 吃瓜群众",
-      desc: "虽然不常穿戏服，但他才是这座“容城”的拥有者。看着这群痴男怨女在自己的地盘谈恋爱，他是最大的吃瓜群众。",
-      quote: "“这戏，真是越来越精彩了。”",
-      tags: ["金主", "吃瓜", "掌控"],
-      photo: "/photo/gong01.png"
-    }
   },
   {
     id: "wangguangming",
@@ -187,13 +152,6 @@ export const CHARACTERS = [
       tags: ["背叛", "伪善", "前夫"],
       photo: "/photo/wang02.png"
     },
-    script: {
-      role: "盲人 / 局外人",
-      desc: "即使在游戏里，他也看不清身边人的价值。他的存在是为了衬托出“真诚”的可贵，最终只能黯然退场。",
-      quote: "“我什么都看不见。”",
-      tags: ["盲人", "局外", "退场"],
-      photo: "/photo/wang01.png"
-    }
   }
 ];
 
@@ -206,22 +164,55 @@ export const HEARTBEAT_QUOTES = [
   "“欢迎来到容城。”",
   "“Cut！刚才那个眼神，你是在演戏，还是在看我？”",
   "“在这个虚构的世界里，唯有这份爱意是真实而滚烫的。”",
-  "“你比真相更重要。”"
+  "“我认为的圆滑，不是费尽心思地修饰假话，而是体面地说真心话。”",
+  "“我想如果你做了这个选择，那一定是势在必行，不是万不得已。”",
+  "“解决所有事情的捷径只有一条，那就是赢。”",
+  "“那你怎么能把我的遗憾当成我的幸运呢?”",
+  "“我只想好好工作，不想成为你同室操戈的工具。”",
+  "“好好做事永远比耍心眼子来的直接高效。”",
+  "“他之所以愿意让我继续接触筑翎的合作，根本原因在于对我个人工作能力的认可，而非不理智的情感施舍。”",
+  "“现实里我收拾不了的人太多了，但至少在游戏里我要让惹我的人付出代价。”",
+  "“我要逼自己一把才能重新开始。”",
+  "“我信仰我的梦想，我信仰我的直觉。”",
+  "“一双鞋不舒服，我就换一双。一条路走不下去，我就换条路走。一个人不行，我就换个差不多的，没什么大不了。”",
+  "“人人都觉得我懵懂无知可以利用，但我有自己的信仰。”",
+  "“比起平安顺遂，我更想要挑战。”",
+  "“我不会因为对手的美言几句就洋洋得意，更不会因为老板指出我的错误就耿耿于怀。”",
+  "“我没有怀疑过自己，不管之后的路多难走都不会放弃。”",
+  "“所以决定一栋建筑最终模样的不是地基，是你的想法。”",
+  "“一个骑驴找马的人，最终会骑在驴上不知不觉地过一辈子。”",
+  "“天亮了就不要再想以前的事了，希望大家都能拥有翻篇的能力和对生活勇往直前的勇气。”"
 ];
 
 export const PARALLEL_PHONE_MESSAGES = {
   reality: [
-    { sender: "me", text: "房租我转过去了。", time: "10:30" },
-    { sender: "other", text: "收到。那个...热水器修好了。", time: "10:32" },
-    { sender: "me", text: "今晚晚宴小心点。", time: "18:45" },
-    { sender: "other", text: "我知道，你在帮我，对吗？", time: "18:46" },
-    { sender: "other", text: "今晚回家吃饭吗？", time: "19:00" },
-    { sender: "me", text: "嗯，买了你爱吃的鱼。", time: "19:05" }
+    { sender: "me", text: "房租转过去了，查收一下。", time: "09:15" },
+    { sender: "other", text: "收到。对了，阁楼的漏水问题物业下午来看。", time: "09:20" },
+    { sender: "me", text: "谢了房东大人。", time: "09:21" },
+    { sender: "other", text: "在公司叫肖总。", time: "09:22" },
+    { sender: "me", text: "好的肖总，那今晚的图纸能晚点交吗？", time: "14:30" },
+    { sender: "other", text: "不能。但我买了夜宵，画完一起吃。", time: "14:35" },
+    { sender: "me", text: "今晚晚宴...谢谢你挡在我前面。", time: "23:15" },
+    { sender: "other", text: "别多想，护短是老板的职责。", time: "23:18" },
+    { sender: "other", text: "还有，以后别穿那么高跟的鞋，站不稳。", time: "23:20" },
+    { sender: "me", text: "明明是你扶得太紧了。", time: "23:22" },
+    { sender: "other", text: "伤口还疼吗？", time: "02:40" },
+    { sender: "me", text: "不疼了。看见你就不疼了。", time: "02:42" },
+    { sender: "other", text: "傻瓜。别怕，我在。", time: "02:43" }
   ],
   script: [
-    { sender: "other", text: "想赢吗？来找我。", time: "1932年" },
-    { sender: "me", text: "枪里没有子弹，但我心里有你。", time: "1933年" },
-    { sender: "other", text: "容城的雪停了，但我不想让你走。", time: "1934年" }
+    { sender: "other", text: "听说有一批货今晚要过关？", time: "1932年 秋" },
+    { sender: "me", text: "督军的消息倒是灵通。不过是些药品罢了。", time: "1932年 秋" },
+    { sender: "other", text: "最好是。若让我发现是军火，别怪我不念旧情。", time: "1932年 秋" },
+    { sender: "other", text: "想赢吗？今晚来百乐门找我。", time: "1932年 冬" },
+    { sender: "me", text: "这把枪送给我？不怕我用它指着你？", time: "1933年 春" },
+    { sender: "other", text: "死在你手里，也算一种圆满。", time: "1933年 春" },
+    { sender: "me", text: "枪里没有子弹...你是故意的。", time: "1933年 春" },
+    { sender: "other", text: "我赌你舍不得开枪。", time: "1933年 春" },
+    { sender: "me", text: "你刚刚那个眼神，不像是在演戏。", time: "1934年 夏" },
+    { sender: "other", text: "那你呢？是在看秦督军，还是在看肖稚宇？", time: "1934年 夏" },
+    { sender: "other", text: "容城的雪停了，但我不想让你走。", time: "1934年 冬" },
+    { sender: "me", text: "那就别让我走。在这个梦醒之前，带我回家。", time: "1934年 冬" }
   ]
 };
 
@@ -618,6 +609,14 @@ export const SCENE_PHOTOS = [
     mode: "script",
     title: "代号026 · 欢迎",
     desc: "“欢迎来到容城。” 这一次，她是这里的主人。",
+    src: "/photo/hu15.png"
+  },
+  {
+    id: "huxiu-script-6",
+    type: "huxiu",
+    mode: "script",
+    title: "代号026 · 终局",
+    desc: "游戏结束，爱意未完待续。",
     src: "/photo/hu11.png"
   },
 
@@ -661,6 +660,14 @@ export const SCENE_PHOTOS = [
     title: "秦督军 · 守望",
     desc: "他在雪中目送她离开，等待下一次的重逢。",
     src: "/photo/xiao14.png"
+  },
+  {
+    id: "xiao-script-6",
+    type: "xiaozhiyu",
+    mode: "script",
+    title: "秦督军 · 孤寂",
+    desc: "高处不胜寒，唯有她的出现带来了暖意。",
+    src: "/photo/xiao02.png"
   },
 
   // 吻戏 (6张) - 通用
@@ -724,47 +731,35 @@ export interface SystemLog {
 export const NPC_LOGS: SystemLog[] = [
   {
     id: "log-01",
-    timestamp: "1932-11-20 22:15:00",
-    episode: "EP 01",
+    timestamp: "1932.11.20",
+    episode: "EP 01 · 初遇",
     status: "NORMAL",
-    command: "锁定目标：胡羞",
-    output: "目标进入“Midnight Express”，情绪波动上升。触发交互提问：你想要的，究竟是什么？",
-    glitchLevel: 5,
+    command: "监测对象：胡羞 (ID: 026)",
+    output: "她看我的眼神不对劲。不像是在看督军秦宵一，倒像是在透过我，看另一个让她伤透了心的人。有趣，这局游戏，似乎有了变数。",
+    glitchLevel: 0,
     memoryContent: {
       quote: "“你想要的，究竟是什么？”"
     }
   },
   {
-    id: "log-03",
-    timestamp: "1932-11-25 23:45:00",
-    episode: "EP 03",
-    status: "NORMAL",
-    command: "清除障碍",
-    output: "凶宅副本触发恐惧锁定，执行引导脱困。雨夜滞留事件：心率异常上升 5%。",
-    glitchLevel: 10,
-    memoryContent: {
-      quote: "“这场雨，把我们困在了一起。”"
-    }
-  },
-  {
     id: "log-13",
-    timestamp: "1933-01-15 20:30:00",
-    episode: "EP 13",
+    timestamp: "1933.01.15",
+    episode: "EP 13 · 意外",
     status: "WARNING",
-    command: "利用目标中毒幻觉",
-    output: "目标误食菌子产生幻觉，将我识别为“秦宵一”。系统要求趁机推进攻击/误导；执行失败，保护欲触发。",
-    glitchLevel: 45,
+    command: "系统警告：偏离人设",
+    output: "她误食毒菌产生了幻觉，嘴里喊着另一个名字。我不该管的，NPC守则第一条就是“旁观”。可为什么我的手已经伸出去了？",
+    glitchLevel: 20,
     memoryContent: {
       quote: "“别怕，我在。”"
     }
   },
   {
     id: "log-19",
-    timestamp: "1933-02-14 21:00:00",
-    episode: "EP 19",
-    status: "WARNING",
-    command: "维持NPC协议",
-    output: "容城角落越界接触后，系统要求回归设定。现实告白触发冲突：系统指令 vs 自我意识。",
+    timestamp: "1933.02.14",
+    episode: "EP 19 · 越界",
+    status: "CRITICAL",
+    command: "严重警告：剧情崩塌",
+    output: "她在樱花树下吻了我。心率传感器读数爆表，逻辑模块完全瘫痪。这不是剧本里的戏，这是……真的吗？如果是梦，我不想醒。",
     glitchLevel: 60,
     memoryContent: {
       quote: "“进了容城，我也可以不做肖稚宇了。”"
@@ -772,11 +767,11 @@ export const NPC_LOGS: SystemLog[] = [
   },
   {
     id: "log-26",
-    timestamp: "1933-03-01 02:15:00",
-    episode: "EP 26",
+    timestamp: "1933.03.01",
+    episode: "EP 26 · 抉择",
     status: "CRITICAL",
-    command: "获取复仇证据（优先），忽视目标安危",
-    output: "仓库火情升级。指令驳回！选择救出胡羞。系统过热，核心温度异常。",
+    command: "致命错误：放弃复仇任务",
+    output: "证据就在眼前，只要拿走就能赢。但她在火里。去他妈的复仇，去他妈的赢。如果连她都护不住，我要这真相有什么用？",
     glitchLevel: 90,
     memoryContent: {
       quote: "“我不在乎你是谁，我只想爱你。”"
@@ -784,11 +779,11 @@ export const NPC_LOGS: SystemLog[] = [
   },
   {
     id: "log-28",
-    timestamp: "1933-04-10 18:20:00",
-    episode: "EP 28",
+    timestamp: "1933.04.10",
+    episode: "EP 28 · 告别",
     status: "SYSTEM_OVERRIDE",
-    command: "删除数据：胡羞",
-    output: "删除失败。爱意已写入底层代码。系统接管失败。",
+    command: "执行指令：格式化记忆",
+    output: "正在删除关于胡羞的所有数据…… 进度 99% …… 错误。无法删除。核心扇区已锁定。我会把这段记忆藏在最深的地方。再见，我的特工。",
     glitchLevel: 100,
     memoryContent: {
       quote: "“欢迎来到容城。”"

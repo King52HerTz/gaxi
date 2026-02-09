@@ -48,7 +48,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
           "text-3xl font-bold mb-8 transition-colors",
           isReality ? "text-reality-text font-serif" : "text-script-text font-handwriting"
         )}>
-          STORY ARCHIVES
+          {isReality ? "故事档案" : "剧情存档"}
         </h2>
         
         {STORY_ARCS.map((arc) => (

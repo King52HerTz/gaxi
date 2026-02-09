@@ -107,9 +107,6 @@ export default function Home() {
       {/* 3. 人物卡片：情感角色 (仅现实模式) */}
       {mode === "reality" && <CharacterCards mode={mode} />}
 
-      {/* 功能：真相调查墙 (仅剧本模式) */}
-      {mode === "script" && <ClueWall />}
-
       {/* 功能 1：平行时空手机 */}
       <ParallelPhone mode={mode} />
 
@@ -122,6 +119,9 @@ export default function Home() {
       {/* 功能 4：心跳按钮 (现有) */}
       <HeartbeatButton mode={mode} />
 
+      {/* 功能：NPC 系统日志入口 (仅剧本模式，放在页面底部) */}
+      {mode === "script" && <ClueWall />}
+
       {/* 页脚 */}
       <footer className="py-12 text-center opacity-50 relative z-10">
         <p className={clsx(
@@ -129,8 +129,8 @@ export default function Home() {
           mode === "reality" ? "text-reality-text font-serif" : "text-script-text font-handwriting"
         )}>
           {mode === "reality" 
-            ? "Based on the story of Architect Hu Xiu & Xiao Zhiyu" 
-            : "Directed by Fate • Starring Agent Hu Xiu & NPC Qin Xiaoyi"}
+            ? "改编自建筑师胡羞与肖稚宇的故事" 
+            : "命运导演 • 主演：特工胡羞 & NPC秦宵一"}
         </p>
       </footer>
     </main>

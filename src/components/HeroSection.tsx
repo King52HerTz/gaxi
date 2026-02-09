@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { HERO_CONTENT } from "@/data/drama-data";
+import { CHARACTERS, HERO_CONTENT } from "@/data/drama-data";
 import clsx from "clsx";
 import { User, QrCode, Sparkles, Flame } from "lucide-react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface HeroSectionProps {
   mode: "reality" | "script";
@@ -15,6 +16,8 @@ interface HeroSectionProps {
 export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSectionProps) {
   const isReality = mode === "reality";
   const content = isReality ? HERO_CONTENT.reality : HERO_CONTENT.script;
+  const badgePhotoSrc =
+    CHARACTERS.find((c) => c.id === "huxiu")?.reality?.photo ?? "/photo/hu02.png";
 
   const [snowParticles, setSnowParticles] = useState<{ left: string; width: string; height: string; duration: string; delay: string }[]>([]);
 
@@ -116,8 +119,8 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                  <div className="flex-1 p-4 flex flex-col justify-between relative z-10">
                     <div className="flex justify-between items-start">
                        <div>
-                         <h3 className="font-serif-sc font-bold text-2xl text-[#5c2e0e] leading-none mb-1">MIDNIGHT</h3>
-                         <h3 className="font-serif-sc font-bold text-xl text-[#5c2e0e] leading-none">EXPRESS</h3>
+                         <h3 className="font-serif-sc font-bold text-2xl text-[#5c2e0e] leading-none mb-1">午夜</h3>
+                         <h3 className="font-serif-sc font-bold text-xl text-[#5c2e0e] leading-none">快车</h3>
                        </div>
                        <div className="w-8 h-8 rounded-full border border-[#8b4513] flex items-center justify-center transform rotate-12">
                           <span className="text-[8px] font-bold text-[#8b4513]">ME</span>
@@ -125,9 +128,9 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                     </div>
                     
                     <div className="flex justify-between items-end">
-                       <p className="text-[10px] font-mono text-[#8b4513]/70">DESTINATION: RONGCHENG</p>
+                       <p className="text-[10px] font-mono text-[#8b4513]/70">目的地：容城</p>
                        <span className="text-xs font-bold text-[#8b4513] flex items-center gap-1 group-hover:text-red-600 transition-colors">
-                          CLICK TO ENTER <Flame size={12} />
+                          点击入局 <Flame size={12} />
                        </span>
                     </div>
                  </div>
@@ -157,18 +160,26 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                     </div>
                     
                     {/* 证件照区域 */}
-                    <div className="w-20 h-24 bg-gray-200 mb-3 overflow-hidden rounded-sm relative">
+                    <div className="w-20 h-24 bg-gray-200 mb-3 overflow-hidden rounded-sm relative ring-1 ring-black/10 shadow-[0_6px_18px_rgba(0,0,0,0.25)]">
                         <User className="absolute inset-0 m-auto text-gray-400 w-10 h-10" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <Image
+                          src={badgePhotoSrc}
+                          alt="胡羞"
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                          priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-white/10" />
                     </div>
                     
-                    <h3 className="font-serif font-bold text-reality-text mb-1">HU XIU</h3>
-                    <p className="text-[10px] text-gray-500 tracking-wider mb-4">ARCHITECT • 0923</p>
+                    <h3 className="font-serif font-bold text-reality-text mb-1">胡羞</h3>
+                    <p className="text-[10px] text-gray-500 tracking-wider mb-4">建筑师助理</p>
                     
                     {/* 返回交互提示 */}
                     <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-red-900/40 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
                        <span className="text-xs font-bold text-red-200 flex items-center gap-1">
-                         <Sparkles size={12} /> RETURN TO SHANGHAI
+                         <Sparkles size={12} /> 返回上海
                        </span>
                     </div>
                  </div>

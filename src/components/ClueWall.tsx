@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertOctagon, AlertTriangle, ShieldAlert, Terminal } from "lucide-react";
+import { AlertOctagon, AlertTriangle, ShieldAlert, Terminal, Bug, X } from "lucide-react";
 import clsx from "clsx";
 import { NPC_LOGS, SystemLog } from "@/data/drama-data";
 
@@ -38,231 +38,277 @@ function GlitchText({ text, isActive }: { text: string; isActive: boolean }) {
   return <span>{display}</span>;
 }
 
-export default function SystemLogViewer() {
+export default function SystemLogEntrance() {
+  const [isOpen, setIsOpen] = useState(false);
   const [visibleLogs, setVisibleLogs] = useState<SystemLog[]>([]);
   const [selectedLog, setSelectedLog] = useState<SystemLog | null>(null);
   const [hoveredLogId, setHoveredLogId] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
+  // Auto-load logs when open
   useEffect(() => {
-    if (!Array.isArray(NPC_LOGS) || NPC_LOGS.length === 0) {
-      setVisibleLogs([]);
-      return;
+    if (isOpen) {
+        setVisibleLogs([]); // Reset logs
+        let index = 0;
+        const intervalId: ReturnType<typeof setInterval> = setInterval(() => {
+          setVisibleLogs((prev) => {
+            const nextLog = NPC_LOGS[index];
+            if (!nextLog) return prev;
+            if (prev.find(l => l.id === nextLog.id)) return prev;
+            return [...prev, nextLog];
+          });
+
+          index += 1;
+          if (index >= NPC_LOGS.length) clearInterval(intervalId);
+
+          if (listRef.current) {
+              listRef.current.scrollTop = listRef.current.scrollHeight;
+          }
+        }, 800); 
+
+        return () => clearInterval(intervalId);
     }
-
-    let index = 0;
-    const intervalId: ReturnType<typeof setInterval> = setInterval(() => {
-      setVisibleLogs((prev) => {
-        const nextLog = NPC_LOGS[index];
-        if (!nextLog) return prev;
-        return [...prev, nextLog];
-      });
-
-      index += 1;
-      if (index >= NPC_LOGS.length) clearInterval(intervalId);
-
-      const el = listRef.current;
-      if (el) el.scrollTop = el.scrollHeight;
-    }, 520);
-
-    return () => clearInterval(intervalId);
-  }, []);
+  }, [isOpen]);
 
   const is故障 = (status: SystemLog["status"]) => status === "CRITICAL" || status === "SYSTEM_OVERRIDE";
   const is警告 = (status: SystemLog["status"]) => status === "WARNING";
 
   const 状态颜色 = (status: SystemLog["status"]) => {
     switch (status) {
-      case "NORMAL":
-        return "text-[#00ff00]";
-      case "WARNING":
-        return "text-yellow-400";
-      case "CRITICAL":
-        return "text-red-500";
-      case "SYSTEM_OVERRIDE":
-        return "text-pink-500";
-      default:
-        return "text-gray-400";
+      case "NORMAL": return "text-[#00ff00]";
+      case "WARNING": return "text-yellow-400";
+      case "CRITICAL": return "text-red-500";
+      case "SYSTEM_OVERRIDE": return "text-pink-500";
+      default: return "text-gray-400";
     }
   };
 
   const 状态中文 = (status: SystemLog["status"]) => {
     switch (status) {
-      case "NORMAL":
-        return "正常";
-      case "WARNING":
-        return "警告";
-      case "CRITICAL":
-        return "危险";
-      case "SYSTEM_OVERRIDE":
-        return "系统接管";
-      default:
-        return "未知";
+      case "NORMAL": return "正常";
+      case "WARNING": return "警告";
+      case "CRITICAL": return "危险";
+      case "SYSTEM_OVERRIDE": return "系统接管";
+      default: return "未知";
     }
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black font-mono text-green-500">
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat" />
-      <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.65)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 z-20 crt-flicker" />
+    <>
+      {/* 底部入口 Trigger */}
+      <section className="relative w-full py-16 bg-black border-t border-green-900/30 flex flex-col items-center justify-center gap-6 overflow-hidden">
+         {/* CRT Background for Trigger */}
+         <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat opacity-10" />
+         
+         <div className="z-20 flex flex-col items-center gap-2 text-green-500/60 font-mono text-sm">
+            <Bug size={24} className="animate-pulse text-green-500" />
+            <span className="tracking-[0.2em] uppercase">检测到系统核心</span>
+         </div>
 
-      <div className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col px-4 py-8 md:px-12 md:py-12">
-        <motion.div
-          initial={{ opacity: 0, y: -18 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 flex items-end justify-between border-b border-green-500/30 pb-4"
-        >
-          <div>
-            <h1 className="mb-2 flex items-center gap-4 text-3xl font-bold tracking-tighter md:text-5xl">
-              <Terminal size={40} className="animate-pulse" />
-              NPC 系统日志
-            </h1>
-            <p className="text-xs uppercase tracking-widest text-green-500/60 md:text-sm">
-              秦宵一 [ID: 9527] // 记忆核心转储 // v2.4.0
-            </p>
-          </div>
-          <div className="hidden text-right md:block">
-            <div className="flex items-center gap-2 text-red-500 animate-pulse">
-              <AlertOctagon size={16} />
-              <span className="text-xs font-bold">检测到核心不稳定</span>
-            </div>
-          </div>
-        </motion.div>
+         <motion.button
+            whileHover={{ scale: 1.05, textShadow: "0 0 8px rgb(34, 197, 94)" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsOpen(true)}
+            className="z-20 px-8 py-3 border border-green-500/30 bg-green-500/5 hover:bg-green-500/10 text-green-500 font-mono text-lg tracking-widest uppercase transition-all duration-300 relative group overflow-hidden"
+         >
+            <span className="relative z-10 flex items-center gap-2">
+               <Terminal size={18} />
+               访问日志数据库
+            </span>
+            <div className="absolute inset-0 bg-green-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+         </motion.button>
+         
+         <p className="z-20 text-[10px] text-green-500/30 font-mono">
+            受限区域 // 仅限授权人员
+         </p>
+      </section>
 
-        <div className="flex-1">
-          <div ref={listRef} className="relative h-full overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-900 scrollbar-track-black">
-            <div className="absolute left-3 top-0 h-full w-px bg-green-500/20" />
-            <div className="space-y-4 pl-8">
-              <AnimatePresence>
-                {visibleLogs.map((log) => {
-                  const 故障 = is故障(log.status);
-                  const 警告 = is警告(log.status);
-                  const isHovered = hoveredLogId === log.id;
-
-                  return (
-                    <motion.div
-                      key={log.id}
-                      initial={{ opacity: 0, x: -18 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      onMouseEnter={() => setHoveredLogId(log.id)}
-                      onMouseLeave={() => setHoveredLogId(null)}
-                      onClick={() => {
-                        if (故障) setSelectedLog(log);
-                      }}
-                      className={clsx(
-                        "relative cursor-pointer border-b border-dashed border-white/10 px-4 py-4 transition-colors",
-                        状态颜色(log.status),
-                        isHovered ? "bg-white/5" : "bg-transparent",
-                        警告 ? "animate-jitter" : "",
-                        故障 ? "glitch-line" : ""
-                      )}
-                    >
-                      <div
-                        className={clsx(
-                          "absolute left-3 top-6 h-2 w-2 -translate-x-1/2 rounded-full border",
-                          log.status === "SYSTEM_OVERRIDE"
-                            ? "border-pink-400 bg-pink-500 shadow-[0_0_18px_rgba(255,0,170,0.45)]"
-                            : log.status === "CRITICAL"
-                              ? "border-red-400 bg-red-500 shadow-[0_0_18px_rgba(255,0,0,0.45)]"
-                              : log.status === "WARNING"
-                                ? "border-yellow-200 bg-yellow-400 shadow-[0_0_14px_rgba(250,204,21,0.35)]"
-                                : "border-green-200 bg-[#00ff00] shadow-[0_0_14px_rgba(0,255,0,0.35)]"
-                        )}
-                      />
-
-                      <div className="mb-2 flex flex-col gap-2 text-xs opacity-70 md:flex-row md:gap-8">
-                        <span>[{log.timestamp}]</span>
-                        <span>{log.episode}</span>
-                        <span className={clsx("font-bold", 故障 ? "animate-flicker" : "")}>
-                          状态：{状态中文(log.status)}（{log.status}）
-                        </span>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <span className="select-none opacity-50">{">"}</span>
-                        <div className="min-w-0 flex-1 space-y-1">
-                          <p className="truncate font-bold tracking-wide">指令：{log.command}</p>
-                          <p className="leading-relaxed opacity-85">
-                            输出：
-                            {log.status === "CRITICAL" ? (
-                              <span className="glitch-text">
-                                {故障 ? <GlitchText text={log.output} isActive /> : log.output}
-                              </span>
-                            ) : (
-                              <span>{故障 ? <GlitchText text={log.output} isActive /> : log.output}</span>
-                            )}
-                          </p>
-                        </div>
-                      </div>
-
-                      {故障 && (
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
-                          <AlertTriangle size={20} className="animate-bounce" />
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-
-              <motion.div
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 0.85, repeat: Infinity }}
-                className="h-5 w-3 bg-green-500"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {/* Full Screen Overlay - The "Log Viewer" */}
       <AnimatePresence>
-        {selectedLog && (
+        {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-            onClick={() => setSelectedLog(null)}
+            className="fixed inset-0 z-[100] bg-black font-mono text-green-500 overflow-hidden flex flex-col"
           >
-            <motion.div
-              initial={{ scale: 0.92, y: 18 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.92, y: 18 }}
-              className="relative w-full max-w-2xl border-2 border-red-500 bg-black p-8 shadow-[0_0_50px_rgba(255,0,0,0.3)]"
-              onClick={(e) => e.stopPropagation()}
+            {/* Close Button */}
+            <button 
+                onClick={() => setIsOpen(false)}
+                className="absolute top-6 right-6 z-50 p-2 text-green-500/50 hover:text-red-500 hover:bg-white/10 rounded-full transition-colors group"
             >
-              <div className="absolute left-0 top-0 h-1 w-full animate-pulse bg-red-500" />
-              <div className="absolute bottom-0 left-0 h-1 w-full animate-pulse bg-red-500" />
-
-              <div className="mb-6 flex items-center gap-4 border-b border-red-500/30 pb-4 text-red-500">
-                <ShieldAlert size={32} />
-                <h2 className="text-2xl font-bold tracking-widest">致命系统错误</h2>
-              </div>
-
-              <div className="space-y-6">
-                <div className="text-sm text-red-400/80">
-                  <p>{">"} 错误代码：0x{selectedLog.glitchLevel}E9</p>
-                  <p>{">"} 模块：情感引擎_V2</p>
-                  <p>{">"} 原因：爱意导致缓冲区溢出</p>
+                <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">退出系统</span>
+                    <X size={32} />
                 </div>
+            </button>
 
-                <div className="relative py-8 text-center">
-                  <p className="text-3xl italic text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] md:text-4xl">
-                    {selectedLog.memoryContent.quote}
-                  </p>
-                  <span className="absolute left-0 top-0 font-serif text-6xl text-red-900/20">“</span>
-                  <span className="absolute bottom-0 right-0 font-serif text-6xl text-red-900/20">”</span>
-                </div>
+            {/* CRT Effects */}
+            <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat" />
+            <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.65)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 z-20 crt-flicker" />
 
-                <button
-                  onClick={() => setSelectedLog(null)}
-                  className="w-full border border-red-500 bg-red-500/10 py-3 font-bold uppercase tracking-widest text-red-500 transition-colors hover:bg-red-500/20"
+            <div className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col px-4 py-8 md:px-12 md:py-12">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-8 flex items-end justify-between border-b border-green-500/30 pb-4 shrink-0"
                 >
-                  强制重启系统
-                </button>
-              </div>
-            </motion.div>
+                  <div>
+                    <h1 className="mb-2 flex items-center gap-4 text-3xl font-bold tracking-tighter md:text-5xl">
+                      <Terminal size={40} className="animate-pulse" />
+                      NPC 系统日志
+                    </h1>
+                    <p className="text-xs uppercase tracking-widest text-green-500/60 md:text-sm">
+                      秦宵一 [ID: 9527] // 记忆核心转储 // v2.4.0
+                    </p>
+                  </div>
+                  <div className="hidden text-right md:block">
+                    <div className="flex items-center gap-2 text-red-500 animate-pulse">
+                      <AlertOctagon size={16} />
+                      <span className="text-xs font-bold">检测到核心不稳定</span>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <div className="flex-1 min-h-0 relative">
+                  <div ref={listRef} className="absolute inset-0 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-green-900 scrollbar-track-black pb-20">
+                    <div className="absolute left-3 top-0 h-full w-px bg-green-500/20" />
+                    <div className="space-y-4 pl-8">
+                      <AnimatePresence>
+                        {visibleLogs.map((log) => {
+                          const 故障 = is故障(log.status);
+                          const 警告 = is警告(log.status);
+                          const isHovered = hoveredLogId === log.id;
+
+                          return (
+                            <motion.div
+                              key={log.id}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              onMouseEnter={() => setHoveredLogId(log.id)}
+                              onMouseLeave={() => setHoveredLogId(null)}
+                              onClick={() => {
+                                if (故障) setSelectedLog(log);
+                              }}
+                              className={clsx(
+                                "relative cursor-pointer border-b border-dashed border-white/10 px-4 py-4 transition-colors",
+                                状态颜色(log.status),
+                                isHovered ? "bg-white/5" : "bg-transparent",
+                                警告 ? "animate-jitter" : "",
+                                故障 ? "glitch-line" : ""
+                              )}
+                            >
+                              <div
+                                className={clsx(
+                                  "absolute left-3 top-6 h-2 w-2 -translate-x-1/2 rounded-full border",
+                                  log.status === "SYSTEM_OVERRIDE"
+                                    ? "border-pink-400 bg-pink-500 shadow-[0_0_18px_rgba(255,0,170,0.45)]"
+                                    : log.status === "CRITICAL"
+                                      ? "border-red-400 bg-red-500 shadow-[0_0_18px_rgba(255,0,0,0.45)]"
+                                      : log.status === "WARNING"
+                                        ? "border-yellow-200 bg-yellow-400 shadow-[0_0_14px_rgba(250,204,21,0.35)]"
+                                        : "border-green-200 bg-[#00ff00] shadow-[0_0_14px_rgba(0,255,0,0.35)]"
+                                )}
+                              />
+
+                              <div className="mb-2 flex flex-col gap-2 text-xs opacity-70 md:flex-row md:gap-8">
+                                <span>[{log.timestamp}]</span>
+                                <span>{log.episode}</span>
+                                <span className={clsx("font-bold", 故障 ? "animate-flicker" : "")}>
+                                  状态：{状态中文(log.status)}（{log.status}）
+                                </span>
+                              </div>
+
+                              <div className="flex items-start gap-4">
+                                <span className="select-none opacity-50">{">"}</span>
+                                <div className="min-w-0 flex-1 space-y-1">
+                                  <p className="truncate font-bold tracking-wide">指令：{log.command}</p>
+                                  <p className="leading-relaxed opacity-85">
+                                    输出：
+                                    {log.status === "CRITICAL" ? (
+                                      <span className="glitch-text">
+                                        {故障 ? <GlitchText text={log.output} isActive /> : log.output}
+                                      </span>
+                                    ) : (
+                                      <span>{故障 ? <GlitchText text={log.output} isActive /> : log.output}</span>
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+
+                              {故障 && (
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
+                                  <AlertTriangle size={20} className="animate-bounce" />
+                                </div>
+                              )}
+                            </motion.div>
+                          );
+                        })}
+                      </AnimatePresence>
+                      
+                       {/* Loading Cursor */}
+                       <motion.div
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                        className="h-5 w-3 bg-green-500 mt-4"
+                      />
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            {/* Error Modal (Nested) */}
+            <AnimatePresence>
+                {selectedLog && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+                    onClick={() => setSelectedLog(null)}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.9, y: 20 }}
+                      animate={{ scale: 1, y: 0 }}
+                      exit={{ scale: 0.9, y: 20 }}
+                      className="relative w-full max-w-2xl border-2 border-red-500 bg-black p-8 shadow-[0_0_50px_rgba(255,0,0,0.3)]"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="absolute left-0 top-0 h-1 w-full animate-pulse bg-red-500" />
+                      <div className="absolute bottom-0 left-0 h-1 w-full animate-pulse bg-red-500" />
+
+                      <div className="mb-6 flex items-center gap-4 border-b border-red-500/30 pb-4 text-red-500">
+                        <ShieldAlert size={32} />
+                        <h2 className="text-2xl font-bold tracking-widest">致命系统错误</h2>
+                      </div>
+
+                      <div className="space-y-6">
+                        <div className="text-sm text-red-400/80">
+                          <p>{">"} 错误代码：0x{selectedLog.glitchLevel}E9</p>
+                          <p>{">"} 模块：情感引擎_V2</p>
+                          <p>{">"} 原因：爱意导致缓冲区溢出</p>
+                        </div>
+
+                        <div className="relative py-8 text-center">
+                          <p className="text-3xl italic text-white drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] md:text-4xl font-serif">
+                            {selectedLog.memoryContent.quote}
+                          </p>
+                          <span className="absolute left-0 top-0 font-serif text-6xl text-red-900/20">“</span>
+                          <span className="absolute bottom-0 right-0 font-serif text-6xl text-red-900/20">”</span>
+                        </div>
+
+                        <button
+                          onClick={() => setSelectedLog(null)}
+                          className="w-full border border-red-500 bg-red-500/10 py-3 font-bold uppercase tracking-widest text-red-500 transition-colors hover:bg-red-500/20"
+                        >
+                          强制重启系统
+                        </button>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
@@ -328,6 +374,6 @@ export default function SystemLogViewer() {
           animation: glitch-anim-1 2s infinite linear alternate-reverse;
         }
       `}</style>
-    </section>
+    </>
   );
 }

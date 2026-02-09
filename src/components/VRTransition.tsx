@@ -89,7 +89,7 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
                    />
                 </motion.div>
                 <p className="mt-4 text-[#ff004c]/70 font-mono text-sm tracking-widest uppercase animate-pulse">
-                  System Initialization...
+                  系统初始化中...
                 </p>
               </div>
             ) : (
@@ -109,7 +109,7 @@ export default function VRTransition({ isActive, nextMode, onComplete }: VRTrans
                    />
                 </motion.div>
                 <p className="mt-4 text-reality-text/60 font-serif italic text-sm tracking-widest uppercase animate-pulse">
-                  Restoring Reality...
+                  正在恢复现实...
                 </p>
               </div>
             )}

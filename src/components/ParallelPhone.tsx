@@ -44,7 +44,7 @@ export default function ParallelPhone({ mode }: ParallelPhoneProps) {
               isReality ? "bg-[#ededed] border-b border-gray-300" : "bg-[#2a2a2a] border-b border-[#444]"
             )}>
               <span className={clsx("font-bold", isReality ? "text-black" : "text-[#d4af37] font-serif")}>
-                {isReality ? "Xiao Zhiyu" : "Commander Qin"}
+                {isReality ? "肖稚宇" : "秦督军"}
               </span>
               <button onClick={() => setIsOpen(false)}>
                 <X size={18} className={isReality ? "text-gray-500" : "text-[#d4af37]"} />
@@ -102,9 +102,9 @@ export default function ParallelPhone({ mode }: ParallelPhoneProps) {
             )}>
               <div className={clsx(
                 "flex-1 h-9 rounded px-3 text-sm flex items-center",
-                isReality ? "bg-white" : "bg-[#2a2a2a] text-gray-400 font-serif italic"
+                isReality ? "bg-white text-gray-400" : "bg-[#2a2a2a] text-gray-500 font-serif italic"
               )}>
-                {isReality ? "" : "Type a message..."}
+                {isReality ? "输入消息..." : "输入消息..."}
               </div>
               <Send size={18} className={isReality ? "text-gray-400" : "text-[#d4af37]"} />
             </div>
