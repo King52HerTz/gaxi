@@ -15,6 +15,9 @@ import VRTransition from "@/components/VRTransition";
 import clsx from "clsx";
 import { motion, useScroll, useSpring } from "framer-motion";
 
+/**
+ * 《轧戏》同人沉浸式空间 - 主入口
+ */
 export default function Home() {
   const [mode, setMode] = useState<"reality" | "script">("reality");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
