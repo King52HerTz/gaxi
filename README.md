@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 《轧戏》胡羞 & 肖稚宇 · 同人空间
 
-## Getting Started
+> **“我在现实中等你，并在摩天大楼顶端拥抱你。”**
+>
+> **“雪中容城，哪怕世界是假的，我的爱是真的。”**
 
-First, run the development server:
+这是一个专为小说《轧戏》中 **胡羞** 与 **肖稚宇（秦宵一）** 打造的互动收藏空间。项目深度还原了故事中“现实”与“剧本（VR）”双重世界的设定，将那些心动瞬间、错位时空与未尽的爱意，以交互网页的形式永久封存。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ 核心特性
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+项目不仅仅是一个展示页，它是一场可以被感知的“入局”体验：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **🎭 双重世界交互**: 模拟 VR 设备的切入效果，一键在“现实生活”与“容城剧本”间穿梭，UI 视觉与色彩随之彻底演变。
+- **📜 爱情时间轴**: 从订婚宴的废墟到雪中的拥吻，复刻每一个 EPISODE 的命运转折。
+- **📱 平行时空手机**: 深度还原两人跨越次元的对话，那些在屏幕背后闪烁的真心。
+- **🧩 记忆碎片寻宝**: 散落在页面各处的 VR 眼镜、旧图纸、樱花瓣……收集齐所有回忆，开启那封跨越时空的信笺。
+- **💓 实时心跳互动**: 点击那颗跳动的心脏，倾听那些在冷酷外表下跳动的、最笨拙的告白。
+- **🎧 氛围沉浸式播放器**: 随世界切换的背景音轨，现实的宁静与剧本的肃杀，只在一瞬之间。
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ 技术栈
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+为了达成极致的交互体验，本项目基于以下技术构建：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **框架**: [Next.js 16 (Turbopack)](https://nextjs.org/)
+- **渲染**: [React 19](https://react.dev/)
+- **动画**: [Framer Motion](https://www.framer.com/motion/) (负责所有细腻的转场与交互动效)
+- **样式**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **图标**: [Lucide React](https://lucide.dev/)
+- **字体**: 自定义手写体 & 衬线体混合排版
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 快速开始
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+如果你也想在本地运行这个空间：
+
+1. **克隆仓库**
+   ```bash
+   git clone https://github.com/your-username/gaxi-pro.git
+   cd gaxi-pro
+   ```
+
+2. **安装依赖**
+   ```bash
+   npm install
+   ```
+
+3. **启动开发环境**
+   ```bash
+   npm run dev
+   ```
+   访问 `http://localhost:3000` 即可入局。
+
+---
+
+## 🖋️ 写在后面
+
+这个项目是基于对《轧戏》的热爱而创作。
+感谢胡羞的勇气，感谢肖稚宇的深情。
+
+*“剧本落幕，但爱意穿透了次元壁。”*
+
+Designed with ❤️ by **Eliauk**

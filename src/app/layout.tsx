@@ -30,7 +30,7 @@ const handwrittenFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "《轧戏》网页",
+  title: "《轧戏》胡羞&肖稚宇",
   description: "《轧戏》胡羞与肖稚宇的同人收藏。",
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Glasses, ScrollText, Flower2, Flame, CheckCircle2, X } from "lucide-react";
 import { SCAVENGER_ITEMS, FINAL_REWARD } from "@/data/drama-data";
@@ -24,14 +24,6 @@ export default function MemoryScavengerHunt({ mode }: MemoryScavengerHuntProps) 
   const [isLetterOpen, setIsLetterOpen] = useState(false);
   const [lastCollected, setLastCollected] = useState<ScavengerItem | null>(null);
   const isReality = mode === "reality";
-
-  // 当模式切换时重置收集状态
-  useEffect(() => {
-    setCollectedItems([]);
-    setShowReward(false);
-    setIsLetterOpen(false);
-    setLastCollected(null);
-  }, [mode]);
 
   const handleCollect = (item: ScavengerItem) => {
     if (!collectedItems.includes(item.id)) {

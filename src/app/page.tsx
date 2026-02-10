@@ -111,7 +111,7 @@ export default function Home() {
       <ParallelPhone mode={mode} />
 
       {/* 功能 2：记忆碎片寻宝 */}
-      <MemoryScavengerHunt mode={mode} />
+      <MemoryScavengerHunt mode={mode} key={mode} />
 
       {/* 功能 3：氛围音乐播放器 */}
       <AtmosphericPlayer mode={mode} />
