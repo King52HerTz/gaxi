@@ -1,4 +1,3 @@
-```markdown
 # 《轧戏》 | 胡羞 & 肖稚宇
 
 > **“我在现实中等你，并在摩天大楼顶端拥抱你。”**
@@ -15,8 +14,8 @@
 不仅仅是网页，更像是一个让我们重返“容城”的入口：
 
 - **现实 vs 剧本**
-  在这个页面，你可以随时“戴上”或“摘下”VR眼镜。
-  看一看温暖喧闹的**上海现实**，或者切换回那个冰冷、精密却又刻骨铭心的**容城剧本**。
+  在这个网页，你可以自由穿梭于两个平行世界。
+  看一看温暖喧闹的**上海现实**，或者一键切换，坠入那个冰冷、精密却又刻骨铭心的**容城剧本**。
 
 - **那些未发送的短信**
   还原了剧里的手机界面。那些他在屏幕背后删删减减的真心话，这次你可以看到了。
@@ -58,13 +57,11 @@
 
 1. **Clone**
    ```bash
-   git clone [https://github.com/your-username/gaxi-pro.git](https://github.com/your-username/gaxi-pro.git)
-
-```
+   git clone [https://github.com/your-username/gaxi.git](https://github.com/your-username/gaxi.git)
 
 2. **Install**
 ```bash
-cd gaxi-pro
+cd gaxi
 npm install
 
 ```
@@ -75,10 +72,6 @@ npm install
 npm run dev
 
 ```
-
-
-打开 `http://localhost:3000`，戴上耳机，欢迎入局。
-
 ---
 
 **写在最后**
@@ -88,6 +81,3 @@ npm run dev
 
 Made with ❤️ by **Eliauk**
 
-```
-
-```
