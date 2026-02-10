@@ -173,11 +173,11 @@ export default function HeroSection({ mode, onToggle, isTransitioning }: HeroSec
                         <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-white/10" />
                     </div>
                     
-                    <h3 className="font-serif font-bold text-reality-text mb-1">胡羞</h3>
+                    <h3 className="font-serif font-extrabold text-black mb-1">胡羞</h3>
                     <p className="text-[10px] text-gray-500 tracking-wider mb-4">建筑师助理</p>
                     
                     {/* 返回交互提示 */}
-                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-blue-900/40 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center pb-2 opacity-0 group-hover:opacity-100 transition-opacity">
                        <span className="text-xs font-bold text-blue-100 flex items-center gap-1">
                          <Sparkles size={12} /> 返回上海
                        </span>

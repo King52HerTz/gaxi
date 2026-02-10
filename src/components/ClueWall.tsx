@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertOctagon, AlertTriangle, ShieldAlert, Terminal, Bug, X } from "lucide-react";
+import { AlertOctagon, AlertTriangle, ShieldAlert, Terminal, Radio, X } from "lucide-react";
 import clsx from "clsx";
 import { NPC_LOGS, SystemLog } from "@/data/drama-data";
 
@@ -76,6 +76,8 @@ export default function SystemLogEntrance() {
 
   const is故障 = (status: SystemLog["status"]) => status === "CRITICAL" || status === "SYSTEM_OVERRIDE";
   const is警告 = (status: SystemLog["status"]) => status === "WARNING";
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const isWarningStatus = is警告; // Keep reference to avoid unused error if needed later or remove entirely
 
   const 状态颜色 = (status: SystemLog["status"]) => {
     switch (status) {
@@ -106,8 +108,8 @@ export default function SystemLogEntrance() {
          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle,rgba(160,220,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
          
          <div className="z-20 flex flex-col items-center gap-2 text-blue-200/70 font-mono text-sm">
-            <Bug size={24} className="text-blue-300" />
-            <span className="tracking-[0.2em] uppercase">Deep Archive Signal</span>
+            <Radio size={24} className="text-blue-300" />
+            <span className="tracking-[0.2em] uppercase">深层记忆信号</span>
          </div>
 
          <motion.button
@@ -118,13 +120,13 @@ export default function SystemLogEntrance() {
          >
             <span className="relative z-10 flex items-center gap-2">
                <Terminal size={18} />
-               进入深海档案
+               进入NPC秦宵一记忆系统
             </span>
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
          </motion.button>
          
          <p className="z-20 text-[10px] text-blue-200/40 font-mono">
-            深海档案 // 雪域数据流
+            NPC秦宵一记忆系统 // 记忆档案
          </p>
       </section>
 
@@ -162,10 +164,10 @@ export default function SystemLogEntrance() {
                   <div>
                     <h1 className="mb-2 flex items-center gap-4 text-3xl font-bold tracking-tighter md:text-5xl">
                       <Terminal size={40} className="text-blue-200" />
-                      深海档案
+                      记忆档案
                     </h1>
                     <p className="text-xs uppercase tracking-widest text-blue-200/60 md:text-sm">
-                      秦宵一 [ID: 9527] // 深层记忆回流 // v3.1.0
+                      秦宵一 [ID: 9527] // 深层记忆回流 // v5.2.0
                     </p>
                   </div>
                   <div className="hidden text-right md:block">
@@ -177,7 +179,7 @@ export default function SystemLogEntrance() {
                 </motion.div>
 
                 <div className="flex-1 min-h-0 relative">
-                  <div ref={listRef} className="absolute inset-0 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-blue-300/30 scrollbar-track-transparent pb-20">
+                  <div ref={listRef} className="absolute inset-0 overflow-y-auto pr-4 custom-scrollbar pb-20">
                     <div className="absolute left-3 top-0 h-full w-px bg-blue-200/20" />
                     <div className="space-y-4 pl-8">
                       <AnimatePresence>
@@ -198,8 +200,7 @@ export default function SystemLogEntrance() {
                               className={clsx(
                                 "relative cursor-pointer border border-white/10 px-4 py-4 transition-colors rounded-2xl backdrop-blur-md bg-white/5 float-breath",
                                 状态颜色(log.status),
-                                isHovered ? "bg-white/10 shadow-[0_0_30px_rgba(160,220,255,0.15)]" : "shadow-[0_0_12px_rgba(90,150,255,0.08)]",
-                                故障 ? "glitch-line" : ""
+                                isHovered ? "bg-white/10 shadow-[0_0_30px_rgba(160,220,255,0.15)]" : "shadow-[0_0_12px_rgba(90,150,255,0.08)]"
                               )}
                               transition={{ duration: 0.6 }}
                             >
@@ -230,20 +231,14 @@ export default function SystemLogEntrance() {
                                   <p className="truncate font-bold tracking-wide text-blue-100/80">{log.command}</p>
                                   <p className="leading-relaxed text-blue-100/85 font-serif">
                                     {log.status === "CRITICAL" ? "内心：" : "回声："}
-                                    {log.status === "CRITICAL" ? (
-                                      <span className="glitch-text">
-                                        {故障 ? <GlitchText text={log.output} isActive /> : log.output}
-                                      </span>
-                                    ) : (
-                                      <span>{故障 ? <GlitchText text={log.output} isActive /> : log.output}</span>
-                                    )}
+                                    <span>{故障 ? <GlitchText text={log.output} isActive /> : log.output}</span>
                                   </p>
                                 </div>
                               </div>
 
                               {故障 && (
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
-                                  <AlertTriangle size={20} className="text-blue-100" />
+                                <div className="absolute right-4 top-4 opacity-80">
+                                  <AlertTriangle size={20} className="text-red-500 animate-pulse" />
                                 </div>
                               )}
                             </motion.div>
@@ -306,7 +301,7 @@ export default function SystemLogEntrance() {
                           onClick={() => setSelectedLog(null)}
                           className="w-full border border-blue-200/30 bg-white/5 py-3 font-bold uppercase tracking-widest text-blue-100 transition-colors hover:bg-white/10 rounded-full backdrop-blur-md"
                         >
-                          返回深海
+                          返回档案
                         </button>
                       </div>
                     </motion.div>
@@ -318,6 +313,23 @@ export default function SystemLogEntrance() {
       </AnimatePresence>
 
       <style jsx global>{`
+        /* 自定义滚动条样式 */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(30, 58, 138, 0.1);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(96, 165, 250, 0.3);
+          border-radius: 3px;
+          transition: background 0.3s;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(96, 165, 250, 0.5);
+        }
+
         @keyframes snowDrift {
           0% { transform: translateY(0) translateX(0); opacity: 0.12; }
           50% { transform: translateY(10px) translateX(-6px); opacity: 0.22; }
@@ -347,31 +359,6 @@ export default function SystemLogEntrance() {
         }
         .float-breath {
           animation: floatBreath 6s ease-in-out infinite;
-        }
-        @keyframes glitchShift {
-          0% { transform: translate3d(0,0,0); text-shadow: none; }
-          10% { transform: translate3d(-1px,0,0); text-shadow: 1px 0 rgba(255,0,0,0.6), -1px 0 rgba(255,0,170,0.6); }
-          11% { transform: translate3d(1px,0,0); }
-          12% { transform: translate3d(-2px,0,0); }
-          13% { transform: translate3d(0,0,0); }
-          100% { transform: translate3d(0,0,0); }
-        }
-        .glitch-line {
-          animation: glitchShift 1.6s infinite;
-        }
-        @keyframes glitch-anim-1 {
-          0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-          20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-          40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-          60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-          80% { clip-path: inset(10% 0 60% 0); transform: translate(-1px, 1px); }
-          100% { clip-path: inset(30% 0 20% 0); transform: translate(0); }
-        }
-        .glitch-text {
-          position: relative;
-          display: inline-block;
-          will-change: transform, clip-path;
-          animation: glitch-anim-1 2s infinite linear alternate-reverse;
         }
       `}</style>
     </>

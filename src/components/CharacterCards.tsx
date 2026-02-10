@@ -70,7 +70,12 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      className="relative w-full max-w-4xl h-[600px] md:h-[800px] border border-white/10 rounded-3xl bg-[#050a1a]/30 backdrop-blur-sm p-8"
+      className={clsx(
+        "relative w-full max-w-4xl h-[600px] md:h-[800px] rounded-3xl backdrop-blur-sm p-8 transition-colors duration-500",
+        isReality 
+          ? "bg-[#fdfbf7]/90 border border-[#d4af37]/30 shadow-xl" 
+          : "bg-[#050a1a]/40 border border-[#7dc4ff]/20 shadow-[0_0_30px_rgba(5,10,26,0.5)]"
+      )}
     >
       <h2 className={clsx(
         "text-center text-2xl md:text-4xl font-bold mb-8",
@@ -115,9 +120,10 @@ function RelationshipMap({ mode, onSelect }: { mode: "reality" | "script"; onSel
               const end = positions[rel.targetId];
               if (!start || !end) return null;
 
-               // Render single unified label
-               const midX = (start.x + end.x) / 2;
-               const midY = (start.y + end.y) / 2;
+               // 使用 35% 的位置（靠近起点），避免双向关系标签重叠
+               const ratio = 0.35;
+               const midX = start.x + (end.x - start.x) * ratio;
+               const midY = start.y + (end.y - start.y) * ratio;
 
                return (
                  <motion.div

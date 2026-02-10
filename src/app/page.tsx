@@ -128,9 +128,7 @@ export default function Home() {
           "text-xs tracking-[0.3em] uppercase transition-colors duration-500",
           mode === "reality" ? "text-reality-text font-serif" : "text-script-text font-handwriting"
         )}>
-          {mode === "reality" 
-            ? "改编自建筑师胡羞与肖稚宇的故事" 
-            : "命运导演 • 主演：特工胡羞 & NPC秦宵一"}
+          Designed by Eliauk
         </p>
       </footer>
     </main>

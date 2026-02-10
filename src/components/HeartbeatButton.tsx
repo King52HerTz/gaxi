@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { HEARTBEAT_QUOTES } from "@/data/drama-data";
@@ -12,14 +12,29 @@ interface HeartbeatButtonProps {
 
 export default function HeartbeatButton({ mode }: HeartbeatButtonProps) {
   const [quote, setQuote] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isReality = mode === "reality";
 
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleHeartbeat = () => {
+    // Clear existing timeout if any
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const randomQuote = HEARTBEAT_QUOTES[Math.floor(Math.random() * HEARTBEAT_QUOTES.length)];
     setQuote(randomQuote);
     
-    // Auto hide after 3 seconds
-    setTimeout(() => setQuote(null), 3000);
+    // Auto hide after 10 seconds
+    timeoutRef.current = setTimeout(() => setQuote(null), 10000);
   };
 
   return (

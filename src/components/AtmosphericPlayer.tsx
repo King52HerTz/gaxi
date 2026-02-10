@@ -83,7 +83,7 @@ export default function AtmosphericPlayer({ mode }: AtmosphericPlayerProps) {
             ))}
           </div>
           <span>
-            {isReality ? "正在播放: 午后办公室" : "正在播放: 午夜爵士"}
+            {isReality ? "正在播放: 日暮里-房东的猫" : "正在播放: 梦境之外-段奥娟"}
           </span>
         </div>
       </motion.div>

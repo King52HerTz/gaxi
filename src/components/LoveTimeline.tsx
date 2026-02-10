@@ -54,8 +54,9 @@ function TimelineItem({ event, index, mode }: { event: TimelineEvent; index: num
 
       {/* 剧集标签 */}
       <div className={clsx(
-        "hidden md:block w-1/2 text-center text-xs tracking-[0.2em] opacity-50",
-        isEven ? "text-right pr-12" : "text-left pl-12"
+        "hidden md:block w-1/2 text-center text-xs tracking-[0.2em] opacity-80 font-bold",
+        isEven ? "text-right pr-12" : "text-left pl-12",
+        isReality ? "text-reality-accent" : "text-script-neon"
       )}>
         {event.episode}
       </div>
@@ -73,7 +74,12 @@ function TimelineItem({ event, index, mode }: { event: TimelineEvent; index: num
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* 移动端剧集标签 */}
-        <span className="md:hidden block text-xs tracking-widest opacity-50 mb-4">{event.episode}</span>
+        <span className={clsx(
+          "md:hidden block text-xs tracking-widest opacity-80 mb-4 font-bold",
+          isReality ? "text-reality-accent" : "text-script-neon"
+        )}>
+          {event.episode}
+        </span>
 
         <AnimatePresence mode="wait">
           <motion.div

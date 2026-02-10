@@ -15,7 +15,7 @@ export default function StoryArcs({ mode }: StoryArcsProps) {
   const isReality = mode === "reality";
 
   const highlightText = (text: string) => {
-    // 基于正则的简单高亮器 (可以改进)
+    // 基于正则的简单高亮器 
     const keywords = ["胡羞", "肖稚宇", "秦宵一", "容城", "Dynamism"];
     const regex = new RegExp(`(${keywords.join("|")})`, "g");
     
